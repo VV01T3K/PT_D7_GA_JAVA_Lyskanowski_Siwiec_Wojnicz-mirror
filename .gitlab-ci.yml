@@ -1,0 +1,51 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+
+variables:
+  MAVEN_CLI_OPTS: "-B -ntp"
+
+cache:
+  key: maven
+  paths:
+    - .m2/repository
+
+before_script:
+  - echo "Using Java version:"
+  - java -version
+  - echo "Using Maven version:"
+  - mvn -version
+
+build:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS clean package
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 day
+
+test:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+  artifacts:
+    reports:
+      junit: target/surefire-reports/*.xml
+    expire_in: 1 day
+
+release:
+  stage: release
+  script:
+    - echo "Preparing release..."
+    - mvn $MAVEN_CLI_OPTS deploy # Modify if using GitLab Package Registry or Nexus
+  artifacts:
+    name: "release-artifacts"
+    paths:
+      - target/*.jar
+    expire_in: 30 days
+  only:
+    - main
+  when: manual
