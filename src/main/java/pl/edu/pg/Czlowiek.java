@@ -27,13 +27,13 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private Set<Czlowiek> podlegli;
 
   Czlowiek(String imie,
-           String nazwisko,
-           int wiek,
-           Plec plec,
-           MartialStatus stanCywilny,
-           String wyksztalcenie,
-           String pozycjaZawodowa,
-           String numerTelefonu) {
+      String nazwisko,
+      int wiek,
+      Plec plec,
+      MartialStatus stanCywilny,
+      String wyksztalcenie,
+      String pozycjaZawodowa,
+      String numerTelefonu) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
@@ -46,9 +46,9 @@ public class Czlowiek implements Comparable<Czlowiek> {
   }
 
   Czlowiek(String imie,
-           String nazwisko,
-           int wiek,
-           Plec plec) {
+      String nazwisko,
+      int wiek,
+      Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
@@ -92,14 +92,14 @@ public class Czlowiek implements Comparable<Czlowiek> {
       return false;
     Czlowiek czlowiek = (Czlowiek) o;
     return wiek == czlowiek.wiek &&
-            Objects.equals(imie, czlowiek.imie) &&
-            Objects.equals(plec, czlowiek.plec) &&
-            Objects.equals(nazwisko, czlowiek.nazwisko) &&
-            Objects.equals(podlegli, czlowiek.podlegli) &&
-            Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
-            Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
-            Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
-            Objects.equals(numerTelefonu, czlowiek.numerTelefonu);
+        Objects.equals(imie, czlowiek.imie) &&
+        Objects.equals(plec, czlowiek.plec) &&
+        Objects.equals(nazwisko, czlowiek.nazwisko) &&
+        Objects.equals(podlegli, czlowiek.podlegli) &&
+        Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
+        Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
+        Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
+        Objects.equals(numerTelefonu, czlowiek.numerTelefonu);
   }
 
   @Override
@@ -122,19 +122,19 @@ public class Czlowiek implements Comparable<Czlowiek> {
   @Override
   public String toString() {
     return "Czlowiek{" +
-            "imie='" + imie + '\'' +
-            ", nazwisko='" + nazwisko + '\'' +
-            ", wiek=" + wiek +
-            ", plec=" + plec +
-            ", podlegli=[" + podlegli.size() + ']' +
-            ", podlegajacy=['" + getAllInferiorsCount() + ']' +
-            '}';
+        "imie='" + imie + '\'' +
+        ", nazwisko='" + nazwisko + '\'' +
+        ", wiek=" + wiek +
+        ", plec=" + plec +
+        ", podlegli=[" + podlegli.size() + ']' +
+        ", podlegajacy=['" + getAllInferiorsCount() + ']' +
+        '}';
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(imie, nazwisko, wiek, plec, podlegli, stanCywilny, wyksztalcenie, pozycjaZawodowa,
-            numerTelefonu);
+        numerTelefonu);
   }
 
   public void printRecursively() {
