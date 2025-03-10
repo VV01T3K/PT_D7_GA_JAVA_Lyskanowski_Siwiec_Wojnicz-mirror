@@ -10,7 +10,7 @@ public class SortByAgeTest {
     void compareWithNull() {
         SortByAge sortByAge = new SortByAge();
 
-        Czlowiek A = new Czlowiek("A", "A", 20, null);
+        Czlowiek A = new Czlowiek("A", "A", 20);
 
         assertEquals(0, sortByAge.compare(null, null)); // null === null
 
@@ -23,8 +23,8 @@ public class SortByAgeTest {
     void compareWithSameAge() {
         SortByAge sortByAge = new SortByAge();
 
-        Czlowiek A = new Czlowiek("A", "A", 20, null);
-        Czlowiek B = new Czlowiek("B", "B", 20, null);
+        Czlowiek A = new Czlowiek("A", "A", 20);
+        Czlowiek B = new Czlowiek("B", "B", 20);
 
         assertEquals(0, sortByAge.compare(A, B)); // o1 == o2
         assertEquals(0, sortByAge.compare(A, A));
@@ -35,8 +35,8 @@ public class SortByAgeTest {
     void compareWithDifferentAge() {
         SortByAge sortByAge = new SortByAge();
 
-        Czlowiek A_old = new Czlowiek("A", "A", 20, null);
-        Czlowiek B_young = new Czlowiek("B", "B", 19, null);
+        Czlowiek A_old = new Czlowiek("A", "A", 20);
+        Czlowiek B_young = new Czlowiek("B", "B", 19);
 
         assertEquals(1, sortByAge.compare(A_old, B_young)); // o1 > o2
 
