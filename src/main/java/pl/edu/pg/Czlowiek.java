@@ -9,11 +9,11 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final int wiek;
   Set<Czlowiek> dzieci;
 
-  Czlowiek(String imie, String nazwisko, int wiek, Set<Czlowiek> dzieci) {
+  Czlowiek(String imie, String nazwisko, int wiek) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
-    this.dzieci = dzieci;
+    this.dzieci = CzlowiekDzieciFactory.createDzieci();
   }
 
   public int getWiek() {
