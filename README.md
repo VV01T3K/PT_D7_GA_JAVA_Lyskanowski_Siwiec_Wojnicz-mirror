@@ -1,5 +1,3 @@
-Tutaj kiedys cos bedzie madrego napisanego
-
-Tylko jeszcze nie teraz
-
+Jeszcze nie teraz
+Ale cos tu bedzie madrego
 A moze dzisiaj?
