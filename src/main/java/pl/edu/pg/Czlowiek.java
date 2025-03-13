@@ -49,16 +49,25 @@ public class Czlowiek implements Comparable<Czlowiek> {
     if (o == null || getClass() != o.getClass())
       return false;
     Czlowiek czlowiek = (Czlowiek) o;
-    return wiek == czlowiek.wiek && Objects.equals(imie, czlowiek.imie) && plec == czlowiek.plec &&
-        Objects.equals(nazwisko, czlowiek.nazwisko) && Objects.equals(dzieci, czlowiek.dzieci);
+    return wiek == czlowiek.wiek &&
+        Objects.equals(imie, czlowiek.imie) &&
+        Objects.equals(plec, czlowiek.plec) &&
+        Objects.equals(nazwisko, czlowiek.nazwisko) &&
+        Objects.equals(dzieci, czlowiek.dzieci);
   }
 
   @Override
   public int compareTo(Czlowiek other) {
-    if (this.imie.compareToIgnoreCase(other.imie) != 0) {
+    // tutaj coś pewnie trzeba zmienić
+    if (this.imie.compareToIgnoreCase(other.imie) != 0)
       return this.imie.compareToIgnoreCase(other.imie);
-    }
-    return this.nazwisko.compareToIgnoreCase(other.nazwisko);
+    if (this.nazwisko.compareToIgnoreCase(other.nazwisko) != 0)
+      return this.nazwisko.compareToIgnoreCase(other.nazwisko);
+    if (this.wiek != other.wiek)
+      return Integer.compare(this.wiek, other.wiek);
+    if (this.dzieci.size() != other.dzieci.size())
+      return Integer.compare(this.dzieci.size(), other.dzieci.size());
+    return this.plec.compareTo(other.plec);
   }
 
   @Override
