@@ -4,36 +4,29 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.TreeSet;
+
 public class SortByNumberOfChildrenTest {
 
     @Test
     void compareWithNull() {
 
-        CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
-        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
-        Czlowiek C = new Czlowiek("C", "C", 22,Plec.MEZCZYZNA);
-        A.dodajDziecko(B);
-        A.dodajDziecko(C);
-
-        assertEquals(2, A.getDzieci().size());
+        Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
 
         SortByNumberOfChildren comparator = new SortByNumberOfChildren();
 
-        assertEquals(0, comparator.compare(null, null)); // null === null
-
-        assertEquals(-1, comparator.compare(null, A)); // null == o1
-
-        assertEquals(1, comparator.compare(A, null)); // o2 == null
+        assertThrows(NullPointerException.class, () -> comparator.compare(null, null));
+        assertThrows(NullPointerException.class, () -> comparator.compare(null, A));
+        assertThrows(NullPointerException.class, () -> comparator.compare(A, null));
 
     }
 
     @Test
-    void compareWithSameAge() {
+    void compareWithSameNumberOfChildren() {
 
         CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
-        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
+        Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
         A.dodajDziecko(B);
         B.dodajDziecko(A);
 
@@ -42,19 +35,19 @@ public class SortByNumberOfChildrenTest {
 
         SortByNumberOfChildren comparator = new SortByNumberOfChildren();
 
-        assertEquals(0, comparator.compare(A, B)); // o1 == o2
-        assertEquals(0, comparator.compare(A, A));
-        assertEquals(0, comparator.compare(B, B));
+        assertEquals(-1, comparator.compare(A, B)); // o1 < o2
+        assertEquals(0, comparator.compare(A, A)); // o1 == o2
+        assertEquals(0, comparator.compare(B, B)); // o1 == o2
 
     }
 
     @Test
-    void compareWithDifferentAge() {
+    void compareWithDifferentNumberOfChildren() {
 
         CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
-        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
-        Czlowiek C = new Czlowiek("C", "C", 22,Plec.MEZCZYZNA);
+        Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
+        Czlowiek C = new Czlowiek("C", "C", 22, Plec.MEZCZYZNA);
         A.dodajDziecko(B);
         A.dodajDziecko(C);
 
@@ -68,6 +61,31 @@ public class SortByNumberOfChildrenTest {
         assertEquals(1, comparator.compare(A, B)); // o1 > o2
 
         assertEquals(-1, comparator.compare(B, A)); // o1 < o2
+
+    }
+
+    @Test
+    void treeSetTest() {
+
+        Czlowiek A = new Czlowiek("A", "A", 42, Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 69, Plec.MEZCZYZNA);
+        Czlowiek C = new Czlowiek("C", "C", 21, Plec.MEZCZYZNA);
+        A.dodajDziecko(B);
+        A.dodajDziecko(C);
+        B.dodajDziecko(C);
+
+        assertEquals(2, A.getDzieci().size());
+        assertEquals(1, B.getDzieci().size());
+        assertEquals(0, C.getDzieci().size());
+
+        TreeSet<Czlowiek> set = new TreeSet<>(new SortByNumberOfChildren());
+        set.add(A);
+        set.add(B);
+        set.add(C);
+        assertEquals(3, set.size());
+
+        assertEquals(C, set.first());
+        assertEquals(A, set.last());
 
     }
 }
