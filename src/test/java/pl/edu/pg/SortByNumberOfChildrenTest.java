@@ -10,9 +10,9 @@ public class SortByNumberOfChildrenTest {
     void compareWithNull() {
 
         CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20);
-        Czlowiek B = new Czlowiek("B", "B", 21);
-        Czlowiek C = new Czlowiek("C", "C", 22);
+        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
+        Czlowiek C = new Czlowiek("C", "C", 22,Plec.MEZCZYZNA);
         A.dodajDziecko(B);
         A.dodajDziecko(C);
 
@@ -32,8 +32,8 @@ public class SortByNumberOfChildrenTest {
     void compareWithSameAge() {
 
         CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20);
-        Czlowiek B = new Czlowiek("B", "B", 21);
+        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
         A.dodajDziecko(B);
         B.dodajDziecko(A);
 
@@ -52,9 +52,9 @@ public class SortByNumberOfChildrenTest {
     void compareWithDifferentAge() {
 
         CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-        Czlowiek A = new Czlowiek("A", "A", 20);
-        Czlowiek B = new Czlowiek("B", "B", 21);
-        Czlowiek C = new Czlowiek("C", "C", 22);
+        Czlowiek A = new Czlowiek("A", "A", 20,Plec.MEZCZYZNA);
+        Czlowiek B = new Czlowiek("B", "B", 21,Plec.MEZCZYZNA);
+        Czlowiek C = new Czlowiek("C", "C", 22,Plec.MEZCZYZNA);
         A.dodajDziecko(B);
         A.dodajDziecko(C);
 

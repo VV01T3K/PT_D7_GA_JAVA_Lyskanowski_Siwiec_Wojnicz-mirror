@@ -7,13 +7,15 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final String imie;
   private final String nazwisko;
   private final int wiek;
+  private final Plec plec;
   Set<Czlowiek> dzieci;
 
-  Czlowiek(String imie, String nazwisko, int wiek) {
+  Czlowiek(String imie, String nazwisko, int wiek,Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
-    this.dzieci = CzlowiekDzieciFactory.createDzieci();
+    this.plec = plec;
+    this.dzieci = CzlowiekDzieciFactory.chooseSet();
   }
 
   public int getWiek() {
@@ -28,6 +30,8 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return nazwisko;
   }
 
+  public Plec getPlec() { return plec; }
+
   public Set<Czlowiek> getDzieci() {
     return dzieci;
   }
@@ -41,7 +45,8 @@ public class Czlowiek implements Comparable<Czlowiek> {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Czlowiek czlowiek = (Czlowiek) o;
-    return wiek == czlowiek.wiek && Objects.equals(imie, czlowiek.imie) && Objects.equals(nazwisko, czlowiek.nazwisko) && Objects.equals(dzieci, czlowiek.dzieci);
+    return wiek == czlowiek.wiek && Objects.equals(imie, czlowiek.imie) && plec == czlowiek.plec &&
+            Objects.equals(nazwisko, czlowiek.nazwisko) && Objects.equals(dzieci, czlowiek.dzieci);
   }
 
   @Override
@@ -58,12 +63,33 @@ public class Czlowiek implements Comparable<Czlowiek> {
             "imie='" + imie + '\'' +
             ", nazwisko='" + nazwisko + '\'' +
             ", wiek=" + wiek +
+            ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K" ) +
             ", dzieci=" + dzieci +
             '}';
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(imie, nazwisko, wiek, dzieci);
+    return Objects.hash(imie, nazwisko, wiek, plec, dzieci);
+  }
+
+  public void wypiszBezDzieci() {
+    System.out.println("Czlowiek{" +
+            "imie='" + imie + '\'' +
+            ", nazwisko='" + nazwisko + '\'' +
+            ", wiek=" + wiek +
+            ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K" ) +
+            '}');
+  }
+
+  public void wypiszRekurencjnie(int spacje) {
+    System.out.printf("  ".repeat(spacje));
+    wypiszBezDzieci();
+    if (dzieci.isEmpty()) {
+      return;
+    }
+    for(Czlowiek d : dzieci) {
+      d.wypiszRekurencjnie(spacje+2);
+    }
   }
 }

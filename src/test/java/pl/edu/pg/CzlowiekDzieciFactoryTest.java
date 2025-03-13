@@ -13,11 +13,11 @@ class CzlowiekDzieciFactoryTest {
   @Test
   void dzieciPowinnyBycPrawidlowoSortowaneNaturalnie() {
     CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
-    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20);
-    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 21);
-    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 21);
-    Czlowiek dziecko4 = new Czlowiek("Marek", "Nowak", 21);
-    Czlowiek rodzic = new Czlowiek("Jan", "Kowalski", 20);
+    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20,Plec.MEZCZYZNA);
+    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 21,Plec.MEZCZYZNA);
+    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 21,Plec.MEZCZYZNA);
+    Czlowiek dziecko4 = new Czlowiek("Marek", "Nowak", 21,Plec.MEZCZYZNA);
+    Czlowiek rodzic = new Czlowiek("Jan", "Kowalski", 20,Plec.MEZCZYZNA);
     rodzic.dodajDziecko(dziecko1);
     rodzic.dodajDziecko(dziecko2);
     rodzic.dodajDziecko(dziecko3);
@@ -29,11 +29,11 @@ class CzlowiekDzieciFactoryTest {
   void dzieciPowinnyBycPrawidlowoSortowaneZgodnieZKomparator() {
     CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
     CzlowiekDzieciFactory.setComparator(Comparator.comparing(Czlowiek::getWiek));
-    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20);
-    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 19);
-    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 18);
-    Czlowiek dziecko4 = new Czlowiek("Marek", "Nowak", 21);
-    Czlowiek rodzic = new Czlowiek("Jan", "Kowalski", 50);
+    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20,Plec.MEZCZYZNA);
+    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 19,Plec.MEZCZYZNA);
+    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 18,Plec.MEZCZYZNA);
+    Czlowiek dziecko4 = new Czlowiek("Marek", "Nowak", 21,Plec.MEZCZYZNA);
+    Czlowiek rodzic = new Czlowiek("Jan", "Kowalski", 50,Plec.MEZCZYZNA);
     rodzic.dodajDziecko(dziecko1);
     rodzic.dodajDziecko(dziecko2);
     rodzic.dodajDziecko(dziecko3);
@@ -44,10 +44,10 @@ class CzlowiekDzieciFactoryTest {
   @Test
   void dzieciPowinnyBycNiesortowane() {
     CzlowiekDzieciFactory.setSortMode(SortModes.UNORDERED);
-    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20);
-    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 21);
-    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 21);
-    Czlowiek rodzic = new Czlowiek("Marek", "Nowak", 21);
+    Czlowiek dziecko1 = new Czlowiek("Jan", "Kowalski", 20,Plec.MEZCZYZNA);
+    Czlowiek dziecko2 = new Czlowiek("Jan", "Nowak", 21,Plec.MEZCZYZNA);
+    Czlowiek dziecko3 = new Czlowiek("Marek", "Kowalski", 21,Plec.MEZCZYZNA);
+    Czlowiek rodzic = new Czlowiek("Marek", "Nowak", 21,Plec.MEZCZYZNA);
     rodzic.dodajDziecko(dziecko1);
     rodzic.dodajDziecko(dziecko2);
     rodzic.dodajDziecko(dziecko3);
