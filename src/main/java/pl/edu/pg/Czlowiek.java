@@ -10,7 +10,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final Plec plec;
   Set<Czlowiek> dzieci;
 
-  Czlowiek(String imie, String nazwisko, int wiek,Plec plec) {
+  Czlowiek(String imie, String nazwisko, int wiek, Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
@@ -30,7 +30,9 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return nazwisko;
   }
 
-  public Plec getPlec() { return plec; }
+  public Plec getPlec() {
+    return plec;
+  }
 
   public Set<Czlowiek> getDzieci() {
     return dzieci;
@@ -42,11 +44,13 @@ public class Czlowiek implements Comparable<Czlowiek> {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
     Czlowiek czlowiek = (Czlowiek) o;
     return wiek == czlowiek.wiek && Objects.equals(imie, czlowiek.imie) && plec == czlowiek.plec &&
-            Objects.equals(nazwisko, czlowiek.nazwisko) && Objects.equals(dzieci, czlowiek.dzieci);
+        Objects.equals(nazwisko, czlowiek.nazwisko) && Objects.equals(dzieci, czlowiek.dzieci);
   }
 
   @Override
@@ -60,12 +64,12 @@ public class Czlowiek implements Comparable<Czlowiek> {
   @Override
   public String toString() {
     return "Czlowiek{" +
-            "imie='" + imie + '\'' +
-            ", nazwisko='" + nazwisko + '\'' +
-            ", wiek=" + wiek +
-            ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K" ) +
-            ", dzieci=" + dzieci +
-            '}';
+        "imie='" + imie + '\'' +
+        ", nazwisko='" + nazwisko + '\'' +
+        ", wiek=" + wiek +
+        ", plec=" + plec +
+        ", dzieci=" + dzieci +
+        '}';
   }
 
   @Override
@@ -75,11 +79,11 @@ public class Czlowiek implements Comparable<Czlowiek> {
 
   public void wypiszBezDzieci() {
     System.out.println("Czlowiek{" +
-            "imie='" + imie + '\'' +
-            ", nazwisko='" + nazwisko + '\'' +
-            ", wiek=" + wiek +
-            ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K" ) +
-            '}');
+        "imie='" + imie + '\'' +
+        ", nazwisko='" + nazwisko + '\'' +
+        ", wiek=" + wiek +
+        ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K") +
+        '}');
   }
 
   public void wypiszRekurencjnie(int spacje) {
@@ -88,8 +92,8 @@ public class Czlowiek implements Comparable<Czlowiek> {
     if (dzieci.isEmpty()) {
       return;
     }
-    for(Czlowiek d : dzieci) {
-      d.wypiszRekurencjnie(spacje+2);
+    for (Czlowiek d : dzieci) {
+      d.wypiszRekurencjnie(spacje + 2);
     }
   }
 }
