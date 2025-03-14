@@ -1,9 +1,5 @@
 package pl.edu.pg;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.sqrt;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
@@ -14,8 +10,14 @@ import java.util.stream.Stream;
 import net.datafaker.Faker;
 
 public class TestRepo {
-    private static final int seed = new Random().nextInt();
-    public static final Faker faker = new Faker(Locale.of("pl"), new Random(seed));
+    // private static final int seed = new Random().nextInt();
+    private static final int seed = 1234;
+    private static final Random rand = new Random(seed);
+    private static final Faker faker = new Faker(Locale.of("pl"), rand);
+
+    public static Faker getFaker() {
+        return faker;
+    }
 
     public static ArrayList<Czlowiek> heads = new ArrayList<Czlowiek>();
 
@@ -62,15 +64,27 @@ public class TestRepo {
 
         while (!pool.isEmpty()) {
             Czlowiek head = pool.removeFirst();
-            heads.add(head);
             connectPeople(head, pool, levels - 1, maxConnections);
         }
+
+        Collections.shuffle(pool, rand);
+
+        heads = findHeads(ludzie);
 
         return ludzie;
     }
 
+    private static ArrayList<Czlowiek> findHeads(ArrayList<Czlowiek> ludzie) {
+        // słabe, ale działa
+        ArrayList<Czlowiek> heads = new ArrayList<Czlowiek>(ludzie);
+        for (Czlowiek czlowiek : ludzie)
+            for (Czlowiek podlegly : czlowiek.getPodlegli())
+                heads.remove(podlegly);
+        return heads;
+    }
+
     public static void main(String[] args) {
-        ArrayList<Czlowiek> ludzie = generateCzlowiekList(40, 3, 5);
+        ArrayList<Czlowiek> ludzie = generateCzlowiekList(10, 3, 5);
         for (Czlowiek czlowiek : heads) {
             czlowiek.wypiszRekurencjnie(0);
         }
