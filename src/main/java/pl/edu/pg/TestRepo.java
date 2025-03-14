@@ -1,14 +1,23 @@
 package pl.edu.pg;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.sqrt;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.datafaker.Faker;
 
 public class TestRepo {
-    private static final int seed = 123;
+    private static final int seed = new Random().nextInt();
     public static final Faker faker = new Faker(Locale.of("pl"), new Random(seed));
+
+    public static ArrayList<Czlowiek> heads = new ArrayList<Czlowiek>();
 
     public static Czlowiek generateCzlowiek() {
         String imie = faker.name().firstName();
@@ -34,8 +43,37 @@ public class TestRepo {
         return Stream.generate(TestRepo::generateCzlowiek).limit(count);
     }
 
+    private static void connectPeople(Czlowiek czlowiek, ArrayList<Czlowiek> pool, int maxDepth, int maxConnections) {
+        if (maxDepth == 0)
+            return;
+        int podlegliCount = faker.number().numberBetween(1, maxConnections);
+        for (int i = 0; i < podlegliCount; i++) {
+            if (pool.isEmpty())
+                return;
+            Czlowiek podlegly = pool.removeFirst();
+            connectPeople(podlegly, pool, maxDepth - 1, maxConnections);
+            czlowiek.dodajPodleglego(podlegly);
+        }
+    }
+
+    public static ArrayList<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
+        ArrayList<Czlowiek> ludzie = generateCzlowiekStream(count).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Czlowiek> pool = new ArrayList<Czlowiek>(ludzie);
+
+        while (!pool.isEmpty()) {
+            Czlowiek head = pool.removeFirst();
+            heads.add(head);
+            connectPeople(head, pool, levels - 1, maxConnections);
+        }
+
+        return ludzie;
+    }
+
     public static void main(String[] args) {
-        generateCzlowiekStream(10).forEach(System.out::println);
+        ArrayList<Czlowiek> ludzie = generateCzlowiekList(40, 3, 5);
+        for (Czlowiek czlowiek : heads) {
+            czlowiek.wypiszRekurencjnie(0);
+        }
     }
 
 }
