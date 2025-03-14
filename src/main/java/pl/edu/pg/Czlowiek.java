@@ -8,7 +8,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final String nazwisko;
   private final int wiek;
   private final Plec plec;
-  private Set<Czlowiek> dzieci;
+  private Set<Czlowiek> podlegli;
 
   private final MartialStatus stanCywilny;
   private final String wyksztalcenie;
@@ -27,7 +27,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
     this.nazwisko = nazwisko;
     this.wiek = wiek;
     this.plec = plec;
-    this.dzieci = CzlowiekDzieciFactory.chooseSet();
+    this.podlegli = CzlowiekPodlegliFactory.chooseSet();
     this.stanCywilny = stanCywilny;
     this.wyksztalcenie = wyksztalcenie;
     this.pozycjaZawodowa = pozycjaZawodowa;
@@ -42,7 +42,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
     this.nazwisko = nazwisko;
     this.wiek = wiek;
     this.plec = plec;
-    this.dzieci = CzlowiekDzieciFactory.chooseSet();
+    this.podlegli = CzlowiekPodlegliFactory.chooseSet();
     this.stanCywilny = MartialStatus.NEVER_MARRIED;
     this.wyksztalcenie = "";
     this.pozycjaZawodowa = "";
@@ -81,12 +81,12 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return numerTelefonu;
   }
 
-  public Set<Czlowiek> getDzieci() {
-    return dzieci;
+  public Set<Czlowiek> getPodlegli() {
+    return podlegli;
   }
 
-  public void dodajDziecko(Czlowiek dziecko) {
-    dzieci.add(dziecko);
+  public void dodajPodleglego(Czlowiek osoba) {
+    podlegli.add(osoba);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
         Objects.equals(imie, czlowiek.imie) &&
         Objects.equals(plec, czlowiek.plec) &&
         Objects.equals(nazwisko, czlowiek.nazwisko) &&
-        Objects.equals(dzieci, czlowiek.dzieci) &&
+        Objects.equals(podlegli, czlowiek.podlegli) &&
         Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
         Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
         Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
@@ -116,8 +116,8 @@ public class Czlowiek implements Comparable<Czlowiek> {
       return this.nazwisko.compareToIgnoreCase(other.nazwisko);
     if (this.wiek != other.wiek)
       return Integer.compare(this.wiek, other.wiek);
-    if (this.dzieci.size() != other.dzieci.size())
-      return Integer.compare(this.dzieci.size(), other.dzieci.size());
+    if (this.podlegli.size() != other.podlegli.size())
+      return Integer.compare(this.podlegli.size(), other.podlegli.size());
     return this.plec.compareTo(other.plec);
   }
 
@@ -128,16 +128,17 @@ public class Czlowiek implements Comparable<Czlowiek> {
         ", nazwisko='" + nazwisko + '\'' +
         ", wiek=" + wiek +
         ", plec=" + plec +
-        ", dzieci=" + dzieci +
+        ", Podlegli=" + podlegli +
         '}';
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(imie, nazwisko, wiek, plec, dzieci, stanCywilny, wyksztalcenie, pozycjaZawodowa, numerTelefonu);
+    return Objects.hash(imie, nazwisko, wiek, plec, podlegli, stanCywilny, wyksztalcenie, pozycjaZawodowa,
+        numerTelefonu);
   }
 
-  public void wypiszBezDzieci() {
+  public void wypiszBezPodlegli() {
     System.out.println("Czlowiek{" +
         "imie='" + imie + '\'' +
         ", nazwisko='" + nazwisko + '\'' +
@@ -148,11 +149,11 @@ public class Czlowiek implements Comparable<Czlowiek> {
 
   public void wypiszRekurencjnie(int spacje) {
     System.out.printf("  ".repeat(spacje));
-    wypiszBezDzieci();
-    if (dzieci.isEmpty()) {
+    wypiszBezPodlegli();
+    if (podlegli.isEmpty()) {
       return;
     }
-    for (Czlowiek d : dzieci) {
+    for (Czlowiek d : podlegli) {
       d.wypiszRekurencjnie(spacje + 2);
     }
   }

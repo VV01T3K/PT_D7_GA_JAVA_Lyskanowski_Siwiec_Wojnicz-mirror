@@ -8,7 +8,7 @@ public class SortByNumberOfChildren implements Comparator<Czlowiek> {
         if (o1 == null || o2 == null)
             throw new NullPointerException();
 
-        int result = Integer.compare(o1.getDzieci().size(), o2.getDzieci().size());
+        int result = Integer.compare(o1.getPodlegli().size(), o2.getPodlegli().size());
         if (result == 0)
             result = o1.compareTo(o2);
         return result;

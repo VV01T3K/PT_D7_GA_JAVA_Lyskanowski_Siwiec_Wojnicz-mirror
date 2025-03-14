@@ -5,32 +5,28 @@ import java.util.Set;
 
 public class Main {
   public static void main(String[] args) {
-    SortModes sortMode = SortModes.UNORDERED; //domyslnie
+    SortModes sortMode = SortModes.UNORDERED; // domyslnie
     Comparator<Czlowiek> comparator = Comparator.naturalOrder();
-    if(args.length==1)
-    {
-      if(args[0].equals("natural"))
+    if (args.length == 1) {
+      if (args[0].equals("natural"))
         sortMode = SortModes.ORDERED;
-      else if(args[0].equals("age"))
-      {
+      else if (args[0].equals("age")) {
         sortMode = SortModes.ORDERED;
         comparator = new SortByAge();
-      }
-      else if(args[0].equals("children"))
-      {
+      } else if (args[0].equals("children")) {
         sortMode = SortModes.ORDERED;
         comparator = new SortByNumberOfChildren();
       }
     }
-    CzlowiekDzieciFactory.setSortMode(sortMode);
-    CzlowiekDzieciFactory.setComparator(comparator);
-    Set<Czlowiek> dziadkowie = CzlowiekDzieciFactory.wypelnijDzieci("src/main/dane.txt");
-    for(Czlowiek d : dziadkowie) {
-      System.out.println(d);//normalne wypisywanie
+    CzlowiekPodlegliFactory.setSortMode(sortMode);
+    CzlowiekPodlegliFactory.setComparator(comparator);
+    Set<Czlowiek> dziadkowie = CzlowiekPodlegliFactory.wypelnijPodlegli("src/main/dane.txt");
+    for (Czlowiek d : dziadkowie) {
+      System.out.println(d);// normalne wypisywanie
     }
     System.out.println("------------------------");
-    for(Czlowiek d : dziadkowie) {
-      //wypisywanie rekursywne
+    for (Czlowiek d : dziadkowie) {
+      // wypisywanie rekursywne
       d.wypiszRekurencjnie(0);
     }
   }

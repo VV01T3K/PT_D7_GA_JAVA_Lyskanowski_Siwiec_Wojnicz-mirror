@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CzlowiekTest {
 
   @Test
-  void dodajDziecko() {
+  void dodajpodlegly() {
     Czlowiek czlowiek = new Czlowiek("Jan", "Kowalski", 20, Plec.MEZCZYZNA);
     Czlowiek czlowiek2 = new Czlowiek("Jan", "Nowak", 21, Plec.MEZCZYZNA);
-    czlowiek2.dodajDziecko(czlowiek);
-    assertTrue(czlowiek2.getDzieci().contains(czlowiek));
+    czlowiek2.dodajPodleglego(czlowiek);
+    assertTrue(czlowiek2.getPodlegli().contains(czlowiek));
   }
 
   @Test

@@ -24,14 +24,14 @@ public class SortByNumberOfChildrenTest {
     @Test
     void compareWithSameNumberOfChildren() {
 
-        CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
         Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
-        A.dodajDziecko(B);
-        B.dodajDziecko(A);
+        A.dodajPodleglego(B);
+        B.dodajPodleglego(A);
 
-        assertEquals(1, A.getDzieci().size());
-        assertEquals(1, B.getDzieci().size());
+        assertEquals(1, A.getPodlegli().size());
+        assertEquals(1, B.getPodlegli().size());
 
         SortByNumberOfChildren comparator = new SortByNumberOfChildren();
 
@@ -44,17 +44,17 @@ public class SortByNumberOfChildrenTest {
     @Test
     void compareWithDifferentNumberOfChildren() {
 
-        CzlowiekDzieciFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
         Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
         Czlowiek C = new Czlowiek("C", "C", 22, Plec.MEZCZYZNA);
-        A.dodajDziecko(B);
-        A.dodajDziecko(C);
+        A.dodajPodleglego(B);
+        A.dodajPodleglego(C);
 
-        B.dodajDziecko(C);
+        B.dodajPodleglego(C);
 
-        assertEquals(2, A.getDzieci().size());
-        assertEquals(1, B.getDzieci().size());
+        assertEquals(2, A.getPodlegli().size());
+        assertEquals(1, B.getPodlegli().size());
 
         SortByNumberOfChildren comparator = new SortByNumberOfChildren();
 
@@ -70,13 +70,13 @@ public class SortByNumberOfChildrenTest {
         Czlowiek A = new Czlowiek("A", "A", 42, Plec.MEZCZYZNA);
         Czlowiek B = new Czlowiek("B", "B", 69, Plec.MEZCZYZNA);
         Czlowiek C = new Czlowiek("C", "C", 21, Plec.MEZCZYZNA);
-        A.dodajDziecko(B);
-        A.dodajDziecko(C);
-        B.dodajDziecko(C);
+        A.dodajPodleglego(B);
+        A.dodajPodleglego(C);
+        B.dodajPodleglego(C);
 
-        assertEquals(2, A.getDzieci().size());
-        assertEquals(1, B.getDzieci().size());
-        assertEquals(0, C.getDzieci().size());
+        assertEquals(2, A.getPodlegli().size());
+        assertEquals(1, B.getPodlegli().size());
+        assertEquals(0, C.getPodlegli().size());
 
         TreeSet<Czlowiek> set = new TreeSet<>(new SortByNumberOfChildren());
         set.add(A);
