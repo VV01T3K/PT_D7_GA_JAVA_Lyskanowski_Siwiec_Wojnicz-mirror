@@ -8,14 +8,45 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final String nazwisko;
   private final int wiek;
   private final Plec plec;
-  Set<Czlowiek> dzieci;
+  private Set<Czlowiek> dzieci;
 
-  Czlowiek(String imie, String nazwisko, int wiek, Plec plec) {
+  private final MartialStatus stanCywilny;
+  private final String wyksztalcenie;
+  private final String pozycjaZawodowa;
+  private final String numerTelefonu;
+
+  Czlowiek(String imie,
+      String nazwisko,
+      int wiek,
+      Plec plec,
+      MartialStatus stanCywilny,
+      String wyksztalcenie,
+      String pozycjaZawodowa,
+      String numerTelefonu) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
     this.plec = plec;
     this.dzieci = CzlowiekDzieciFactory.chooseSet();
+    this.stanCywilny = stanCywilny;
+    this.wyksztalcenie = wyksztalcenie;
+    this.pozycjaZawodowa = pozycjaZawodowa;
+    this.numerTelefonu = numerTelefonu;
+  }
+
+  Czlowiek(String imie,
+      String nazwisko,
+      int wiek,
+      Plec plec) {
+    this.imie = imie;
+    this.nazwisko = nazwisko;
+    this.wiek = wiek;
+    this.plec = plec;
+    this.dzieci = CzlowiekDzieciFactory.chooseSet();
+    this.stanCywilny = MartialStatus.NEVER_MARRIED;
+    this.wyksztalcenie = "";
+    this.pozycjaZawodowa = "";
+    this.numerTelefonu = "";
   }
 
   public int getWiek() {
@@ -32,6 +63,22 @@ public class Czlowiek implements Comparable<Czlowiek> {
 
   public Plec getPlec() {
     return plec;
+  }
+
+  public MartialStatus getStanCywilny() {
+    return stanCywilny;
+  }
+
+  public String getWyksztalcenie() {
+    return wyksztalcenie;
+  }
+
+  public String getPozycjaZawodowa() {
+    return pozycjaZawodowa;
+  }
+
+  public String getNumerTelefonu() {
+    return numerTelefonu;
   }
 
   public Set<Czlowiek> getDzieci() {
@@ -53,7 +100,11 @@ public class Czlowiek implements Comparable<Czlowiek> {
         Objects.equals(imie, czlowiek.imie) &&
         Objects.equals(plec, czlowiek.plec) &&
         Objects.equals(nazwisko, czlowiek.nazwisko) &&
-        Objects.equals(dzieci, czlowiek.dzieci);
+        Objects.equals(dzieci, czlowiek.dzieci) &&
+        Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
+        Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
+        Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
+        Objects.equals(numerTelefonu, czlowiek.numerTelefonu);
   }
 
   @Override
@@ -83,7 +134,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(imie, nazwisko, wiek, plec, dzieci);
+    return Objects.hash(imie, nazwisko, wiek, plec, dzieci, stanCywilny, wyksztalcenie, pozycjaZawodowa, numerTelefonu);
   }
 
   public void wypiszBezDzieci() {
@@ -91,7 +142,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
         "imie='" + imie + '\'' +
         ", nazwisko='" + nazwisko + '\'' +
         ", wiek=" + wiek +
-        ", plec=" + (plec == Plec.MEZCZYZNA ? "M" : "K") +
+        ", plec=" + plec +
         '}');
   }
 
