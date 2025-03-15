@@ -1,16 +1,26 @@
 package pl.edu.pg;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import net.datafaker.Faker;
 
 public class TestRepo {
     // private static final int seed = new Random().nextInt();
+    private static final int liczbaElementow = 50;
+    private static final int levels = 3;
+    private static final int maxConnections = 5;
     private static final int seed = 1234;
     private static final Random rand = new Random(seed);
     private static final Faker faker = new Faker(Locale.of("pl"), rand);
@@ -19,7 +29,7 @@ public class TestRepo {
         return faker;
     }
 
-    public static ArrayList<Czlowiek> heads = new ArrayList<Czlowiek>();
+    public static Set<Czlowiek> heads = generateCzlowiekList(liczbaElementow, levels, maxConnections);
 
     public static Czlowiek generateCzlowiek() {
         String imie = faker.name().firstName();
@@ -58,36 +68,33 @@ public class TestRepo {
         }
     }
 
-    public static ArrayList<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
+    public static Set<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
         ArrayList<Czlowiek> ludzie = generateCzlowiekStream(count).collect(Collectors.toCollection(ArrayList::new));
         ArrayList<Czlowiek> pool = new ArrayList<Czlowiek>(ludzie);
+        Set<Czlowiek> headss = CzlowiekPodlegliFactory.chooseSet();
 
         while (!pool.isEmpty()) {
             Czlowiek head = pool.removeFirst();
+            headss.add(head);
             connectPeople(head, pool, levels - 1, maxConnections);
         }
 
         Collections.shuffle(pool, rand);
 
-        heads = findHeads(ludzie);
-
-        return ludzie;
-    }
-
-    private static ArrayList<Czlowiek> findHeads(ArrayList<Czlowiek> ludzie) {
-        // słabe, ale działa
-        ArrayList<Czlowiek> heads = new ArrayList<Czlowiek>(ludzie);
-        for (Czlowiek czlowiek : ludzie)
-            for (Czlowiek podlegly : czlowiek.getPodlegli())
-                heads.remove(podlegly);
-        return heads;
+        return headss;
     }
 
     public static void main(String[] args) {
-        ArrayList<Czlowiek> ludzie = generateCzlowiekList(10, 3, 5);
         for (Czlowiek czlowiek : heads) {
             czlowiek.wypiszRekurencjnie(0);
         }
-    }
+        String filePath = "src/main/people.json";
 
+        try (Writer writer = new FileWriter(filePath)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(heads, writer);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
 }
