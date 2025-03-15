@@ -47,13 +47,13 @@ public class TestRepoGenerator {
 
     public Stream<Czlowiek> generateRandomCzlowiekStream(int count) {
         return Stream.generate(
-                this::generateCzlowiekWithoutDetails)
+                this::generateCzlowiek)
                 .limit(count);
     }
 
     public ArrayList<Czlowiek> generateRandomCzlowiekList(int count) {
         return Stream.generate(
-                this::generateCzlowiekWithoutDetails)
+                this::generateCzlowiek)
                 .limit(count)
                 .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
     }
