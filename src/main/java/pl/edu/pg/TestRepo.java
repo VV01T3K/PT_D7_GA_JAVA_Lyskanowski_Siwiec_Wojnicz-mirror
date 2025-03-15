@@ -1,10 +1,10 @@
 package pl.edu.pg;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
@@ -18,7 +18,7 @@ import net.datafaker.Faker;
 
 public class TestRepo {
     // private static final int seed = new Random().nextInt();
-    private static final int liczbaElementow = 50;
+    private static final int liczbaElementow = 100;
     private static final int levels = 3;
     private static final int maxConnections = 5;
     private static final int seed = 1234;
@@ -29,7 +29,11 @@ public class TestRepo {
         return faker;
     }
 
-    public static Set<Czlowiek> heads = generateCzlowiekList(liczbaElementow, levels, maxConnections);
+    private static Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
+
+    public static Set<Czlowiek> getHeads() {
+        return heads;
+    }
 
     public static Czlowiek generateCzlowiek() {
         String imie = faker.name().firstName();
@@ -51,8 +55,10 @@ public class TestRepo {
         return new Czlowiek(imie, nazwisko, wiek, plec);
     }
 
-    public static Stream<Czlowiek> generateCzlowiekStream(int count) {
-        return Stream.generate(TestRepo::generateCzlowiek).limit(count);
+    public static ArrayList<Czlowiek> generateRandomCzlowiekList(int count) {
+        return Stream.generate(TestRepo::generateCzlowiek)
+                .limit(count)
+                .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
     }
 
     private static void connectPeople(Czlowiek czlowiek, ArrayList<Czlowiek> pool, int maxDepth, int maxConnections) {
@@ -69,25 +75,23 @@ public class TestRepo {
     }
 
     public static Set<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
-        ArrayList<Czlowiek> ludzie = generateCzlowiekStream(count).collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<Czlowiek> pool = new ArrayList<Czlowiek>(ludzie);
-        Set<Czlowiek> headss = CzlowiekPodlegliFactory.chooseSet();
+        ArrayList<Czlowiek> pool = generateRandomCzlowiekList(count);
+        Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
 
         while (!pool.isEmpty()) {
             Czlowiek head = pool.removeFirst();
-            headss.add(head);
+            heads.add(head);
             connectPeople(head, pool, levels - 1, maxConnections);
         }
 
-        Collections.shuffle(pool, rand);
-
-        return headss;
+        return heads;
     }
 
-    public static void main(String[] args) {
-        for (Czlowiek czlowiek : heads) {
-            czlowiek.wypiszRekurencjnie(0);
-        }
+    public static void generateTestData() {
+        heads = generateCzlowiekList(liczbaElementow, levels, maxConnections);
+    }
+
+    public static void saveJson() {
         String filePath = "src/main/people.json";
 
         try (Writer writer = new FileWriter(filePath)) {
@@ -95,6 +99,29 @@ public class TestRepo {
             gson.toJson(heads, writer);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public static void loadJson() {
+        String filePath = "src/main/people.json";
+
+        try {
+            Gson gson = new GsonBuilder().create();
+            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<Set<Czlowiek>>() {
+            }.getType();
+            heads = gson.fromJson(new FileReader(filePath), type);
+        } catch (Exception e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        generateTestData();
+        saveJson();
+        getHeads().clear();
+        loadJson();
+        for (Czlowiek czlowiek : heads) {
+            czlowiek.wypiszRekurencjnie(0);
         }
     }
 }

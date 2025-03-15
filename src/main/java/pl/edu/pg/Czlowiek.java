@@ -8,12 +8,13 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private final String nazwisko;
   private final int wiek;
   private final Plec plec;
-  private Set<Czlowiek> podlegli;
 
   private final MartialStatus stanCywilny;
   private final String wyksztalcenie;
   private final String pozycjaZawodowa;
   private final String numerTelefonu;
+
+  private Set<Czlowiek> podlegli;
 
   Czlowiek(String imie,
       String nazwisko,

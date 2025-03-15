@@ -1,571 +1,1135 @@
 [
   {
-    "imie": "Daria",
-    "nazwisko": "Młynarczyk",
-    "wiek": 18,
-    "plec": "KOBIETA",
-    "podlegli": [
-      {
-        "imie": "Noemi",
-        "nazwisko": "Sochacki",
-        "wiek": 67,
-        "plec": "MEZCZYZNA",
-        "podlegli": [
-          {
-            "imie": "Konstanty",
-            "nazwisko": "Duszyński",
-            "wiek": 19,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Associate Degree in Education",
-            "pozycjaZawodowa": "Orchestrator",
-            "numerTelefonu": "+48 881 856 739"
-          }
-        ],
-        "stanCywilny": "WIDOWED",
-        "wyksztalcenie": "Master of Applied Science (Psychology)",
-        "pozycjaZawodowa": "Associate",
-        "numerTelefonu": "+48 213 887 670"
-      },
-      {
-        "imie": "Leila",
-        "nazwisko": "Błaszczak",
-        "wiek": 28,
-        "plec": "KOBIETA",
-        "podlegli": [
-          {
-            "imie": "Oleg",
-            "nazwisko": "Kołodziejski",
-            "wiek": 57,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Bachelor of Architectural Technology",
-            "pozycjaZawodowa": "Officer",
-            "numerTelefonu": "+48 884 846 121"
-          },
-          {
-            "imie": "Patryk",
-            "nazwisko": "Graczyk",
-            "wiek": 33,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "NEVER_MARRIED",
-            "wyksztalcenie": "Master of Psychology",
-            "pozycjaZawodowa": "Strategist",
-            "numerTelefonu": "+48 669 684 346"
-          },
-          {
-            "imie": "Walery",
-            "nazwisko": "Witek",
-            "wiek": 41,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Associate Degree in Biomedical Science",
-            "pozycjaZawodowa": "Specialist",
-            "numerTelefonu": "+48 450 356 913"
-          },
-          {
-            "imie": "Paweł",
-            "nazwisko": "Wojtasik",
-            "wiek": 59,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "NEVER_MARRIED",
-            "wyksztalcenie": "Associate Degree in Arts",
-            "pozycjaZawodowa": "Associate",
-            "numerTelefonu": "+48 211 071 476"
-          }
-        ],
-        "stanCywilny": "WIDOWED",
-        "wyksztalcenie": "Master of Business",
-        "pozycjaZawodowa": "Assistant",
-        "numerTelefonu": "+48 794 856 814"
-      },
-      {
-        "imie": "Apollo",
-        "nazwisko": "Bogusz",
-        "wiek": 51,
-        "plec": "MEZCZYZNA",
-        "podlegli": [
-          {
-            "imie": "Wilhelmina",
-            "nazwisko": "Zieliński",
-            "wiek": 57,
-            "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Master of Architectural Technology",
-            "pozycjaZawodowa": "Coordinator",
-            "numerTelefonu": "+48 600 736 537"
-          },
-          {
-            "imie": "Hieronim",
-            "nazwisko": "Grabowski",
-            "wiek": 42,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Master of Computer Science",
-            "pozycjaZawodowa": "Officer",
-            "numerTelefonu": "+48 882 764 104"
-          },
-          {
-            "imie": "Walerian",
-            "nazwisko": "Burzyński",
-            "wiek": 48,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Master of Information Systems",
-            "pozycjaZawodowa": "Manager",
-            "numerTelefonu": "+48 211 057 992"
-          }
-        ],
-        "stanCywilny": "NEVER_MARRIED",
-        "wyksztalcenie": "Bachelor of Computer Science",
-        "pozycjaZawodowa": "Analyst",
-        "numerTelefonu": "+48 887 346 782"
-      }
-    ],
-    "stanCywilny": "SEPARATED",
-    "wyksztalcenie": "Master of Biological Science",
-    "pozycjaZawodowa": "Assistant",
-    "numerTelefonu": "+48 729 473 879"
-  },
-  {
-    "imie": "Emanuel",
-    "nazwisko": "Drabik",
-    "wiek": 45,
+    "imie": "Patrycjusz",
+    "nazwisko": "Partyka",
+    "wiek": 30,
     "plec": "MEZCZYZNA",
+    "stanCywilny": "SEPARATED",
+    "wyksztalcenie": "Master of Arts",
+    "pozycjaZawodowa": "Developer",
+    "numerTelefonu": "+48 212 653 139",
     "podlegli": [
       {
-        "imie": "Ofelia",
-        "nazwisko": "Zakrzewski",
-        "wiek": 23,
-        "plec": "KOBIETA",
+        "imie": "Piotr",
+        "nazwisko": "Domański",
+        "wiek": 65,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "WIDOWED",
+        "wyksztalcenie": "Associate Degree in Medicine",
+        "pozycjaZawodowa": "Analyst",
+        "numerTelefonu": "+48 453 063 739",
         "podlegli": [
           {
-            "imie": "Franciszka",
-            "nazwisko": "Dec",
-            "wiek": 45,
-            "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "MARRIED",
-            "wyksztalcenie": "Associate Degree in Information Systems",
-            "pozycjaZawodowa": "Director",
-            "numerTelefonu": "+48 212 164 374"
+            "imie": "Agaton",
+            "nazwisko": "Jagiełło",
+            "wiek": 61,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Associate Degree in Business",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 212 866 640",
+            "podlegli": []
           },
           {
-            "imie": "Igor",
-            "nazwisko": "Góra",
-            "wiek": 53,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "NEVER_MARRIED",
+            "imie": "Greta",
+            "nazwisko": "Włodarczyk",
+            "wiek": 50,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
             "wyksztalcenie": "Associate Degree in Criminology",
-            "pozycjaZawodowa": "Manager",
-            "numerTelefonu": "+48 690 507 442"
+            "pozycjaZawodowa": "Technician",
+            "numerTelefonu": "+48 211 461 376",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "NEVER_MARRIED",
-        "wyksztalcenie": "Master of Biomedical Science",
-        "pozycjaZawodowa": "Officer",
-        "numerTelefonu": "+48 796 314 303"
+        ]
+      },
+      {
+        "imie": "Arnold",
+        "nazwisko": "Serafin",
+        "wiek": 78,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "MARRIED",
+        "wyksztalcenie": "Associate Degree in Computer Science",
+        "pozycjaZawodowa": "Analyst",
+        "numerTelefonu": "+48 608 224 735",
+        "podlegli": [
+          {
+            "imie": "Ilona",
+            "nazwisko": "Milczarek",
+            "wiek": 79,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Associate Degree in Communications",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 724 569 598",
+            "podlegli": []
+          },
+          {
+            "imie": "Natanael",
+            "nazwisko": "Zawadzki",
+            "wiek": 25,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Biological Science",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 212 254 948",
+            "podlegli": []
+          }
+        ]
       }
-    ],
-    "stanCywilny": "DIVORCED",
-    "wyksztalcenie": "Master of Commerce",
-    "pozycjaZawodowa": "Developer",
-    "numerTelefonu": "+48 455 630 382"
+    ]
   },
   {
-    "imie": "Agnieszka",
-    "nazwisko": "Pilarski",
-    "wiek": 40,
+    "imie": "Franciszka",
+    "nazwisko": "Dec",
+    "wiek": 45,
     "plec": "KOBIETA",
+    "stanCywilny": "MARRIED",
+    "wyksztalcenie": "Associate Degree in Information Systems",
+    "pozycjaZawodowa": "Director",
+    "numerTelefonu": "+48 212 164 374",
     "podlegli": [
       {
-        "imie": "Juliusz",
-        "nazwisko": "Kawecki",
-        "wiek": 73,
-        "plec": "MEZCZYZNA",
-        "podlegli": [
-          {
-            "imie": "Michalina",
-            "nazwisko": "Kaleta",
-            "wiek": 65,
-            "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "DIVORCED",
-            "wyksztalcenie": "Master of Education",
-            "pozycjaZawodowa": "Coordinator",
-            "numerTelefonu": "+48 213 507 807"
-          }
-        ],
-        "stanCywilny": "MARRIED",
-        "wyksztalcenie": "Bachelor of Teaching",
-        "pozycjaZawodowa": "Representative",
-        "numerTelefonu": "+48 536 817 877"
-      },
-      {
-        "imie": "Alina",
-        "nazwisko": "Golec",
-        "wiek": 57,
+        "imie": "Roksana",
+        "nazwisko": "Mielczarek",
+        "wiek": 61,
         "plec": "KOBIETA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Master of Health Science",
+        "pozycjaZawodowa": "Assistant",
+        "numerTelefonu": "+48 531 776 841",
         "podlegli": [
           {
-            "imie": "Wilfryd",
-            "nazwisko": "Dobrzyński",
-            "wiek": 79,
+            "imie": "Piotr",
+            "nazwisko": "Koper",
+            "wiek": 68,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Master of Teaching",
-            "pozycjaZawodowa": "Liaison",
-            "numerTelefonu": "+48 452 454 544"
-          },
-          {
-            "imie": "Gerald",
-            "nazwisko": "Szewczyk",
-            "wiek": 55,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Master of Forensic Science",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Master of Nursing",
             "pozycjaZawodowa": "Agent",
-            "numerTelefonu": "+48 212 558 326"
+            "numerTelefonu": "+48 453 402 051",
+            "podlegli": []
           },
           {
-            "imie": "Helena",
-            "nazwisko": "Mucha",
-            "wiek": 61,
-            "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "WIDOWED",
-            "wyksztalcenie": "Master of Computer Science",
-            "pozycjaZawodowa": "Representative",
-            "numerTelefonu": "+48 886 205 107"
+            "imie": "Hugo",
+            "nazwisko": "Żukowski",
+            "wiek": 30,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Master of Business",
+            "pozycjaZawodowa": "Associate",
+            "numerTelefonu": "+48 212 811 535",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "SEPARATED",
-        "wyksztalcenie": "Master of Engineering",
-        "pozycjaZawodowa": "Developer",
-        "numerTelefonu": "+48 212 790 275"
-      },
+        ]
+      }
+    ]
+  },
+  {
+    "imie": "Edmund",
+    "nazwisko": "Marchewka",
+    "wiek": 77,
+    "plec": "MEZCZYZNA",
+    "stanCywilny": "WIDOWED",
+    "wyksztalcenie": "Bachelor of Communications",
+    "pozycjaZawodowa": "Architect",
+    "numerTelefonu": "+48 458 678 507",
+    "podlegli": [
       {
-        "imie": "Ambroży",
-        "nazwisko": "Dębski",
-        "wiek": 40,
-        "plec": "MEZCZYZNA",
+        "imie": "Wanda",
+        "nazwisko": "Robak",
+        "wiek": 43,
+        "plec": "KOBIETA",
+        "stanCywilny": "WIDOWED",
+        "wyksztalcenie": "Associate Degree in Biological Science",
+        "pozycjaZawodowa": "Planner",
+        "numerTelefonu": "+48 211 494 291",
         "podlegli": [
           {
-            "imie": "Karolina",
-            "nazwisko": "Orzechowski",
-            "wiek": 78,
-            "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Master of Forensic Science",
-            "pozycjaZawodowa": "Representative",
-            "numerTelefonu": "+48 213 674 119"
-          },
-          {
-            "imie": "Leonid",
-            "nazwisko": "Niedźwiecki",
-            "wiek": 78,
+            "imie": "Nestor",
+            "nazwisko": "Krajewski",
+            "wiek": 58,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
+            "stanCywilny": "MARRIED",
             "wyksztalcenie": "Master of Engineering",
-            "pozycjaZawodowa": "Officer",
-            "numerTelefonu": "+48 213 929 106"
+            "pozycjaZawodowa": "Director",
+            "numerTelefonu": "+48 212 224 746",
+            "podlegli": []
           },
           {
-            "imie": "Walentyn",
-            "nazwisko": "Raczyński",
-            "wiek": 64,
+            "imie": "Cezary",
+            "nazwisko": "Kubik",
+            "wiek": 39,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Master of Biological Science",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Bachelor of Biological Science",
+            "pozycjaZawodowa": "Assistant",
+            "numerTelefonu": "+48 660 843 825",
+            "podlegli": []
+          },
+          {
+            "imie": "Henryka",
+            "nazwisko": "Mikulski",
+            "wiek": 37,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Associate Degree in Engineering",
             "pozycjaZawodowa": "Developer",
-            "numerTelefonu": "+48 883 646 842"
+            "numerTelefonu": "+48 212 105 191",
+            "podlegli": []
+          },
+          {
+            "imie": "Adelajda",
+            "nazwisko": "Ratajczak",
+            "wiek": 42,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Creative Arts",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 212 082 153",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "WIDOWED",
-        "wyksztalcenie": "Associate Degree in Architectural Technology",
-        "pozycjaZawodowa": "Coordinator",
-        "numerTelefonu": "+48 571 399 465"
+        ]
       },
       {
-        "imie": "Porfiriusz",
-        "nazwisko": "Kołakowski",
+        "imie": "Aleksy",
+        "nazwisko": "Woliński",
         "wiek": 54,
         "plec": "MEZCZYZNA",
+        "stanCywilny": "MARRIED",
+        "wyksztalcenie": "Bachelor of Criminology",
+        "pozycjaZawodowa": "Architect",
+        "numerTelefonu": "+48 577 151 494",
         "podlegli": [
           {
-            "imie": "Walentyn",
-            "nazwisko": "Dobrowolski",
-            "wiek": 54,
+            "imie": "Edwin",
+            "nazwisko": "Pietrzyk",
+            "wiek": 46,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "MARRIED",
-            "wyksztalcenie": "Associate Degree in Biomedical Science",
-            "pozycjaZawodowa": "Assistant",
-            "numerTelefonu": "+48 451 433 655"
-          },
-          {
-            "imie": "Hieronim",
-            "nazwisko": "Stępień",
-            "wiek": 54,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "MARRIED",
-            "wyksztalcenie": "Associate Degree in Health Science",
-            "pozycjaZawodowa": "Engineer",
-            "numerTelefonu": "+48 573 254 153"
-          },
-          {
-            "imie": "Eleonora",
-            "nazwisko": "Cieślak",
-            "wiek": 60,
-            "plec": "KOBIETA",
-            "podlegli": [],
             "stanCywilny": "NEVER_MARRIED",
-            "wyksztalcenie": "Associate Degree in Business",
-            "pozycjaZawodowa": "Supervisor",
-            "numerTelefonu": "+48 213 423 859"
+            "wyksztalcenie": "Associate Degree in Education",
+            "pozycjaZawodowa": "Orchestrator",
+            "numerTelefonu": "+48 454 242 425",
+            "podlegli": []
           },
           {
-            "imie": "Rudolf",
-            "nazwisko": "Czechowski",
-            "wiek": 67,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Master of Medicine",
-            "pozycjaZawodowa": "Analyst",
-            "numerTelefonu": "+48 213 422 537"
+            "imie": "Melania",
+            "nazwisko": "Szymański",
+            "wiek": 51,
+            "plec": "KOBIETA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Bachelor of Computer Science",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 576 945 713",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "SEPARATED",
-        "wyksztalcenie": "Master of Information Systems",
-        "pozycjaZawodowa": "Developer",
-        "numerTelefonu": "+48 213 714 280"
+        ]
       }
-    ],
-    "stanCywilny": "WIDOWED",
-    "wyksztalcenie": "Bachelor of Medicine",
-    "pozycjaZawodowa": "Manager",
-    "numerTelefonu": "+48 690 626 969"
+    ]
+  },
+  {
+    "imie": "Serafin",
+    "nazwisko": "Łuczak",
+    "wiek": 52,
+    "plec": "MEZCZYZNA",
+    "stanCywilny": "NEVER_MARRIED",
+    "wyksztalcenie": "Associate Degree in Education",
+    "pozycjaZawodowa": "Strategist",
+    "numerTelefonu": "+48 212 071 757",
+    "podlegli": [
+      {
+        "imie": "Izydor",
+        "nazwisko": "Kania",
+        "wiek": 61,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Bachelor of Psychology",
+        "pozycjaZawodowa": "Officer",
+        "numerTelefonu": "+48 506 508 105",
+        "podlegli": [
+          {
+            "imie": "Adelajda",
+            "nazwisko": "Krukowski",
+            "wiek": 50,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Applied Science (Psychology)",
+            "pozycjaZawodowa": "Analyst",
+            "numerTelefonu": "+48 211 479 462",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Marek",
+        "nazwisko": "Jędrzejewski",
+        "wiek": 77,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "NEVER_MARRIED",
+        "wyksztalcenie": "Bachelor of Medicine",
+        "pozycjaZawodowa": "Developer",
+        "numerTelefonu": "+48 212 945 105",
+        "podlegli": [
+          {
+            "imie": "Bertram",
+            "nazwisko": "Burzyński",
+            "wiek": 42,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Biological Science",
+            "pozycjaZawodowa": "Liaison",
+            "numerTelefonu": "+48 884 397 070",
+            "podlegli": []
+          },
+          {
+            "imie": "Klemens",
+            "nazwisko": "Górski",
+            "wiek": 57,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Biomedical Science",
+            "pozycjaZawodowa": "Officer",
+            "numerTelefonu": "+48 789 638 849",
+            "podlegli": []
+          },
+          {
+            "imie": "Anastazja",
+            "nazwisko": "Cieślik",
+            "wiek": 56,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Bachelor of Health Science",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 211 130 842",
+            "podlegli": []
+          },
+          {
+            "imie": "Laurencjusz",
+            "nazwisko": "Trzeciak",
+            "wiek": 20,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Master of Communications",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 213 547 303",
+            "podlegli": []
+          }
+        ]
+      }
+    ]
   },
   {
     "imie": "Kornelia",
     "nazwisko": "Ziętek",
     "wiek": 35,
     "plec": "KOBIETA",
+    "stanCywilny": "MARRIED",
+    "wyksztalcenie": "Master of Commerce",
+    "pozycjaZawodowa": "Officer",
+    "numerTelefonu": "+48 660 876 940",
     "podlegli": [
       {
         "imie": "Wanesa",
         "nazwisko": "Jakubowski",
         "wiek": 59,
         "plec": "KOBIETA",
+        "stanCywilny": "NEVER_MARRIED",
+        "wyksztalcenie": "Bachelor of Law",
+        "pozycjaZawodowa": "Facilitator",
+        "numerTelefonu": "+48 211 369 684",
         "podlegli": [
           {
             "imie": "Emanuel",
             "nazwisko": "Mrozek",
             "wiek": 74,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
             "stanCywilny": "NEVER_MARRIED",
             "wyksztalcenie": "Associate Degree in Communications",
             "pozycjaZawodowa": "Liaison",
-            "numerTelefonu": "+48 211 063 074"
+            "numerTelefonu": "+48 211 063 074",
+            "podlegli": []
+          },
+          {
+            "imie": "Daria",
+            "nazwisko": "Młynarczyk",
+            "wiek": 18,
+            "plec": "KOBIETA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Biological Science",
+            "pozycjaZawodowa": "Assistant",
+            "numerTelefonu": "+48 729 473 879",
+            "podlegli": []
+          },
+          {
+            "imie": "Leila",
+            "nazwisko": "Błaszczak",
+            "wiek": 28,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Business",
+            "pozycjaZawodowa": "Assistant",
+            "numerTelefonu": "+48 794 856 814",
+            "podlegli": []
           },
           {
             "imie": "Robert",
             "nazwisko": "Borkowski",
             "wiek": 18,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
             "stanCywilny": "DIVORCED",
             "wyksztalcenie": "Master of Biomedical Science",
             "pozycjaZawodowa": "Facilitator",
-            "numerTelefonu": "+48 888 309 239"
+            "numerTelefonu": "+48 888 309 239",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "NEVER_MARRIED",
-        "wyksztalcenie": "Bachelor of Law",
-        "pozycjaZawodowa": "Facilitator",
-        "numerTelefonu": "+48 211 369 684"
+        ]
       }
-    ],
-    "stanCywilny": "MARRIED",
-    "wyksztalcenie": "Master of Commerce",
-    "pozycjaZawodowa": "Officer",
-    "numerTelefonu": "+48 660 876 940"
+    ]
   },
   {
-    "imie": "Roksana",
-    "nazwisko": "Mielczarek",
-    "wiek": 61,
+    "imie": "Wilhelmina",
+    "nazwisko": "Zieliński",
+    "wiek": 57,
     "plec": "KOBIETA",
+    "stanCywilny": "WIDOWED",
+    "wyksztalcenie": "Master of Architectural Technology",
+    "pozycjaZawodowa": "Coordinator",
+    "numerTelefonu": "+48 600 736 537",
     "podlegli": [
       {
-        "imie": "Magdalena",
-        "nazwisko": "Trojanowski",
-        "wiek": 49,
+        "imie": "Emanuel",
+        "nazwisko": "Drabik",
+        "wiek": 45,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Master of Commerce",
+        "pozycjaZawodowa": "Developer",
+        "numerTelefonu": "+48 455 630 382",
+        "podlegli": [
+          {
+            "imie": "Ofelia",
+            "nazwisko": "Zakrzewski",
+            "wiek": 23,
+            "plec": "KOBIETA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Master of Biomedical Science",
+            "pozycjaZawodowa": "Officer",
+            "numerTelefonu": "+48 796 314 303",
+            "podlegli": []
+          },
+          {
+            "imie": "Igor",
+            "nazwisko": "Góra",
+            "wiek": 53,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Criminology",
+            "pozycjaZawodowa": "Manager",
+            "numerTelefonu": "+48 690 507 442",
+            "podlegli": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "imie": "Larysa",
+    "nazwisko": "Komorowski",
+    "wiek": 57,
+    "plec": "KOBIETA",
+    "stanCywilny": "SEPARATED",
+    "wyksztalcenie": "Bachelor of Communications",
+    "pozycjaZawodowa": "Producer",
+    "numerTelefonu": "+48 212 977 276",
+    "podlegli": [
+      {
+        "imie": "Angela",
+        "nazwisko": "Gawlik",
+        "wiek": 53,
         "plec": "KOBIETA",
+        "stanCywilny": "MARRIED",
+        "wyksztalcenie": "Bachelor of Applied Science (Psychology)",
+        "pozycjaZawodowa": "Officer",
+        "numerTelefonu": "+48 882 102 442",
+        "podlegli": [
+          {
+            "imie": "Stefania",
+            "nazwisko": "Kostecki",
+            "wiek": 39,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Bachelor of Communications",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 212 778 843",
+            "podlegli": []
+          },
+          {
+            "imie": "Izaak",
+            "nazwisko": "Rogalski",
+            "wiek": 43,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Master of Health Science",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 882 468 388",
+            "podlegli": []
+          },
+          {
+            "imie": "Borys",
+            "nazwisko": "Bielak",
+            "wiek": 53,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Information Systems",
+            "pozycjaZawodowa": "Orchestrator",
+            "numerTelefonu": "+48 457 232 401",
+            "podlegli": []
+          },
+          {
+            "imie": "Wanda",
+            "nazwisko": "Michalik",
+            "wiek": 78,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Education",
+            "pozycjaZawodowa": "Consultant",
+            "numerTelefonu": "+48 505 698 693",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Maja",
+        "nazwisko": "Jakubowski",
+        "wiek": 32,
+        "plec": "KOBIETA",
+        "stanCywilny": "NEVER_MARRIED",
+        "wyksztalcenie": "Associate Degree in Forensic Science",
+        "pozycjaZawodowa": "Planner",
+        "numerTelefonu": "+48 459 513 595",
+        "podlegli": [
+          {
+            "imie": "Ruta",
+            "nazwisko": "Pilarski",
+            "wiek": 73,
+            "plec": "KOBIETA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Engineering",
+            "pozycjaZawodowa": "Administrator",
+            "numerTelefonu": "+48 731 811 959",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Florian",
+        "nazwisko": "Warchoł",
+        "wiek": 47,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "MARRIED",
+        "wyksztalcenie": "Associate Degree in Commerce",
+        "pozycjaZawodowa": "Architect",
+        "numerTelefonu": "+48 212 908 878",
+        "podlegli": [
+          {
+            "imie": "Aida",
+            "nazwisko": "Kwiatkowski",
+            "wiek": 79,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Associate Degree in Psychology",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 212 765 757",
+            "podlegli": []
+          },
+          {
+            "imie": "Oliwia",
+            "nazwisko": "Mazurkiewicz",
+            "wiek": 60,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Master of Education",
+            "pozycjaZawodowa": "Supervisor",
+            "numerTelefonu": "+48 787 200 053",
+            "podlegli": []
+          },
+          {
+            "imie": "Eudokia",
+            "nazwisko": "Filipowicz",
+            "wiek": 32,
+            "plec": "KOBIETA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Bachelor of Law",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 211 309 298",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Grzegorz",
+        "nazwisko": "Zaręba",
+        "wiek": 72,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Bachelor of Criminology",
+        "pozycjaZawodowa": "Strategist",
+        "numerTelefonu": "+48 212 571 890",
+        "podlegli": [
+          {
+            "imie": "Alicja",
+            "nazwisko": "Szczygieł",
+            "wiek": 24,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Medicine",
+            "pozycjaZawodowa": "Coordinator",
+            "numerTelefonu": "+48 211 468 387",
+            "podlegli": []
+          },
+          {
+            "imie": "Henryk",
+            "nazwisko": "Paczkowski",
+            "wiek": 60,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Associate Degree in Creative Arts",
+            "pozycjaZawodowa": "Assistant",
+            "numerTelefonu": "+48 212 025 693",
+            "podlegli": []
+          },
+          {
+            "imie": "Helena",
+            "nazwisko": "Kwiatkowski",
+            "wiek": 24,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Associate Degree in Health Science",
+            "pozycjaZawodowa": "Architect",
+            "numerTelefonu": "+48 212 031 118",
+            "podlegli": []
+          },
+          {
+            "imie": "Gracja",
+            "nazwisko": "Dróżdż",
+            "wiek": 49,
+            "plec": "KOBIETA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Bachelor of Biological Science",
+            "pozycjaZawodowa": "Architect",
+            "numerTelefonu": "+48 453 878 712",
+            "podlegli": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "imie": "Anna",
+    "nazwisko": "Bednarski",
+    "wiek": 60,
+    "plec": "KOBIETA",
+    "stanCywilny": "WIDOWED",
+    "wyksztalcenie": "Bachelor of Forensic Science",
+    "pozycjaZawodowa": "Specialist",
+    "numerTelefonu": "+48 212 009 930",
+    "podlegli": [
+      {
+        "imie": "Gerald",
+        "nazwisko": "Szewczyk",
+        "wiek": 55,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "SEPARATED",
+        "wyksztalcenie": "Master of Forensic Science",
+        "pozycjaZawodowa": "Agent",
+        "numerTelefonu": "+48 212 558 326",
+        "podlegli": [
+          {
+            "imie": "Walentyn",
+            "nazwisko": "Dobrowolski",
+            "wiek": 54,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Associate Degree in Biomedical Science",
+            "pozycjaZawodowa": "Assistant",
+            "numerTelefonu": "+48 451 433 655",
+            "podlegli": []
+          },
+          {
+            "imie": "Porfiriusz",
+            "nazwisko": "Kołakowski",
+            "wiek": 54,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Information Systems",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 213 714 280",
+            "podlegli": []
+          },
+          {
+            "imie": "Hieronim",
+            "nazwisko": "Stępień",
+            "wiek": 54,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Associate Degree in Health Science",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 573 254 153",
+            "podlegli": []
+          },
+          {
+            "imie": "Eleonora",
+            "nazwisko": "Cieślak",
+            "wiek": 60,
+            "plec": "KOBIETA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Business",
+            "pozycjaZawodowa": "Supervisor",
+            "numerTelefonu": "+48 213 423 859",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Antonina",
+        "nazwisko": "Rosa",
+        "wiek": 46,
+        "plec": "KOBIETA",
+        "stanCywilny": "SEPARATED",
+        "wyksztalcenie": "Bachelor of Arts",
+        "pozycjaZawodowa": "Administrator",
+        "numerTelefonu": "+48 211 433 761",
         "podlegli": [
           {
             "imie": "Karol",
             "nazwisko": "Stolarczyk",
             "wiek": 25,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
             "stanCywilny": "NEVER_MARRIED",
             "wyksztalcenie": "Associate Degree in Arts",
             "pozycjaZawodowa": "Manager",
-            "numerTelefonu": "+48 789 159 911"
+            "numerTelefonu": "+48 789 159 911",
+            "podlegli": []
+          },
+          {
+            "imie": "Magdalena",
+            "nazwisko": "Trojanowski",
+            "wiek": 49,
+            "plec": "KOBIETA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Bachelor of Biological Science",
+            "pozycjaZawodowa": "Coordinator",
+            "numerTelefonu": "+48 211 591 055",
+            "podlegli": []
           },
           {
             "imie": "Herman",
             "nazwisko": "Cichoń",
             "wiek": 38,
             "plec": "MEZCZYZNA",
-            "podlegli": [],
             "stanCywilny": "MARRIED",
             "wyksztalcenie": "Associate Degree in Applied Science (Psychology)",
             "pozycjaZawodowa": "Agent",
-            "numerTelefonu": "+48 607 534 615"
-          },
-          {
-            "imie": "Prokul",
-            "nazwisko": "Chmura",
-            "wiek": 77,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "DIVORCED",
-            "wyksztalcenie": "Associate Degree in Nursing",
-            "pozycjaZawodowa": "Representative",
-            "numerTelefonu": "+48 211 004 240"
-          },
-          {
-            "imie": "Gilbert",
-            "nazwisko": "Piórkowski",
-            "wiek": 46,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "NEVER_MARRIED",
-            "wyksztalcenie": "Master of Forensic Science",
-            "pozycjaZawodowa": "Analyst",
-            "numerTelefonu": "+48 538 226 060"
+            "numerTelefonu": "+48 607 534 615",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "DIVORCED",
-        "wyksztalcenie": "Bachelor of Biological Science",
-        "pozycjaZawodowa": "Coordinator",
-        "numerTelefonu": "+48 211 591 055"
+        ]
       },
       {
-        "imie": "Piotr",
-        "nazwisko": "Koper",
-        "wiek": 68,
-        "plec": "MEZCZYZNA",
-        "podlegli": [
-          {
-            "imie": "Hugo",
-            "nazwisko": "Żukowski",
-            "wiek": 30,
-            "plec": "MEZCZYZNA",
-            "podlegli": [],
-            "stanCywilny": "MARRIED",
-            "wyksztalcenie": "Master of Business",
-            "pozycjaZawodowa": "Associate",
-            "numerTelefonu": "+48 212 811 535"
-          }
-        ],
-        "stanCywilny": "MARRIED",
-        "wyksztalcenie": "Master of Nursing",
-        "pozycjaZawodowa": "Agent",
-        "numerTelefonu": "+48 453 402 051"
-      },
-      {
-        "imie": "Anna",
-        "nazwisko": "Bednarski",
-        "wiek": 60,
+        "imie": "Penelopa",
+        "nazwisko": "Mazurek",
+        "wiek": 20,
         "plec": "KOBIETA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Associate Degree in Forensic Science",
+        "pozycjaZawodowa": "Executive",
+        "numerTelefonu": "+48 799 940 963",
         "podlegli": [
           {
-            "imie": "Antonina",
-            "nazwisko": "Rosa",
-            "wiek": 46,
+            "imie": "Agnieszka",
+            "nazwisko": "Pilarski",
+            "wiek": 40,
             "plec": "KOBIETA",
-            "podlegli": [],
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Bachelor of Medicine",
+            "pozycjaZawodowa": "Manager",
+            "numerTelefonu": "+48 690 626 969",
+            "podlegli": []
+          },
+          {
+            "imie": "Wilfryd",
+            "nazwisko": "Dobrzyński",
+            "wiek": 79,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Teaching",
+            "pozycjaZawodowa": "Liaison",
+            "numerTelefonu": "+48 452 454 544",
+            "podlegli": []
+          },
+          {
+            "imie": "Alina",
+            "nazwisko": "Golec",
+            "wiek": 57,
+            "plec": "KOBIETA",
             "stanCywilny": "SEPARATED",
-            "wyksztalcenie": "Bachelor of Arts",
-            "pozycjaZawodowa": "Administrator",
-            "numerTelefonu": "+48 211 433 761"
+            "wyksztalcenie": "Master of Engineering",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 212 790 275",
+            "podlegli": []
+          },
+          {
+            "imie": "Helena",
+            "nazwisko": "Mucha",
+            "wiek": 61,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Computer Science",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 886 205 107",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "WIDOWED",
-        "wyksztalcenie": "Bachelor of Forensic Science",
-        "pozycjaZawodowa": "Specialist",
-        "numerTelefonu": "+48 212 009 930"
-      }
-    ],
-    "stanCywilny": "DIVORCED",
-    "wyksztalcenie": "Master of Health Science",
-    "pozycjaZawodowa": "Assistant",
-    "numerTelefonu": "+48 531 776 841"
-  },
-  {
-    "imie": "Joanna",
-    "nazwisko": "Kaczmarczyk",
-    "wiek": 72,
-    "plec": "KOBIETA",
-    "podlegli": [
+        ]
+      },
       {
-        "imie": "Gedeon",
-        "nazwisko": "Wojtczak",
-        "wiek": 78,
+        "imie": "Prokul",
+        "nazwisko": "Chmura",
+        "wiek": 77,
         "plec": "MEZCZYZNA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Associate Degree in Nursing",
+        "pozycjaZawodowa": "Representative",
+        "numerTelefonu": "+48 211 004 240",
         "podlegli": [
           {
             "imie": "Rachela",
             "nazwisko": "Markowski",
             "wiek": 66,
             "plec": "KOBIETA",
-            "podlegli": [],
             "stanCywilny": "MARRIED",
             "wyksztalcenie": "Associate Degree in Architectural Technology",
             "pozycjaZawodowa": "Liaison",
-            "numerTelefonu": "+48 691 834 937"
+            "numerTelefonu": "+48 691 834 937",
+            "podlegli": []
           },
           {
-            "imie": "Penelopa",
-            "nazwisko": "Mazurek",
-            "wiek": 20,
+            "imie": "Gilbert",
+            "nazwisko": "Piórkowski",
+            "wiek": 46,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Master of Forensic Science",
+            "pozycjaZawodowa": "Analyst",
+            "numerTelefonu": "+48 538 226 060",
+            "podlegli": []
+          },
+          {
+            "imie": "Joanna",
+            "nazwisko": "Kaczmarczyk",
+            "wiek": 72,
             "plec": "KOBIETA",
-            "podlegli": [],
-            "stanCywilny": "DIVORCED",
-            "wyksztalcenie": "Associate Degree in Forensic Science",
-            "pozycjaZawodowa": "Executive",
-            "numerTelefonu": "+48 799 940 963"
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Bachelor of Health Science",
+            "pozycjaZawodowa": "Facilitator",
+            "numerTelefonu": "+48 213 721 161",
+            "podlegli": []
+          },
+          {
+            "imie": "Gedeon",
+            "nazwisko": "Wojtczak",
+            "wiek": 78,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Bachelor of Psychology",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 661 246 330",
+            "podlegli": []
           }
-        ],
-        "stanCywilny": "WIDOWED",
-        "wyksztalcenie": "Bachelor of Psychology",
-        "pozycjaZawodowa": "Developer",
-        "numerTelefonu": "+48 661 246 330"
+        ]
       }
-    ],
-    "stanCywilny": "NEVER_MARRIED",
-    "wyksztalcenie": "Bachelor of Health Science",
-    "pozycjaZawodowa": "Facilitator",
-    "numerTelefonu": "+48 213 721 161"
+    ]
+  },
+  {
+    "imie": "Walery",
+    "nazwisko": "Witek",
+    "wiek": 41,
+    "plec": "MEZCZYZNA",
+    "stanCywilny": "WIDOWED",
+    "wyksztalcenie": "Associate Degree in Biomedical Science",
+    "pozycjaZawodowa": "Specialist",
+    "numerTelefonu": "+48 450 356 913",
+    "podlegli": [
+      {
+        "imie": "Oleg",
+        "nazwisko": "Kołodziejski",
+        "wiek": 57,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "WIDOWED",
+        "wyksztalcenie": "Bachelor of Architectural Technology",
+        "pozycjaZawodowa": "Officer",
+        "numerTelefonu": "+48 884 846 121",
+        "podlegli": [
+          {
+            "imie": "Patryk",
+            "nazwisko": "Graczyk",
+            "wiek": 33,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Master of Psychology",
+            "pozycjaZawodowa": "Strategist",
+            "numerTelefonu": "+48 669 684 346",
+            "podlegli": []
+          },
+          {
+            "imie": "Noemi",
+            "nazwisko": "Sochacki",
+            "wiek": 67,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Applied Science (Psychology)",
+            "pozycjaZawodowa": "Associate",
+            "numerTelefonu": "+48 213 887 670",
+            "podlegli": []
+          },
+          {
+            "imie": "Konstanty",
+            "nazwisko": "Duszyński",
+            "wiek": 19,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Associate Degree in Education",
+            "pozycjaZawodowa": "Orchestrator",
+            "numerTelefonu": "+48 881 856 739",
+            "podlegli": []
+          },
+          {
+            "imie": "Paweł",
+            "nazwisko": "Wojtasik",
+            "wiek": 59,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Associate Degree in Arts",
+            "pozycjaZawodowa": "Associate",
+            "numerTelefonu": "+48 211 071 476",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Apollo",
+        "nazwisko": "Bogusz",
+        "wiek": 51,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "NEVER_MARRIED",
+        "wyksztalcenie": "Bachelor of Computer Science",
+        "pozycjaZawodowa": "Analyst",
+        "numerTelefonu": "+48 887 346 782",
+        "podlegli": [
+          {
+            "imie": "Hieronim",
+            "nazwisko": "Grabowski",
+            "wiek": 42,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Computer Science",
+            "pozycjaZawodowa": "Officer",
+            "numerTelefonu": "+48 882 764 104",
+            "podlegli": []
+          },
+          {
+            "imie": "Walerian",
+            "nazwisko": "Burzyński",
+            "wiek": 48,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Master of Information Systems",
+            "pozycjaZawodowa": "Manager",
+            "numerTelefonu": "+48 211 057 992",
+            "podlegli": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "imie": "Rudolf",
+    "nazwisko": "Czechowski",
+    "wiek": 67,
+    "plec": "MEZCZYZNA",
+    "stanCywilny": "SEPARATED",
+    "wyksztalcenie": "Master of Medicine",
+    "pozycjaZawodowa": "Analyst",
+    "numerTelefonu": "+48 213 422 537",
+    "podlegli": [
+      {
+        "imie": "Marek",
+        "nazwisko": "Marek",
+        "wiek": 42,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "WIDOWED",
+        "wyksztalcenie": "Master of Biomedical Science",
+        "pozycjaZawodowa": "Analyst",
+        "numerTelefonu": "+48 211 003 011",
+        "podlegli": [
+          {
+            "imie": "Gedeon",
+            "nazwisko": "Maćkowiak",
+            "wiek": 27,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Associate Degree in Engineering",
+            "pozycjaZawodowa": "Specialist",
+            "numerTelefonu": "+48 213 652 007",
+            "podlegli": []
+          },
+          {
+            "imie": "Jan",
+            "nazwisko": "Kiełbasa",
+            "wiek": 54,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Engineering",
+            "pozycjaZawodowa": "Supervisor",
+            "numerTelefonu": "+48 885 964 345",
+            "podlegli": []
+          },
+          {
+            "imie": "Barbara",
+            "nazwisko": "Frankowski",
+            "wiek": 75,
+            "plec": "KOBIETA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Bachelor of Arts",
+            "pozycjaZawodowa": "Analyst",
+            "numerTelefonu": "+48 213 861 528",
+            "podlegli": []
+          },
+          {
+            "imie": "Cyryl",
+            "nazwisko": "Stępniak",
+            "wiek": 18,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "NEVER_MARRIED",
+            "wyksztalcenie": "Bachelor of Design",
+            "pozycjaZawodowa": "Producer",
+            "numerTelefonu": "+48 889 685 331",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Michalina",
+        "nazwisko": "Kaleta",
+        "wiek": 65,
+        "plec": "KOBIETA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Master of Education",
+        "pozycjaZawodowa": "Coordinator",
+        "numerTelefonu": "+48 213 507 807",
+        "podlegli": [
+          {
+            "imie": "Maria",
+            "nazwisko": "Szymczyk",
+            "wiek": 34,
+            "plec": "KOBIETA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Commerce",
+            "pozycjaZawodowa": "Administrator",
+            "numerTelefonu": "+48 213 417 782",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Ambroży",
+        "nazwisko": "Dębski",
+        "wiek": 40,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "WIDOWED",
+        "wyksztalcenie": "Associate Degree in Architectural Technology",
+        "pozycjaZawodowa": "Coordinator",
+        "numerTelefonu": "+48 571 399 465",
+        "podlegli": [
+          {
+            "imie": "Karolina",
+            "nazwisko": "Orzechowski",
+            "wiek": 78,
+            "plec": "KOBIETA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Forensic Science",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 213 674 119",
+            "podlegli": []
+          },
+          {
+            "imie": "Juliusz",
+            "nazwisko": "Kawecki",
+            "wiek": 73,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "MARRIED",
+            "wyksztalcenie": "Bachelor of Teaching",
+            "pozycjaZawodowa": "Representative",
+            "numerTelefonu": "+48 536 817 877",
+            "podlegli": []
+          },
+          {
+            "imie": "Leonid",
+            "nazwisko": "Niedźwiecki",
+            "wiek": 78,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Engineering",
+            "pozycjaZawodowa": "Officer",
+            "numerTelefonu": "+48 213 929 106",
+            "podlegli": []
+          },
+          {
+            "imie": "Walentyn",
+            "nazwisko": "Raczyński",
+            "wiek": 64,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "SEPARATED",
+            "wyksztalcenie": "Master of Biological Science",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 883 646 842",
+            "podlegli": []
+          }
+        ]
+      },
+      {
+        "imie": "Joachim",
+        "nazwisko": "Wilczek",
+        "wiek": 39,
+        "plec": "MEZCZYZNA",
+        "stanCywilny": "DIVORCED",
+        "wyksztalcenie": "Bachelor of Communications",
+        "pozycjaZawodowa": "Coordinator",
+        "numerTelefonu": "+48 212 846 507",
+        "podlegli": [
+          {
+            "imie": "Krzysztof",
+            "nazwisko": "Wesołowski",
+            "wiek": 62,
+            "plec": "MEZCZYZNA",
+            "stanCywilny": "DIVORCED",
+            "wyksztalcenie": "Master of Criminology",
+            "pozycjaZawodowa": "Developer",
+            "numerTelefonu": "+48 885 377 103",
+            "podlegli": []
+          },
+          {
+            "imie": "Olimpia",
+            "nazwisko": "Czarnecki",
+            "wiek": 61,
+            "plec": "KOBIETA",
+            "stanCywilny": "WIDOWED",
+            "wyksztalcenie": "Associate Degree in Creative Arts",
+            "pozycjaZawodowa": "Engineer",
+            "numerTelefonu": "+48 212 322 931",
+            "podlegli": []
+          }
+        ]
+      }
+    ]
   }
 ]
