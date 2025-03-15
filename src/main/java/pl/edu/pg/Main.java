@@ -21,14 +21,15 @@ public class Main {
           break;
       }
     }
-    CzlowiekPodlegliFactory.setSortMode(sortMode);
-    CzlowiekPodlegliFactory.setComparator(comparator);
+    CzlowiekContainerFactory.setSortMode(sortMode);
+    CzlowiekContainerFactory.setComparator(comparator);
 
     TestRepo.generateTestData();
     TestRepo.saveJson();
     TestRepo.getHeads().clear();
     TestRepo.loadJson();
     TestRepo.printRecursively();
+    // więcej testów w TestRepo main
     // TestRepo.printAll();
 
   }

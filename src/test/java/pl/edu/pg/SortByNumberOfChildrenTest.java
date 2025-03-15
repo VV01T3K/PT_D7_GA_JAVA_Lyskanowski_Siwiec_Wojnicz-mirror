@@ -24,7 +24,7 @@ public class SortByNumberOfChildrenTest {
     @Test
     void compareWithSameNumberOfChildren() {
 
-        CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
         Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
         A.dodajPodleglego(B);
@@ -44,7 +44,7 @@ public class SortByNumberOfChildrenTest {
     @Test
     void compareWithDifferentNumberOfChildren() {
 
-        CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
         Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
         Czlowiek C = new Czlowiek("C", "C", 22, Plec.MEZCZYZNA);

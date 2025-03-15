@@ -1,122 +1,81 @@
 package pl.edu.pg;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Random;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import net.datafaker.Faker;
-
 public class TestRepo {
-    // private static final int seed = new Random().nextInt();
-    private static final int liczbaElementow = 20;
-    private static final int levels = 3;
-    private static final int maxConnections = 5;
-    private static final int seed = 1234;
-    private static final Random rand = new Random(seed);
-    private static final Faker faker = new Faker(Locale.of("pl"), rand);
 
-    private static Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
+    private static final int defaultNumberOfPeople = 10;
 
-    public static Faker getFaker() {
-        return faker;
+    private static Set<Czlowiek> heads = CzlowiekContainerFactory.chooseSet();
+
+    private static TestRepoGenerator generator = new TestRepoGenerator();
+    private static TestRepoJsonLoader loader = new TestRepoJsonLoader("src/people.json");
+
+    public static void setGenerator(TestRepoGenerator generator) {
+        TestRepo.generator = generator;
+    }
+
+    public static void setLoader(TestRepoJsonLoader loader) {
+        TestRepo.loader = loader;
     }
 
     public static Set<Czlowiek> getHeads() {
         return heads;
     }
 
-    public static Czlowiek generateCzlowiek() {
-        String imie = faker.name().firstName();
-        String nazwisko = faker.name().lastName();
-        int wiek = faker.number().numberBetween(18, 80);
-        Plec plec = imie.endsWith("a") ? Plec.KOBIETA : Plec.MEZCZYZNA;
-        MartialStatus stanCywilny = MartialStatus.fromString(faker.demographic().maritalStatus());
-        String wyksztalcenie = faker.educator().course();
-        String pozycjaZawodowa = faker.job().position();
-        String numerTelefonu = faker.phoneNumber().cellPhoneInternational();
-        return new Czlowiek(imie, nazwisko, wiek, plec, stanCywilny, wyksztalcenie, pozycjaZawodowa, numerTelefonu);
-    }
-
-    public static Czlowiek generateCzlowiekWithoutDetails() {
-        String imie = faker.name().firstName();
-        String nazwisko = faker.name().lastName();
-        int wiek = faker.number().numberBetween(18, 80);
-        Plec plec = imie.endsWith("a") ? Plec.KOBIETA : Plec.MEZCZYZNA;
-        return new Czlowiek(imie, nazwisko, wiek, plec);
-    }
-
-    public static ArrayList<Czlowiek> generateRandomCzlowiekList(int count) {
-        return Stream.generate(TestRepo::generateCzlowiek)
-                .limit(count)
-                .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
-    }
-
-    private static void connectPeopleRecursively(
-            Czlowiek czlowiek, ArrayList<Czlowiek> pool,
-            int maxDepth,
-            int maxConnections) {
-
-        if (maxDepth == 0)
-            return;
-        int podlegliCount = faker.number().numberBetween(1, maxConnections);
-        for (int i = 0; i < podlegliCount; i++) {
-            if (pool.isEmpty())
-                return;
-            Czlowiek podlegly = pool.removeFirst();
-            connectPeopleRecursively(podlegly, pool, maxDepth - 1, maxConnections);
-            czlowiek.dodajPodleglego(podlegly);
-        }
-    }
-
-    private static Set<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
-        ArrayList<Czlowiek> pool = generateRandomCzlowiekList(count);
-        Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
-
-        while (!pool.isEmpty()) {
-            Czlowiek head = pool.removeFirst();
-            heads.add(head);
-            connectPeopleRecursively(head, pool, levels - 1, maxConnections);
-        }
-
-        return heads;
-    }
-
-    public static void generateTestData() {
-        heads = generateCzlowiekList(liczbaElementow, levels, maxConnections);
+    public static Stream<Czlowiek> getAllPeople() {
+        return flattendTree().stream();
     }
 
     public static void saveJson() {
-        String filePath = "src/main/people.json";
-
-        try (Writer writer = new FileWriter(filePath)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(heads, writer);
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
+        loader.saveJson(heads);
     }
 
     public static void loadJson() {
-        String filePath = "src/main/people.json";
+        heads = loader.readJson();
+    }
 
-        try {
-            Gson gson = new GsonBuilder().create();
-            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<Set<Czlowiek>>() {
-            }.getType();
-            heads = gson.fromJson(new FileReader(filePath), type);
-        } catch (Exception e) {
-            System.err.println("Error reading from file: " + e.getMessage());
+    public static void loadJson(int n) {
+        heads = loader.readJson();
+        n = flattendTree().size() - n;
+        while (n > 0) {
+            List<Czlowiek> leafs = getAllPeople().filter(c -> c.getPodlegli().size() == 0).limit(n)
+                    .collect(Collectors.toList());
+            leafs.forEach(TestRepo::remove);
+            n -= leafs.size();
         }
+    }
+
+    public static boolean remove(Czlowiek czlowiek) {
+        if (heads.remove(czlowiek))
+            return true;
+        for (Czlowiek head : heads) {
+            if (removeRecursively(head, czlowiek))
+                return true;
+        }
+        return false;
+    }
+
+    private static boolean removeRecursively(Czlowiek current, Czlowiek toRemove) {
+        boolean removed = current.getPodlegli().remove(toRemove);
+        for (Czlowiek podlegly : current.getPodlegli()) {
+            if (removeRecursively(podlegly, toRemove)) {
+                removed = true;
+            }
+        }
+
+        return removed;
+    }
+
+    public static void generateTestData() {
+        heads = generator.generateTestData(defaultNumberOfPeople);
+    }
+
+    public static void generateTestData(int n) {
+        heads = generator.generateTestData(n);
     }
 
     private static void addRecursively(Czlowiek head, Set<Czlowiek> all) {
@@ -126,18 +85,20 @@ public class TestRepo {
         }
     }
 
-    public static Set<Czlowiek> getAll() {
-        Set<Czlowiek> all = CzlowiekPodlegliFactory.chooseSet();
+    private static Set<Czlowiek> flattendTree() {
+        Set<Czlowiek> all = CzlowiekContainerFactory.chooseSet();
+        all.addAll(heads);
         for (Czlowiek head : heads) {
-            all.add(head);
             addRecursively(head, all);
         }
         return all;
     }
 
     public static void printAll() {
-        for (Czlowiek czlowiek : getAll()) {
+        System.out.println(getHeads().getClass() + " | heads");
+        for (Czlowiek czlowiek : getAllPeople().collect(Collectors.toList())) {
             System.out.println("" +
+                    czlowiek.getPodlegli().getClass() + " | " +
                     czlowiek.getImie() + " " +
                     czlowiek.getNazwisko() + " " +
                     czlowiek.getWiek() + " " +
@@ -146,34 +107,32 @@ public class TestRepo {
         }
     }
 
-    private static void printRecursively(Czlowiek head, int depth) {
-        String prefix;
-        if (depth == 0)
-            prefix = "";
-        else
-            prefix = " ".repeat(depth * 4) + "⮡ ";
-        System.out.println(prefix +
-                head.getImie() + " " +
-                head.getNazwisko() + " " +
-                head.getWiek() + " " +
-                head.getPlec());
-        for (Czlowiek podlegly : head.getPodlegli()) {
-            printRecursively(podlegly, depth + 1);
-        }
-    }
-
     public static void printRecursively() {
-        for (Czlowiek czlowiek : heads) {
-            printRecursively(czlowiek, 0);
+        for (Czlowiek head : heads) {
+            head.printRecursively();
         }
     }
 
     public static void main(String[] args) {
-        generateTestData();
-        saveJson();
-        getHeads().clear();
-        loadJson();
-        // printRecursively();
-        printAll();
+
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekContainerFactory.setComparator(new SortByAge());
+
+        // generateTestData(10);
+        // saveJson();
+        // getHeads().clear();
+        loadJson(6);
+        printRecursively();
+
+        // printAll();
+        // printAll();
+
+        // getAllPeople().forEach(System.out::println);
+
+        // System.out.println("Removing all people");
+
+        // // getAllPeople().forEach(Czlowiek::printAllDetails);
+        // getAllPeople().forEach(TestRepo::remove);
+        // printAll();
     }
 }

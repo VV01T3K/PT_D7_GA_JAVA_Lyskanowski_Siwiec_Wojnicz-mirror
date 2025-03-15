@@ -13,7 +13,7 @@ class CzlowiekPodlegliFactoryTest {
 
   @Test
   void PodlegliPowinnyBycPrawidlowoSortowaneNaturalnie() {
-    CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
+    CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
     Czlowiek podlegly1 = new Czlowiek("Jan", "Kowalski", 20, Plec.MEZCZYZNA);
     Czlowiek podlegly2 = new Czlowiek("Jan", "Nowak", 21, Plec.MEZCZYZNA);
     Czlowiek podlegly3 = new Czlowiek("Marek", "Kowalski", 21, Plec.MEZCZYZNA);
@@ -28,8 +28,8 @@ class CzlowiekPodlegliFactoryTest {
 
   @Test
   void PodlegliPowinnyBycPrawidlowoSortowaneZgodnieZKomparator() {
-    CzlowiekPodlegliFactory.setSortMode(SortModes.ORDERED);
-    CzlowiekPodlegliFactory.setComparator(Comparator.comparing(Czlowiek::getWiek));
+    CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
+    CzlowiekContainerFactory.setComparator(Comparator.comparing(Czlowiek::getWiek));
     Czlowiek podlegly1 = new Czlowiek("Jan", "Kowalski", 20, Plec.MEZCZYZNA);
     Czlowiek podlegly2 = new Czlowiek("Jan", "Nowak", 19, Plec.MEZCZYZNA);
     Czlowiek podlegly3 = new Czlowiek("Marek", "Kowalski", 18, Plec.MEZCZYZNA);
@@ -44,7 +44,7 @@ class CzlowiekPodlegliFactoryTest {
 
   @Test
   void PodlegliPowinnyBycNiesortowane() {
-    CzlowiekPodlegliFactory.setSortMode(SortModes.UNORDERED);
+    CzlowiekContainerFactory.setSortMode(SortModes.UNORDERED);
     Czlowiek podlegly1 = new Czlowiek("Jan", "Kowalski", 20, Plec.MEZCZYZNA);
     Czlowiek podlegly2 = new Czlowiek("Jan", "Nowak", 21, Plec.MEZCZYZNA);
     Czlowiek podlegly3 = new Czlowiek("Marek", "Kowalski", 21, Plec.MEZCZYZNA);
