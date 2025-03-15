@@ -1,9 +1,11 @@
 package pl.edu.pg;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.function.Consumer;
 
 public class TestRepo {
 
@@ -26,8 +28,14 @@ public class TestRepo {
         return heads;
     }
 
-    public static Stream<Czlowiek> getAllPeople() {
+    // sorted
+    public static Stream<Czlowiek> getAllPeopleStream() {
         return flattendTree().stream();
+    }
+
+    // sorted
+    public static Set<Czlowiek> getAllPeopleSet() {
+        return flattendTree();
     }
 
     public static void saveJson() {
@@ -38,11 +46,12 @@ public class TestRepo {
         heads = loader.readJson();
     }
 
+    // load all then prune
     public static void loadJson(int n) {
         heads = loader.readJson();
         n = flattendTree().size() - n;
         while (n > 0) {
-            List<Czlowiek> leafs = getAllPeople().filter(c -> c.getPodlegli().size() == 0).limit(n)
+            List<Czlowiek> leafs = getAllPeopleStream().filter(c -> c.getPodlegli().size() == 0).limit(n)
                     .collect(Collectors.toList());
             leafs.forEach(TestRepo::remove);
             n -= leafs.size();
@@ -83,26 +92,37 @@ public class TestRepo {
         heads = generator.generateTestData(n);
     }
 
-    private static void addRecursively(Czlowiek head, Set<Czlowiek> all) {
-        for (Czlowiek podlegly : head.getPodlegli()) {
-            all.add(podlegly);
-            addRecursively(podlegly, all);
+    // unsorted
+    public static void recursivelyApplyFunction(Consumer<Czlowiek> function) {
+        for (Czlowiek head : heads) {
+            function.accept(head);
+            recursivelyApplyFunction(head, function);
         }
     }
 
+    // unsorted
+    private static void recursivelyApplyFunction(Czlowiek current, Consumer<Czlowiek> function) {
+        for (Czlowiek podlegly : current.getPodlegli()) {
+            function.accept(podlegly);
+            recursivelyApplyFunction(podlegly, function);
+        }
+    }
+
+    // sorted
     private static Set<Czlowiek> flattendTree() {
         Set<Czlowiek> all = CzlowiekContainerFactory.chooseSet();
-        all.addAll(heads);
         for (Czlowiek head : heads) {
-            addRecursively(head, all);
+            all.add(head);
+            recursivelyApplyFunction(head, all::add);
         }
         return all;
     }
 
     public static void printAll() {
+        int index = 0;
         System.out.println(getHeads().getClass() + " | heads");
-        for (Czlowiek czlowiek : getAllPeople().collect(Collectors.toList())) {
-            System.out.println("" +
+        for (Czlowiek czlowiek : getAllPeopleSet()) {
+            System.out.println(++index + (index > 9 ? " " : "  ") +
                     czlowiek.getPodlegli().getClass() + " | " +
                     czlowiek.getImie() + " " +
                     czlowiek.getNazwisko() + " " +
@@ -125,11 +145,18 @@ public class TestRepo {
         CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
         generateTestData(20);
-        saveJson();
-        loadJson(13);
+        // saveJson();
+        // loadJson(13);
 
         printAll();
-        printRecursively();
+        // printRecursively();
+
+        Set<String> names = new HashSet<>();
+        TestRepo.recursivelyApplyFunction(czlowiek -> {
+            names.add(czlowiek.getImie());
+        });
+        System.out.println("Unique names: " + names.size());
+
         // printAll();
 
         // getAllPeople().forEach(System.out::println);

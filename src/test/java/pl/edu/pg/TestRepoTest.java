@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestRepoTest {
 
@@ -13,11 +16,11 @@ public class TestRepoTest {
 
         int n = 200;
 
-        CzlowiekContainerFactory.setSortMode(SortModes.UNORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
 
         TestRepo.generateTestData(n);
-        assertEquals(n, TestRepo.getAllPeople().count());
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
     }
 
     @Test
@@ -25,11 +28,11 @@ public class TestRepoTest {
 
         int n = 200;
 
-        CzlowiekContainerFactory.setSortMode(SortModes.UNORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
 
         TestRepo.generateTestData(n);
-        assertEquals(n, TestRepo.getAllPeople().count());
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
 
         for (Czlowiek head : TestRepo.getHeads()) {
             for (Czlowiek podlegly : head.getPodlegli()) {
@@ -45,18 +48,18 @@ public class TestRepoTest {
 
         int n = 200;
 
-        CzlowiekContainerFactory.setSortMode(SortModes.UNORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
 
         TestRepo.generateTestData(n);
-        assertEquals(n, TestRepo.getAllPeople().count());
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
 
         TestRepo.setLoader(new TestRepoJsonLoader("src/test-people.json"));
 
         TestRepo.saveJson();
 
         TestRepo.loadJson();
-        assertEquals(n, TestRepo.getAllPeople().count());
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
     }
 
     @Test
@@ -65,18 +68,41 @@ public class TestRepoTest {
         int n = 200;
         int limit = 100;
 
-        CzlowiekContainerFactory.setSortMode(SortModes.UNORDERED);
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
 
         TestRepo.generateTestData(n);
-        assertEquals(n, TestRepo.getAllPeople().count());
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
 
         TestRepo.setLoader(new TestRepoJsonLoader("src/test-people.json"));
 
         TestRepo.saveJson();
 
         TestRepo.loadJson(limit);
-        assertEquals(limit, TestRepo.getAllPeople().count());
+        assertEquals(limit, TestRepo.getAllPeopleStream().count());
+    }
+
+    @Test
+    void recursivelyApplingFunction() {
+
+        int n = 200;
+
+        CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
+        CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
+
+        TestRepo.generateTestData(n);
+
+        assertEquals(n, TestRepo.getAllPeopleStream().count());
+
+        Set<Czlowiek> people = new HashSet<>();
+        AtomicInteger counter = new AtomicInteger(0);
+        TestRepo.recursivelyApplyFunction(czlowiek -> {
+            people.add(czlowiek);
+            counter.incrementAndGet();
+        });
+
+        assertEquals(n, counter.get());
+        assertEquals(n, people.size());
     }
 
 }

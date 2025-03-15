@@ -35,7 +35,7 @@ public class TestRepoJsonLoader {
 
     public Set<Czlowiek> readJson() {
         try {
-            java.lang.reflect.Type type = new TypeToken<Set<Czlowiek>>() {
+            Type type = new TypeToken<Set<Czlowiek>>() {
             }.getType();
 
             // custom deserializer for nested (HashSet/TreeSet)<Czlowiek>
