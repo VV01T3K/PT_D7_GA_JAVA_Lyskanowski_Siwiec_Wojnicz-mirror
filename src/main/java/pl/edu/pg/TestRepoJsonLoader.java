@@ -18,15 +18,21 @@ import com.google.gson.reflect.TypeToken;
 
 public class TestRepoJsonLoader {
 
+    private final double version;
     private final String filePath;
 
-    TestRepoJsonLoader(String filePath) {
+    TestRepoJsonLoader(double version, String filePath) {
+        this.version = version;
         this.filePath = filePath;
     }
 
     public void saveJson(Set<Czlowiek> treeHeads) {
         try (Writer writer = new FileWriter(filePath)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder()
+                    .setVersion(version)
+                    .setPrettyPrinting()
+                    .create();
+
             gson.toJson(treeHeads, writer);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
@@ -38,23 +44,9 @@ public class TestRepoJsonLoader {
             Type type = new TypeToken<Set<Czlowiek>>() {
             }.getType();
 
-            // custom deserializer for nested (HashSet/TreeSet)<Czlowiek>
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(
-                            type,
-                            new JsonDeserializer<Set<Czlowiek>>() {
-                                @Override
-                                public Set<Czlowiek> deserialize(JsonElement json, Type type,
-                                        JsonDeserializationContext context)
-                                        throws JsonParseException {
-                                    Set<Czlowiek> result = CzlowiekContainerFactory.chooseSet();
-                                    JsonArray jsonArray = json.getAsJsonArray();
-                                    for (JsonElement element : jsonArray) {
-                                        result.add(context.deserialize(element, Czlowiek.class));
-                                    }
-                                    return result;
-                                }
-                            })
+                    .setVersion(version)
+                    .registerTypeAdapter(type, customDeserializer)
                     .create();
 
             return gson.fromJson(new FileReader(filePath), type);
@@ -64,4 +56,17 @@ public class TestRepoJsonLoader {
         }
     }
 
+    // custom deserializer for nested (HashSet/TreeSet)<Czlowiek>
+    private final JsonDeserializer<Set<Czlowiek>> customDeserializer = new JsonDeserializer<Set<Czlowiek>>() {
+        @Override
+        public Set<Czlowiek> deserialize(JsonElement json, Type type, JsonDeserializationContext context)
+                throws JsonParseException {
+            Set<Czlowiek> result = CzlowiekContainerFactory.chooseSet();
+            JsonArray jsonArray = json.getAsJsonArray();
+            for (JsonElement element : jsonArray) {
+                result.add(context.deserialize(element, Czlowiek.class));
+            }
+            return result;
+        }
+    };
 }

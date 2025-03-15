@@ -3,17 +3,27 @@ package pl.edu.pg;
 import java.util.Objects;
 import java.util.Set;
 
+import com.google.gson.annotations.Since;
+
 public class Czlowiek implements Comparable<Czlowiek> {
+
+  @Since(1.0)
   private final String imie;
+  @Since(1.0)
   private final String nazwisko;
+  @Since(1.0)
   private final int wiek;
+  @Since(1.0)
   private final Plec plec;
-
+  @Since(1.0)
   private final MartialStatus stanCywilny;
+  @Since(1.0)
   private final String wyksztalcenie;
+  @Since(1.0)
   private final String pozycjaZawodowa;
+  @Since(1.0)
   private final String numerTelefonu;
-
+  @Since(1.0)
   private Set<Czlowiek> podlegli;
 
   Czlowiek(String imie,

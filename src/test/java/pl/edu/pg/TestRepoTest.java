@@ -54,7 +54,7 @@ public class TestRepoTest {
         TestRepo.generateTestData(n);
         assertEquals(n, TestRepo.getAllPeopleStream().count());
 
-        TestRepo.setLoader(new TestRepoJsonLoader("src/test-people.json"));
+        TestRepo.setLoader(new TestRepoJsonLoader(1.0, "src/test-people.json"));
 
         TestRepo.saveJson();
 
@@ -74,7 +74,7 @@ public class TestRepoTest {
         TestRepo.generateTestData(n);
         assertEquals(n, TestRepo.getAllPeopleStream().count());
 
-        TestRepo.setLoader(new TestRepoJsonLoader("src/test-people.json"));
+        TestRepo.setLoader(new TestRepoJsonLoader(1.0, "src/test-people.json"));
 
         TestRepo.saveJson();
 

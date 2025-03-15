@@ -14,7 +14,7 @@ public class TestRepo {
     private static Set<Czlowiek> heads = CzlowiekContainerFactory.chooseSet();
 
     private static TestRepoGenerator generator = new TestRepoGenerator();
-    private static TestRepoJsonLoader loader = new TestRepoJsonLoader("src/people.json");
+    private static TestRepoJsonLoader loader = new TestRepoJsonLoader(1.0, "src/people.json");
 
     public static void setGenerator(TestRepoGenerator generator) {
         TestRepo.generator = generator;
@@ -145,15 +145,16 @@ public class TestRepo {
         CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
         generateTestData(20);
-        // saveJson();
-        // loadJson(13);
+        saveJson();
+        loadJson(13);
 
         printAll();
         // printRecursively();
 
         Set<String> names = new HashSet<>();
-        TestRepo.recursivelyApplyFunction(czlowiek -> {
-            names.add(czlowiek.getImie());
+        TestRepo.recursivelyApplyFunction(c -> {
+            names.add(c.getImie());
+            c.printAllDetails();
         });
         System.out.println("Unique names: " + names.size());
 
