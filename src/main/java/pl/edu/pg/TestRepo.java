@@ -18,18 +18,18 @@ import net.datafaker.Faker;
 
 public class TestRepo {
     // private static final int seed = new Random().nextInt();
-    private static final int liczbaElementow = 100;
+    private static final int liczbaElementow = 20;
     private static final int levels = 3;
     private static final int maxConnections = 5;
     private static final int seed = 1234;
     private static final Random rand = new Random(seed);
     private static final Faker faker = new Faker(Locale.of("pl"), rand);
 
+    private static Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
+
     public static Faker getFaker() {
         return faker;
     }
-
-    private static Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
 
     public static Set<Czlowiek> getHeads() {
         return heads;
@@ -61,7 +61,11 @@ public class TestRepo {
                 .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
     }
 
-    private static void connectPeople(Czlowiek czlowiek, ArrayList<Czlowiek> pool, int maxDepth, int maxConnections) {
+    private static void connectPeopleRecursively(
+            Czlowiek czlowiek, ArrayList<Czlowiek> pool,
+            int maxDepth,
+            int maxConnections) {
+
         if (maxDepth == 0)
             return;
         int podlegliCount = faker.number().numberBetween(1, maxConnections);
@@ -69,19 +73,19 @@ public class TestRepo {
             if (pool.isEmpty())
                 return;
             Czlowiek podlegly = pool.removeFirst();
-            connectPeople(podlegly, pool, maxDepth - 1, maxConnections);
+            connectPeopleRecursively(podlegly, pool, maxDepth - 1, maxConnections);
             czlowiek.dodajPodleglego(podlegly);
         }
     }
 
-    public static Set<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
+    private static Set<Czlowiek> generateCzlowiekList(int count, int levels, int maxConnections) {
         ArrayList<Czlowiek> pool = generateRandomCzlowiekList(count);
         Set<Czlowiek> heads = CzlowiekPodlegliFactory.chooseSet();
 
         while (!pool.isEmpty()) {
             Czlowiek head = pool.removeFirst();
             heads.add(head);
-            connectPeople(head, pool, levels - 1, maxConnections);
+            connectPeopleRecursively(head, pool, levels - 1, maxConnections);
         }
 
         return heads;
@@ -115,13 +119,61 @@ public class TestRepo {
         }
     }
 
+    private static void addRecursively(Czlowiek head, Set<Czlowiek> all) {
+        for (Czlowiek podlegly : head.getPodlegli()) {
+            all.add(podlegly);
+            addRecursively(podlegly, all);
+        }
+    }
+
+    public static Set<Czlowiek> getAll() {
+        Set<Czlowiek> all = CzlowiekPodlegliFactory.chooseSet();
+        for (Czlowiek head : heads) {
+            all.add(head);
+            addRecursively(head, all);
+        }
+        return all;
+    }
+
+    public static void printAll() {
+        for (Czlowiek czlowiek : getAll()) {
+            System.out.println("" +
+                    czlowiek.getImie() + " " +
+                    czlowiek.getNazwisko() + " " +
+                    czlowiek.getWiek() + " " +
+                    czlowiek.getPlec() + " " +
+                    "[" + czlowiek.getPodlegli().size() + "]");
+        }
+    }
+
+    private static void printRecursively(Czlowiek head, int depth) {
+        String prefix;
+        if (depth == 0)
+            prefix = "";
+        else
+            prefix = " ".repeat(depth * 4) + "⮡ ";
+        System.out.println(prefix +
+                head.getImie() + " " +
+                head.getNazwisko() + " " +
+                head.getWiek() + " " +
+                head.getPlec());
+        for (Czlowiek podlegly : head.getPodlegli()) {
+            printRecursively(podlegly, depth + 1);
+        }
+    }
+
+    public static void printRecursively() {
+        for (Czlowiek czlowiek : heads) {
+            printRecursively(czlowiek, 0);
+        }
+    }
+
     public static void main(String[] args) {
         generateTestData();
         saveJson();
         getHeads().clear();
         loadJson();
-        for (Czlowiek czlowiek : heads) {
-            czlowiek.wypiszRekurencjnie(0);
-        }
+        // printRecursively();
+        printAll();
     }
 }
