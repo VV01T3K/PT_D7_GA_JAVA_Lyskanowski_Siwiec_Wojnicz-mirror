@@ -17,7 +17,7 @@ public class Main {
           break;
         case "children":
           sortMode = SortModes.ORDERED;
-          comparator = new SortByNumberOfChildren();
+          comparator = new SortByNumberOfInferiors();
           break;
       }
     }

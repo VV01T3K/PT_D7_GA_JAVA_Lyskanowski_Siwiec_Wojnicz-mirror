@@ -6,6 +6,10 @@ public class CzlowiekContainerFactory {
   private static SortModes sortMode = SortModes.UNORDERED;
   private static Comparator<Czlowiek> comparator = Comparator.naturalOrder();
 
+  public static final SortModes getSortMode() {
+    return sortMode;
+  }
+
   public static void setSortMode(SortModes sortMode) {
     CzlowiekContainerFactory.sortMode = sortMode;
   }

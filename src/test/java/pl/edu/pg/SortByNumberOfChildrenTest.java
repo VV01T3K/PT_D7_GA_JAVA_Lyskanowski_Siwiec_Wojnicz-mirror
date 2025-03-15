@@ -13,7 +13,7 @@ public class SortByNumberOfChildrenTest {
 
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
 
-        SortByNumberOfChildren comparator = new SortByNumberOfChildren();
+        SortByNumberOfInferiors comparator = new SortByNumberOfInferiors();
 
         assertThrows(NullPointerException.class, () -> comparator.compare(null, null));
         assertThrows(NullPointerException.class, () -> comparator.compare(null, A));
@@ -26,14 +26,15 @@ public class SortByNumberOfChildrenTest {
 
         CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
         Czlowiek A = new Czlowiek("A", "A", 20, Plec.MEZCZYZNA);
-        Czlowiek B = new Czlowiek("B", "B", 21, Plec.MEZCZYZNA);
-        A.dodajPodleglego(B);
-        B.dodajPodleglego(A);
+        Czlowiek B = new Czlowiek("B", "B", 20, Plec.MEZCZYZNA);
+        Czlowiek C = new Czlowiek("C", "C", 20, Plec.MEZCZYZNA);
+        A.dodajPodleglego(C);
+        B.dodajPodleglego(C);
 
         assertEquals(1, A.getPodlegli().size());
         assertEquals(1, B.getPodlegli().size());
 
-        SortByNumberOfChildren comparator = new SortByNumberOfChildren();
+        SortByNumberOfInferiors comparator = new SortByNumberOfInferiors();
 
         assertEquals(-1, comparator.compare(A, B)); // o1 < o2
         assertEquals(0, comparator.compare(A, A)); // o1 == o2
@@ -56,7 +57,7 @@ public class SortByNumberOfChildrenTest {
         assertEquals(2, A.getPodlegli().size());
         assertEquals(1, B.getPodlegli().size());
 
-        SortByNumberOfChildren comparator = new SortByNumberOfChildren();
+        SortByNumberOfInferiors comparator = new SortByNumberOfInferiors();
 
         assertEquals(1, comparator.compare(A, B)); // o1 > o2
 
@@ -78,7 +79,7 @@ public class SortByNumberOfChildrenTest {
         assertEquals(1, B.getPodlegli().size());
         assertEquals(0, C.getPodlegli().size());
 
-        TreeSet<Czlowiek> set = new TreeSet<>(new SortByNumberOfChildren());
+        TreeSet<Czlowiek> set = new TreeSet<>(new SortByNumberOfInferiors());
         set.add(A);
         set.add(B);
         set.add(C);

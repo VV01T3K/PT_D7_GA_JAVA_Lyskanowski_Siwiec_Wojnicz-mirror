@@ -86,6 +86,20 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return podlegli;
   }
 
+  private int getPodlegliCountRecursive(Czlowiek person) {
+    int count = 0;
+    for (Czlowiek podlegly : person.getPodlegli()) {
+      count += getPodlegliCountRecursive(podlegly);
+    }
+    return count + person.getPodlegli().size();
+  }
+
+  public int getAllInferiorsCount() {
+    if (this.podlegli.isEmpty())
+      return 0;
+    return getPodlegliCountRecursive(this);
+  }
+
   public void dodajPodleglego(Czlowiek osoba) {
     podlegli.add(osoba);
   }
@@ -129,7 +143,9 @@ public class Czlowiek implements Comparable<Czlowiek> {
         ", nazwisko='" + nazwisko + '\'' +
         ", wiek=" + wiek +
         ", plec=" + plec +
-        ", Podlegli=[" + podlegli.size() + "]}";
+        ", podlegli=[" + podlegli.size() + ']' +
+        ", inferiors=['" + getAllInferiorsCount() + ']' +
+        '}';
   }
 
   @Override
@@ -164,7 +180,8 @@ public class Czlowiek implements Comparable<Czlowiek> {
         "\n    wyksztalcenie='" + wyksztalcenie + '\'' +
         "\n    pozycjaZawodowa='" + pozycjaZawodowa + '\'' +
         "\n    numerTelefonu='" + numerTelefonu + '\'' +
-        "\n    PodlegliCount=[" + podlegli.size() + ']' +
+        "\n    podlegliCount=[" + podlegli.size() + ']' +
+        "\n    inferiorsCount=['" + getAllInferiorsCount() + ']' +
         "\n}";
   }
 

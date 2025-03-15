@@ -53,8 +53,13 @@ public class TestRepo {
         if (heads.remove(czlowiek))
             return true;
         for (Czlowiek head : heads) {
-            if (removeRecursively(head, czlowiek))
+            if (removeRecursively(head, czlowiek)) {
+                if (CzlowiekContainerFactory.getSortMode() == SortModes.ORDERED) {
+                    heads = heads.stream()
+                            .collect(Collectors.toCollection(CzlowiekContainerFactory::chooseSet));
+                }
                 return true;
+            }
         }
         return false;
     }
@@ -103,7 +108,8 @@ public class TestRepo {
                     czlowiek.getNazwisko() + " " +
                     czlowiek.getWiek() + " " +
                     czlowiek.getPlec() + " " +
-                    "[" + czlowiek.getPodlegli().size() + "]");
+                    "[" + czlowiek.getPodlegli().size() + "]" + " " +
+                    "[" + czlowiek.getAllInferiorsCount() + "]");
         }
     }
 
@@ -116,15 +122,14 @@ public class TestRepo {
     public static void main(String[] args) {
 
         CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
-        CzlowiekContainerFactory.setComparator(new SortByAge());
+        CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
-        // generateTestData(10);
-        // saveJson();
-        // getHeads().clear();
-        loadJson(6);
+        generateTestData(20);
+        saveJson();
+        loadJson(13);
+
+        printAll();
         printRecursively();
-
-        // printAll();
         // printAll();
 
         // getAllPeople().forEach(System.out::println);
