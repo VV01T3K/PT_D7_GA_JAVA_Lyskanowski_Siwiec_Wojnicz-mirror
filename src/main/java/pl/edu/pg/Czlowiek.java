@@ -28,7 +28,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
     this.nazwisko = nazwisko;
     this.wiek = wiek;
     this.plec = plec;
-    this.podlegli = CzlowiekPodlegliFactory.chooseSet();
+    this.podlegli = CzlowiekContainerFactory.chooseSet();
     this.stanCywilny = stanCywilny;
     this.wyksztalcenie = wyksztalcenie;
     this.pozycjaZawodowa = pozycjaZawodowa;
@@ -43,7 +43,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
     this.nazwisko = nazwisko;
     this.wiek = wiek;
     this.plec = plec;
-    this.podlegli = CzlowiekPodlegliFactory.chooseSet();
+    this.podlegli = CzlowiekContainerFactory.chooseSet();
     this.stanCywilny = MartialStatus.NEVER_MARRIED;
     this.wyksztalcenie = "";
     this.pozycjaZawodowa = "";
@@ -129,8 +129,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
         ", nazwisko='" + nazwisko + '\'' +
         ", wiek=" + wiek +
         ", plec=" + plec +
-        ", Podlegli=" + podlegli +
-        '}';
+        ", Podlegli=[" + podlegli.size() + "]}";
   }
 
   @Override
@@ -139,23 +138,38 @@ public class Czlowiek implements Comparable<Czlowiek> {
         numerTelefonu);
   }
 
-  public void wypiszBezPodlegli() {
-    System.out.println("Czlowiek{" +
-        "imie='" + imie + '\'' +
-        ", nazwisko='" + nazwisko + '\'' +
-        ", wiek=" + wiek +
-        ", plec=" + plec +
-        '}');
+  public void printRecursively() {
+    printRecursively(this, 0);
   }
 
-  public void wypiszRekurencjnie(int spacje) {
-    System.out.printf("  ".repeat(spacje));
-    wypiszBezPodlegli();
-    if (podlegli.isEmpty()) {
-      return;
-    }
-    for (Czlowiek d : podlegli) {
-      d.wypiszRekurencjnie(spacje + 2);
+  private void printRecursively(Czlowiek head, int depth) {
+    String prefix;
+    if (depth == 0)
+      prefix = "";
+    else
+      prefix = " ".repeat(depth * 4) + "⮡ ";
+    System.out.println(prefix + head.toString());
+    for (Czlowiek podlegly : head.getPodlegli()) {
+      printRecursively(podlegly, depth + 1);
     }
   }
+
+  public String toStringAllDetails() {
+    return "Czlowiek {" +
+        "\n    imie='" + imie + '\'' +
+        "\n    nazwisko='" + nazwisko + '\'' +
+        "\n    wiek=" + wiek +
+        "\n    plec=" + plec +
+        "\n    stanCywilny='" + stanCywilny + '\'' +
+        "\n    wyksztalcenie='" + wyksztalcenie + '\'' +
+        "\n    pozycjaZawodowa='" + pozycjaZawodowa + '\'' +
+        "\n    numerTelefonu='" + numerTelefonu + '\'' +
+        "\n    PodlegliCount=[" + podlegli.size() + ']' +
+        "\n}";
+  }
+
+  public void printAllDetails() {
+    System.out.println(toStringAllDetails());
+  }
+
 }
