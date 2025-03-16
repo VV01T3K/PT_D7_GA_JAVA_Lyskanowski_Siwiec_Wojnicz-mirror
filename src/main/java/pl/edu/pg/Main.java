@@ -26,5 +26,9 @@ public class Main {
 
     TestRepo.loadJson();
     TestRepo.printRecursively();
+
+    System.out.println("Mapa ludzi i liczby podleglych:");
+    var podlegajacyMap = CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
+    System.out.println(podlegajacyMap);
   }
 }
