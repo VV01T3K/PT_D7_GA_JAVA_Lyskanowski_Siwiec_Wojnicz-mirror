@@ -1,9 +1,9 @@
 package pl.edu.pg;
 
+import com.google.gson.annotations.Since;
+
 import java.util.Objects;
 import java.util.Set;
-
-import com.google.gson.annotations.Since;
 
 public class Czlowiek implements Comparable<Czlowiek> {
 
@@ -27,13 +27,13 @@ public class Czlowiek implements Comparable<Czlowiek> {
   private Set<Czlowiek> podlegli;
 
   Czlowiek(String imie,
-      String nazwisko,
-      int wiek,
-      Plec plec,
-      MartialStatus stanCywilny,
-      String wyksztalcenie,
-      String pozycjaZawodowa,
-      String numerTelefonu) {
+           String nazwisko,
+           int wiek,
+           Plec plec,
+           MartialStatus stanCywilny,
+           String wyksztalcenie,
+           String pozycjaZawodowa,
+           String numerTelefonu) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
@@ -46,9 +46,9 @@ public class Czlowiek implements Comparable<Czlowiek> {
   }
 
   Czlowiek(String imie,
-      String nazwisko,
-      int wiek,
-      Plec plec) {
+           String nazwisko,
+           int wiek,
+           Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
@@ -64,50 +64,20 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return wiek;
   }
 
-  public String getImie() {
-    return imie;
-  }
-
-  public String getNazwisko() {
-    return nazwisko;
-  }
-
-  public Plec getPlec() {
-    return plec;
-  }
-
-  public MartialStatus getStanCywilny() {
-    return stanCywilny;
-  }
-
-  public String getWyksztalcenie() {
-    return wyksztalcenie;
-  }
-
-  public String getPozycjaZawodowa() {
-    return pozycjaZawodowa;
-  }
-
-  public String getNumerTelefonu() {
-    return numerTelefonu;
-  }
-
   public Set<Czlowiek> getPodlegli() {
     return podlegli;
   }
 
-  private int getPodlegliCountRecursive(Czlowiek person) {
+  private int getAllInferiorsCount(Czlowiek person) {
     int count = 0;
     for (Czlowiek podlegly : person.getPodlegli()) {
-      count += getPodlegliCountRecursive(podlegly);
+      count += getAllInferiorsCount(podlegly);
     }
     return count + person.getPodlegli().size();
   }
 
   public int getAllInferiorsCount() {
-    if (this.podlegli.isEmpty())
-      return 0;
-    return getPodlegliCountRecursive(this);
+    return getAllInferiorsCount(this);
   }
 
   public void dodajPodleglego(Czlowiek osoba) {
@@ -122,19 +92,18 @@ public class Czlowiek implements Comparable<Czlowiek> {
       return false;
     Czlowiek czlowiek = (Czlowiek) o;
     return wiek == czlowiek.wiek &&
-        Objects.equals(imie, czlowiek.imie) &&
-        Objects.equals(plec, czlowiek.plec) &&
-        Objects.equals(nazwisko, czlowiek.nazwisko) &&
-        Objects.equals(podlegli, czlowiek.podlegli) &&
-        Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
-        Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
-        Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
-        Objects.equals(numerTelefonu, czlowiek.numerTelefonu);
+            Objects.equals(imie, czlowiek.imie) &&
+            Objects.equals(plec, czlowiek.plec) &&
+            Objects.equals(nazwisko, czlowiek.nazwisko) &&
+            Objects.equals(podlegli, czlowiek.podlegli) &&
+            Objects.equals(stanCywilny, czlowiek.stanCywilny) &&
+            Objects.equals(wyksztalcenie, czlowiek.wyksztalcenie) &&
+            Objects.equals(pozycjaZawodowa, czlowiek.pozycjaZawodowa) &&
+            Objects.equals(numerTelefonu, czlowiek.numerTelefonu);
   }
 
   @Override
   public int compareTo(Czlowiek other) {
-    // tutaj coś pewnie trzeba zmienić
     if (this.imie.compareToIgnoreCase(other.imie) != 0)
       return this.imie.compareToIgnoreCase(other.imie);
     if (this.nazwisko.compareToIgnoreCase(other.nazwisko) != 0)
@@ -149,19 +118,19 @@ public class Czlowiek implements Comparable<Czlowiek> {
   @Override
   public String toString() {
     return "Czlowiek{" +
-        "imie='" + imie + '\'' +
-        ", nazwisko='" + nazwisko + '\'' +
-        ", wiek=" + wiek +
-        ", plec=" + plec +
-        ", podlegli=[" + podlegli.size() + ']' +
-        ", inferiors=['" + getAllInferiorsCount() + ']' +
-        '}';
+            "imie='" + imie + '\'' +
+            ", nazwisko='" + nazwisko + '\'' +
+            ", wiek=" + wiek +
+            ", plec=" + plec +
+            ", podlegli=[" + podlegli.size() + ']' +
+            ", podlegajacy=['" + getAllInferiorsCount() + ']' +
+            '}';
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(imie, nazwisko, wiek, plec, podlegli, stanCywilny, wyksztalcenie, pozycjaZawodowa,
-        numerTelefonu);
+            numerTelefonu);
   }
 
   public void printRecursively() {
@@ -178,25 +147,6 @@ public class Czlowiek implements Comparable<Czlowiek> {
     for (Czlowiek podlegly : head.getPodlegli()) {
       printRecursively(podlegly, depth + 1);
     }
-  }
-
-  public String toStringAllDetails() {
-    return "Czlowiek {" +
-        "\n    imie='" + imie + '\'' +
-        "\n    nazwisko='" + nazwisko + '\'' +
-        "\n    wiek=" + wiek +
-        "\n    plec=" + plec +
-        "\n    stanCywilny='" + stanCywilny + '\'' +
-        "\n    wyksztalcenie='" + wyksztalcenie + '\'' +
-        "\n    pozycjaZawodowa='" + pozycjaZawodowa + '\'' +
-        "\n    numerTelefonu='" + numerTelefonu + '\'' +
-        "\n    podlegliCount=[" + podlegli.size() + ']' +
-        "\n    inferiorsCount=['" + getAllInferiorsCount() + ']' +
-        "\n}";
-  }
-
-  public void printAllDetails() {
-    System.out.println(toStringAllDetails());
   }
 
 }
