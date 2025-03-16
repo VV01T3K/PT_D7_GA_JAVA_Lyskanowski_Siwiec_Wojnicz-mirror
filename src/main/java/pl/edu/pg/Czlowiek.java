@@ -115,6 +115,10 @@ public class Czlowiek implements Comparable<Czlowiek> {
     return this.plec.compareTo(other.plec);
   }
 
+  public String toShortString() {
+    return "%s %s (%d lat)".formatted(imie, nazwisko, wiek);
+  }
+
   @Override
   public String toString() {
     return "Czlowiek{" +
