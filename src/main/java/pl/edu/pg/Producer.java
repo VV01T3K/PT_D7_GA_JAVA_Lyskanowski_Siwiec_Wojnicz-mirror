@@ -20,7 +20,8 @@ public class Producer implements Runnable {
     public void run() {
         System.out.println(Thread.currentThread().getName() + ", executing run() method!");
         loadQueryPool();
-        queries.forEach(System.out::println);
+        // queries.forEach(System.out::println);
+        System.out.println("Loaded " + Producer.getQueryPool().size() + " queries");
     }
 
     public void loadQueryPool() {

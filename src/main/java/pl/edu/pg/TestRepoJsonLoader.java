@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -56,8 +57,9 @@ public class TestRepoJsonLoader {
                     .setVersion(version)
                     .setPrettyPrinting()
                     .create();
-
-            gson.toJson(head, writer);
+            Set<Czlowiek> tmp = new HashSet<>();
+            tmp.add(head);
+            gson.toJson(tmp, writer);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -86,6 +88,24 @@ public class TestRepoJsonLoader {
                     .create();
 
             return gson.fromJson(new FileReader(dirPath + filePath), type);
+        } catch (Exception e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Czlowiek readJson(String filePath) {
+        try {
+            Type type = new TypeToken<Set<Czlowiek>>() {
+            }.getType();
+
+            Gson gson = new GsonBuilder()
+                    .setVersion(version)
+                    .registerTypeAdapter(type, customDeserializer)
+                    .create();
+
+            Set<Czlowiek> tmp = gson.fromJson(new FileReader(dirPath + filePath), type);
+            return tmp.iterator().next();
         } catch (Exception e) {
             System.err.println("Error reading from file: " + e.getMessage());
             return null;

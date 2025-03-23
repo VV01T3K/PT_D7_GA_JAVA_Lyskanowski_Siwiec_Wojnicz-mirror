@@ -12,21 +12,27 @@ public class Worker implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + ", executing run() method!");
+        // System.out.println(Thread.currentThread().getName() + ", executing run()
+        // method!");
+        var loader = new TestRepoJsonLoader(1.0, "", "");
         while (true) {
             Query query = Producer.getQueryPool().poll();
             if (query == null) {
-                System.out.println("No more queries to execute, exiting...");
+                // System.out.println("No more queries to execute, exiting...");
                 break;
             }
+
+            Czlowiek person = loader.readJson(query.pathFrom);
+            System.out.println(person.toShortString());
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Executing query: " + query);
+            // System.out.println("Executing query: " + query);
             counter.incrementAndGet();
-            System.out.println("Query executed successfully!");
+            // System.out.println("Query executed successfully!");
         }
     }
 

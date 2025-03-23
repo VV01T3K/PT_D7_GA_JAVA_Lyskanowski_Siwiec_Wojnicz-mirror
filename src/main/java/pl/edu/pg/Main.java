@@ -44,7 +44,7 @@ public class Main {
     System.out.println("Starting thread pool execution...");
     long startTime = System.currentTimeMillis();
 
-    int poolSize = 69;
+    int poolSize = 20;
     ExecutorService executor = Executors.newFixedThreadPool(poolSize);
 
     AtomicInteger counter = new AtomicInteger(0);
