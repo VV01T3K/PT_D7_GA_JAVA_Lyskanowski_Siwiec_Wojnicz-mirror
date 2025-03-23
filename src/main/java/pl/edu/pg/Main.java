@@ -35,16 +35,16 @@ public class Main {
     var podlegajacyMap = CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
     System.out.println(podlegajacyMap);
 
-    // Producer producer = new Producer();
-    // Thread producerThread = new Thread(producer);
-    // producerThread.start();
-    new Producer().run();
+    Producer producer = new Producer();
+    Thread producerThread = new Thread(producer);
+    producerThread.start();
+
     System.out.println(Producer.getQueryPool().size() + " queries in the pool.");
 
     System.out.println("Starting thread pool execution...");
     long startTime = System.currentTimeMillis();
 
-    int poolSize = 20;
+    int poolSize = 15;
     ExecutorService executor = Executors.newFixedThreadPool(poolSize);
 
     AtomicInteger counter = new AtomicInteger(0);

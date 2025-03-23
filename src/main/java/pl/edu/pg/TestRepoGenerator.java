@@ -25,18 +25,17 @@ public class TestRepoGenerator {
     return new Czlowiek(imie, nazwisko, wiek, plec, stanCywilny, wyksztalcenie, pozycjaZawodowa, numerTelefonu);
   }
 
-
   public ArrayList<Czlowiek> generateRandomCzlowiekList(int count) {
     return Stream.generate(
-                    this::generateCzlowiek)
-            .limit(count)
-            .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
+        this::generateCzlowiek)
+        .limit(count)
+        .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
   }
 
   private void connectPeopleRecursively(
-          Czlowiek czlowiek, ArrayList<Czlowiek> pool,
-          int maxDepth,
-          int maxConnections) {
+      Czlowiek czlowiek, ArrayList<Czlowiek> pool,
+      int maxDepth,
+      int maxConnections) {
 
     if (maxDepth == 0)
       return;
@@ -57,7 +56,7 @@ public class TestRepoGenerator {
     while (!pool.isEmpty()) {
       Czlowiek head = pool.removeFirst();
       heads.add(head);
-      int levels = 3;
+      int levels = 5;
       int maxConnections = 5;
       connectPeopleRecursively(head, pool, levels - 1, maxConnections);
     }

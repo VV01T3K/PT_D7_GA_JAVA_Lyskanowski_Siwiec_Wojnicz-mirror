@@ -28,7 +28,7 @@ public class TestRepo {
   }
 
   public static void saveJsonAsSeparateFiles() {
-    loader.saveJson(getAllPeopleStream());
+    loader.saveJson(heads.stream());
   }
 
   public static void loadJson() {
@@ -76,7 +76,7 @@ public class TestRepo {
     CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
-    generateTestData(100);
+    generateTestData(10000);
     printRecursively();
 
     saveJson();
