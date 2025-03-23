@@ -1,8 +1,9 @@
 package pl.edu.pg;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class SortByNumberOfInferiors implements Comparator<Czlowiek> {
+public class SortByNumberOfInferiors implements Comparator<Czlowiek>, Serializable {
     @Override
     public int compare(Czlowiek o1, Czlowiek o2) {
         if (o1 == null || o2 == null)

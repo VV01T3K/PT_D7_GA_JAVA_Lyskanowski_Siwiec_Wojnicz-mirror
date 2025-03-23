@@ -44,7 +44,7 @@ public class TestRepoGenerator {
     for (int i = 0; i < podlegliCount; i++) {
       if (pool.isEmpty())
         return;
-      Czlowiek podlegly = pool.removeFirst();
+      Czlowiek podlegly = pool.removeLast();
       connectPeopleRecursively(podlegly, pool, maxDepth - 1, maxConnections);
       czlowiek.dodajPodleglego(podlegly);
     }
@@ -55,7 +55,7 @@ public class TestRepoGenerator {
     Set<Czlowiek> heads = CzlowiekContainerFactory.chooseSet();
 
     while (!pool.isEmpty()) {
-      Czlowiek head = pool.removeFirst();
+      Czlowiek head = pool.removeLast();
       heads.add(head);
       int levels = 3;
       int maxConnections = 5;

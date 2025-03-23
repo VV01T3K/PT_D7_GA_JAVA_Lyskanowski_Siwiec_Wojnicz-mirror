@@ -2,10 +2,11 @@ package pl.edu.pg;
 
 import com.google.gson.annotations.Since;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class Czlowiek implements Comparable<Czlowiek> {
+public class Czlowiek implements Comparable<Czlowiek>,Serializable {
 
   @Since(1.0)
   private final String imie;
