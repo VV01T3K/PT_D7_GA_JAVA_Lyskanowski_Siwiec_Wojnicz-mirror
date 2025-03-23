@@ -81,5 +81,11 @@ public class TestRepo {
 
     saveJson();
     saveJsonAsSeparateFiles();
+
+    Producer.generateQueryPool();
+
+    Producer producer = new Producer();
+    Thread thread = new Thread(producer);
+    thread.start();
   }
 }
