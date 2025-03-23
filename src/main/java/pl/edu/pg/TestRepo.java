@@ -76,7 +76,7 @@ public class TestRepo {
     CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
-    generateTestData(20);
+    generateTestData(100);
     printRecursively();
 
     saveJson();
