@@ -63,20 +63,9 @@ public class Main {
     // Shut down the thread pool
     executor.shutdown();
 
-    while (Producer.getQueryPool().size() > 0) {
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-
     try {
-      // Wait for all tasks to complete or timeout after a certain period
-      if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-        System.err.println("Some tasks did not complete within the timeout.");
-        executor.shutdownNow(); // Forcefully shutdown
-      }
+      // Wait indefinitely for all tasks to complete
+      executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
     } catch (InterruptedException e) {
       executor.shutdownNow();
       Thread.currentThread().interrupt();
