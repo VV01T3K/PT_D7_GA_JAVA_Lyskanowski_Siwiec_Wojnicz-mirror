@@ -8,7 +8,7 @@ public class TestRepo {
 
   private static final TestRepoGenerator generator = new TestRepoGenerator();
   private static Set<Czlowiek> heads = CzlowiekContainerFactory.chooseSet();
-  private static TestRepoJsonLoader loader = new TestRepoJsonLoader(1.0, "src/people.json");
+  private static TestRepoJsonLoader loader = new TestRepoJsonLoader(1.0, "Data/", "people.json");
 
   public static void setLoader(TestRepoJsonLoader loader) {
     TestRepo.loader = loader;
@@ -27,10 +27,13 @@ public class TestRepo {
     loader.saveJson(heads);
   }
 
+  public static void saveJsonAsSeparateFiles() {
+    loader.saveJson(heads.stream());
+  }
+
   public static void loadJson() {
     heads = loader.readJson();
   }
-
 
   public static void generateTestData(int n) {
     heads = generator.generateTestData(n);
@@ -73,7 +76,20 @@ public class TestRepo {
     CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
-    generateTestData(20);
+    long startTime = System.currentTimeMillis();
+    generateTestData(500_0);
+    // printRecursively();
+
     saveJson();
+
+    saveJsonAsSeparateFiles();
+
+    Producer.generateQueryPool();
+
+    long endTime = System.currentTimeMillis();
+    System.out.println("Time taken to save JSON as separate files: " + (endTime - startTime) + " ms");
+    Producer producer = new Producer();
+    Thread thread = new Thread(producer);
+    thread.start();
   }
 }
