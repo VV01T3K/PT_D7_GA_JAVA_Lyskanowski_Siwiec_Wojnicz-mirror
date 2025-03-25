@@ -77,19 +77,25 @@ public class TestRepo {
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
     long startTime = System.currentTimeMillis();
-    generateTestData(500_0);
+    generateTestData(500_000);
     // printRecursively();
 
     saveJson();
 
-    saveJsonAsSeparateFiles();
+    // saveJsonAsSeparateFiles();
 
     Producer.generateQueryPool();
 
-    long endTime = System.currentTimeMillis();
-    System.out.println("Time taken to save JSON as separate files: " + (endTime - startTime) + " ms");
     Producer producer = new Producer();
     Thread thread = new Thread(producer);
     thread.start();
+    try {
+      thread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    long endTime = System.currentTimeMillis();
+    System.out.println("Time taken to generate and save data: " + (endTime - startTime) + "ms");
   }
 }

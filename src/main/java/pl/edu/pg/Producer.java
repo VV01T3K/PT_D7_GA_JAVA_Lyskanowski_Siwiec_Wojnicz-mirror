@@ -1,24 +1,20 @@
 package pl.edu.pg;
 
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 import java.nio.file.Paths;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import pl.edu.pg.buffer.InputQueue;
+
 import pl.edu.pg.queries.ConsumerQuery;
 
 public class Producer implements Runnable {
 
-    public final static BlockingQueue<ConsumerQuery> queries = new LinkedBlockingQueue<>();
-
-    public static BlockingQueue<ConsumerQuery> getQueryPool() {
-        return queries;
-    }
+    static final InputQueue inputQueue = InputQueue.getInstance();
 
     @Override
     public void run() {
@@ -30,11 +26,7 @@ public class Producer implements Runnable {
         try {
             Files.readAllLines(Paths.get("Data/queries.txt"))
                     .forEach(line -> {
-                        try {
-                            queries.put(ConsumerQuery.fromString(line));
-                        } catch (Exception e) {
-                            System.err.println("Error loading query: " + e.getMessage());
-                        }
+                        inputQueue.write(ConsumerQuery.fromString(line));
                     });
             System.out.println("Query pool loaded successfully from Data/queries.txt");
         } catch (Exception e) {
@@ -91,17 +83,28 @@ public class Producer implements Runnable {
     public static void createQuery(Path path, ConsumerQuery.QueryType type, List<ConsumerQuery> newQueries) {
         try {
             File file = path.toFile();
-            String outPath = Paths.get("Data/encrypted/" + file.getName()).toString();
+
+            String inPath = file.getPath();
+            String outPath;
+            String key;
+
             if (type == ConsumerQuery.QueryType.ENCRYPT) {
-                outPath = outPath.replaceFirst(".json", ".enc");
+                if (!file.getName().contains(".json")) {
+                    System.err.println("File is not a JSON file: " + file.getName() + " - skipping");
+                    return;
+                }
+                outPath = "Data/out/encrypted/" + file.getName().replaceFirst(".json", ".enc");
+                key = "kluczfd169112f";
+            } else {
+                if (!file.getName().contains(".enc")) {
+                    System.err.println("File is not an encrypted file: " + file.getName() + " - skipping");
+                    return;
+                }
+                outPath = "Data/out/decrypted/" + file.getName().replaceFirst(".enc", ".json");
+                key = "kluczfd169112f";
             }
-            if (type == ConsumerQuery.QueryType.DECRYPT) {
-                outPath = outPath.replace(".enc", ".json");
-                System.out.println("Decrypting: " + file.getName());
-                System.out.println("Out: " + outPath);
-            }
-            String[] arguments = { file.getPath(), outPath,
-                    "kluczfd169112f" };
+
+            String[] arguments = { inPath, outPath, key };
             newQueries.add(new ConsumerQuery(type, arguments));
         } catch (Exception e) {
             System.err.println("Error creating decrypt query: " + e.getMessage());
