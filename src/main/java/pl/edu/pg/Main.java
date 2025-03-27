@@ -30,5 +30,13 @@ public class Main {
     System.out.println("Mapa ludzi i liczby podleglych:");
     var podlegajacyMap = CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
     System.out.println(podlegajacyMap);
+
+    Consumer consumer = new Consumer(); //test consumer
+    consumer.readQueriesFromFile("Data/queries.txt");
+    try {
+      consumer.processQueries();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 }

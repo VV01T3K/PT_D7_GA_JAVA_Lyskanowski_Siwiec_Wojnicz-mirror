@@ -14,9 +14,17 @@ public class ConsumerQuery {
         this.arguments = arguments;
     }
 
+    public QueryType getQueryType() {
+        return queryType;
+    }
+    public String[] getArguments() {
+        return arguments;
+    }
+
     @Override
     public String toString() {
-        return queryType + " " + arguments[0] + " " + arguments[1] + " " + arguments[2];
+        return queryType + " " + arguments[0] + " " + arguments[1] + " " + arguments[2]
+                + " " + arguments[3];
     }
 
     public static ConsumerQuery fromString(String query) {

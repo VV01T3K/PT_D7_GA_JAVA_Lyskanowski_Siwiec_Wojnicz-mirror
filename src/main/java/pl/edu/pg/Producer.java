@@ -75,7 +75,6 @@ public class Producer implements Runnable {
         } catch (Exception e) {
             System.err.println("Error creating query pool: " + e.getMessage());
         }
-
         Collections.shuffle(newQueries);
         saveQueryPool(newQueries);
     }
@@ -86,7 +85,8 @@ public class Producer implements Runnable {
 
             String inPath = file.getPath();
             String outPath;
-            String key;
+            String iv="";
+            String key="";
 
             if (type == ConsumerQuery.QueryType.ENCRYPT) {
                 if (!file.getName().contains(".json")) {
@@ -94,17 +94,17 @@ public class Producer implements Runnable {
                     return;
                 }
                 outPath = "Data/out/encrypted/" + file.getName().replaceFirst(".json", ".enc");
-                key = "kluczfd169112f";
+                key = AESUtil.generateKey();
+                iv = AESUtil.generateIV();
             } else {
                 if (!file.getName().contains(".enc")) {
                     System.err.println("File is not an encrypted file: " + file.getName() + " - skipping");
                     return;
                 }
                 outPath = "Data/out/decrypted/" + file.getName().replaceFirst(".enc", ".json");
-                key = "kluczfd169112f";
+                //key and iv HAVE TO be same as in encryption
             }
-
-            String[] arguments = { inPath, outPath, key };
+            String[] arguments = { inPath, outPath, key, iv};
             newQueries.add(new ConsumerQuery(type, arguments));
         } catch (Exception e) {
             System.err.println("Error creating decrypt query: " + e.getMessage());

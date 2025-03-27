@@ -1,6 +1,7 @@
 package pl.edu.pg;
 
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -77,7 +78,7 @@ public class TestRepo {
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
     long startTime = System.currentTimeMillis();
-    generateTestData(500_000);
+    generateTestData(50);
     // printRecursively();
 
     saveJson();
