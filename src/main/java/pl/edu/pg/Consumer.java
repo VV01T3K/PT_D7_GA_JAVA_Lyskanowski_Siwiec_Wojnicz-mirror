@@ -2,7 +2,6 @@ package pl.edu.pg;
 
 import pl.edu.pg.queries.ConsumerQuery;
 
-import java.beans.ParameterDescriptor;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,18 +23,19 @@ public class Consumer {
             System.err.println("Error reading queries from file: " + e.getMessage());
         }
     }
+
     public void processQueries() throws Exception {
         for (ConsumerQuery query : queries) {
             ConsumerQuery.QueryType queryType = query.getQueryType();
             String[] arguments = query.getArguments();
-            if(queryType == ConsumerQuery.QueryType.ENCRYPT) {
+            if (queryType == ConsumerQuery.QueryType.ENCRYPT) {
                 AESUtil.encryptObject(arguments);
-            }
-            else if(queryType == ConsumerQuery.QueryType.DECRYPT) {
+            } else if (queryType == ConsumerQuery.QueryType.DECRYPT) {
                 AESUtil.decryptObject(arguments);
             }
         }
     }
+
     public void printQueries() {
         for (ConsumerQuery query : queries) {
             System.out.println(query);

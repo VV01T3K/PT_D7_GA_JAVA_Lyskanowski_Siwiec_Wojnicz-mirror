@@ -85,8 +85,8 @@ public class Producer implements Runnable {
 
             String inPath = file.getPath();
             String outPath;
-            String iv="";
-            String key="";
+            String iv = "";
+            String key = "";
 
             if (type == ConsumerQuery.QueryType.ENCRYPT) {
                 if (!file.getName().contains(".json")) {
@@ -102,9 +102,9 @@ public class Producer implements Runnable {
                     return;
                 }
                 outPath = "Data/out/decrypted/" + file.getName().replaceFirst(".enc", ".json");
-                //key and iv HAVE TO be same as in encryption
+                // key and iv HAVE TO be same as in encryption
             }
-            String[] arguments = { inPath, outPath, key, iv};
+            String[] arguments = { inPath, outPath, key, iv };
             newQueries.add(new ConsumerQuery(type, arguments));
         } catch (Exception e) {
             System.err.println("Error creating decrypt query: " + e.getMessage());

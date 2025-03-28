@@ -14,6 +14,7 @@ public class AESUtil {
     private static final int IV_SIZE = 12;
     private static final int TAG_SIZE = 128;
     private static final int BYTE_AMOUNT = 8192;
+
     public static String generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
         keyGen.init(KEY_SIZE);
@@ -37,8 +38,8 @@ public class AESUtil {
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, key, iv);
         try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(inPath));
-             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
-             CipherOutputStream cos = new CipherOutputStream(bos, cipher)) {
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
+                CipherOutputStream cos = new CipherOutputStream(bos, cipher)) {
             byte[] buffer = new byte[BYTE_AMOUNT];
             int bytesRead;
             while ((bytesRead = bis.read(buffer)) != -1) {
@@ -57,8 +58,8 @@ public class AESUtil {
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
         try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(inPath));
-             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
-             CipherInputStream cis = new CipherInputStream(bis, cipher)) {
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
+                CipherInputStream cis = new CipherInputStream(bis, cipher)) {
             byte[] buffer = new byte[BYTE_AMOUNT];
             int bytesRead;
             while ((bytesRead = cis.read(buffer)) != -1) {

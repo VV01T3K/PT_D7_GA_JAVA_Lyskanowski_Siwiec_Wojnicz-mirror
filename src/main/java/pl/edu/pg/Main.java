@@ -31,7 +31,7 @@ public class Main {
     var podlegajacyMap = CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
     System.out.println(podlegajacyMap);
 
-    Consumer consumer = new Consumer(); //test consumer
+    Consumer consumer = new Consumer(); // test consumer
     consumer.readQueriesFromFile("Data/queries.txt");
     try {
       consumer.processQueries();

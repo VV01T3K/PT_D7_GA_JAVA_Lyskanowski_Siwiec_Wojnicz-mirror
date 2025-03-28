@@ -1,7 +1,6 @@
 package pl.edu.pg;
 
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -83,7 +82,7 @@ public class TestRepo {
 
     saveJson();
 
-    // saveJsonAsSeparateFiles();
+    saveJsonAsSeparateFiles();
 
     Producer.generateQueryPool();
 
