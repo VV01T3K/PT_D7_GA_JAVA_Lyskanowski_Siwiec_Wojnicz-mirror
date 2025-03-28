@@ -146,7 +146,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
     if (depth == 0)
       prefix = "";
     else
-      prefix = " ".repeat(depth * 4) + "⮡ ";
+      prefix = " ".repeat(depth * 4) + "└─";
     System.out.println(prefix + head.toString());
     for (Czlowiek podlegly : head.getPodlegli()) {
       printRecursively(podlegly, depth + 1);
