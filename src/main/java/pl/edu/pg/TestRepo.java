@@ -78,7 +78,7 @@ public class TestRepo {
 
     long startTime = System.currentTimeMillis();
     generateTestData(1_000_000);
-    printRecursively();
+    // printRecursively();
 
     // saveJson();
 
