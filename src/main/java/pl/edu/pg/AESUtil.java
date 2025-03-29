@@ -13,7 +13,7 @@ public class AESUtil {
     private static final int KEY_SIZE = 256;
     private static final int IV_SIZE = 12;
     private static final int TAG_SIZE = 128;
-    private static final int BYTE_AMOUNT = 4; // specjalnie takie małe, żeby wydłużyć czas mielenia
+    private static final int BYTE_AMOUNT = 1; // specjalnie takie małe, żeby wydłużyć czas mielenia
 
     public static String generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
