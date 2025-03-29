@@ -1,36 +1,64 @@
 package pl.edu.pg;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import pl.edu.pg.workers.Producer;
+import pl.edu.pg.workers.QueryWorker;
+import pl.edu.pg.workers.ResultConsumer;
+
 import java.util.Comparator;
+import java.util.concurrent.Executors;
+
 
 public class Main {
+  @Parameter(names = {"--order", "-o"}, description = "Set ordering mode", required = false)
+  Order order = Order.NATURAL;
+
+  @Parameter(names = {"--threads", "-t"}, description = "Set number of threads for workers (default: 2)", required = false)
+  int threads = 2;
+
   public static void main(String[] args) {
+    Main main = new Main();
+    JCommander.newBuilder()
+            .addObject(main)
+            .build()
+            .parse(args);
+    main.setOrdering();
+    main.run();
+  }
+
+  private void setOrdering() {
     SortModes sortMode = SortModes.UNORDERED; // domyslnie
     Comparator<Czlowiek> comparator = Comparator.naturalOrder();
-    if (args.length == 1) {
-      switch (args[0]) {
-        case "natural":
-          sortMode = SortModes.ORDERED;
-          break;
-        case "age":
-          sortMode = SortModes.ORDERED;
-          comparator = new SortByAge();
-          break;
-        case "children":
-          sortMode = SortModes.ORDERED;
-          comparator = new SortByNumberOfInferiors();
-          break;
-      }
+    switch (order) {
+      case NATURAL:
+        sortMode = SortModes.ORDERED;
+        break;
+      case AGE:
+        sortMode = SortModes.ORDERED;
+        comparator = new SortByAge();
+        break;
+      case CHILDREN:
+        sortMode = SortModes.ORDERED;
+        comparator = new SortByNumberOfInferiors();
+        break;
     }
     CzlowiekContainerFactory.setSortMode(sortMode);
     CzlowiekContainerFactory.setComparator(comparator);
+  }
 
-    // // Prawdopodonie już niepotrzebne
-    // TestRepo.loadJson();
-    // TestRepo.printRecursively();
+  private void run() {
+    try (var workerPool = Executors.newFixedThreadPool(threads);
+         var outputPool = Executors.newSingleThreadExecutor()) {
+      for (int i = 0; i < threads; i++) {
+        workerPool.submit(new QueryWorker());
+      }
+      outputPool.submit(new ResultConsumer());
+      new Producer().run();
+    }
+  }
 
-    // System.out.println("Mapa ludzi i liczby podleglych:");
-    // var podlegajacyMap =
-    // CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
-    // System.out.println(podlegajacyMap);
+  enum Order {
+    NATURAL, AGE, CHILDREN
   }
 }
