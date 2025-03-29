@@ -13,7 +13,7 @@ public class AESUtil {
     private static final int KEY_SIZE = 256;
     private static final int IV_SIZE = 12;
     private static final int TAG_SIZE = 128;
-    private static final int BYTE_AMOUNT = 8192;
+    private static final int BYTE_AMOUNT = 4; // specjalnie takie małe, żeby wydłużyć czas mielenia
 
     public static String generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
@@ -29,6 +29,15 @@ public class AESUtil {
     }
 
     public static void encryptObject(String[] arguments) throws Exception {
+        encryptObject(arguments, BYTE_AMOUNT);
+    }
+
+    public static void quickEncryptObject(String[] arguments) throws Exception {
+        final int byteAmount = 8192;
+        encryptObject(arguments, byteAmount);
+    }
+
+    private static void encryptObject(String[] arguments, int byteAmount) throws Exception {
         String inPath = arguments[0];
         String outPath = arguments[1];
         SecretKeySpec key = new SecretKeySpec(Base64.getDecoder().decode(arguments[2]), "AES");
@@ -40,7 +49,7 @@ public class AESUtil {
         try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(inPath));
                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
                 CipherOutputStream cos = new CipherOutputStream(bos, cipher)) {
-            byte[] buffer = new byte[BYTE_AMOUNT];
+            byte[] buffer = new byte[byteAmount];
             int bytesRead;
             while ((bytesRead = bis.read(buffer)) != -1) {
                 cos.write(buffer, 0, bytesRead);

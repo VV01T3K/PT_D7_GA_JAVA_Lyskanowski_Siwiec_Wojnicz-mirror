@@ -50,7 +50,7 @@ public class Producer implements Runnable {
 
     public static void generateQueryPool() {
         try {
-            Files.createDirectories(Paths.get("Data/encrypted"));
+            Files.createDirectories(Paths.get("Data/in/encrypted"));
             Files.createDirectories(Paths.get("Data/out/encrypted"));
             Files.createDirectories(Paths.get("Data/out/decrypted"));
         } catch (Exception e) {
@@ -59,34 +59,74 @@ public class Producer implements Runnable {
 
         List<ConsumerQuery> newQueries = Collections.synchronizedList(new ArrayList<>());
         try {
-            Files.walk(Paths.get("Data/separated"))
+            Files.walk(Paths.get("Data/in/separated"))
                     .parallel()
                     .filter(Files::isRegularFile)
                     .forEach(path -> {
                         createQuery(path, ConsumerQuery.QueryType.ENCRYPT, newQueries);
+                        String[] encryptedFileArguments = prepareEncryptedFile(path);
+                        if (encryptedFileArguments != null) {
+                            createQuery(
+                                    Paths.get(encryptedFileArguments[0]),
+                                    ConsumerQuery.QueryType.DECRYPT,
+                                    newQueries,
+                                    encryptedFileArguments[1],
+                                    encryptedFileArguments[2]);
+                        }
                     });
+        } catch (
 
-            Files.walk(Paths.get("Data/encrypted"))
-                    .parallel()
-                    .filter(Files::isRegularFile)
-                    .forEach(path -> {
-                        createQuery(path, ConsumerQuery.QueryType.DECRYPT, newQueries);
-                    });
-        } catch (Exception e) {
+        Exception e) {
             System.err.println("Error creating query pool: " + e.getMessage());
         }
         Collections.shuffle(newQueries);
+
         saveQueryPool(newQueries);
     }
 
+    private static String[] prepareEncryptedFile(Path path) {
+        try {
+            String key = AESUtil.generateKey();
+            String iv = AESUtil.generateIV();
+
+            String encryptedPath = "Data/in/encrypted/"
+                    + path.getFileName()
+                            .toString()
+                            .replaceFirst(".json", ".enc");
+
+            AESUtil.quickEncryptObject(new String[] {
+                    path.toFile().toString(),
+                    encryptedPath,
+                    key,
+                    iv,
+            });
+
+            return new String[] {
+                    encryptedPath,
+                    key,
+                    iv,
+            };
+        } catch (Exception e) {
+            System.err.println("Error encrypting file: " + e.getMessage());
+            return null;
+        }
+    }
+
     public static void createQuery(Path path, ConsumerQuery.QueryType type, List<ConsumerQuery> newQueries) {
+        createQuery(path, type, newQueries, "", "");
+    }
+
+    public static void createQuery(
+            Path path,
+            ConsumerQuery.QueryType type,
+            List<ConsumerQuery> newQueries,
+            String key,
+            String iv) {
         try {
             File file = path.toFile();
 
             String inPath = file.getPath();
             String outPath;
-            String iv = "";
-            String key = "";
 
             if (type == ConsumerQuery.QueryType.ENCRYPT) {
                 if (!file.getName().contains(".json")) {
@@ -102,7 +142,6 @@ public class Producer implements Runnable {
                     return;
                 }
                 outPath = "Data/out/decrypted/" + file.getName().replaceFirst(".enc", ".json");
-                // key and iv HAVE TO be same as in encryption
             }
             String[] arguments = { inPath, outPath, key, iv };
             newQueries.add(new ConsumerQuery(type, arguments));

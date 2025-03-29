@@ -58,7 +58,7 @@ public class TestRepoGenerator {
       Czlowiek head = pool.removeLast();
       heads.add(head);
       int levels = 5;
-      int maxConnections = 10;
+      int maxConnections = 20;
       connectPeopleRecursively(head, pool, levels - 1, maxConnections);
     }
 

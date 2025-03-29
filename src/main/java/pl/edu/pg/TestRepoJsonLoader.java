@@ -32,7 +32,7 @@ public class TestRepoJsonLoader {
         this.filePath = filePath;
         try {
             Files.createDirectories(Paths.get(dirPath));
-            Files.createDirectories(Paths.get(dirPath + "separated"));
+            Files.createDirectories(Paths.get(dirPath + "in/separated"));
         } catch (Exception e) {
             System.err.println("Error creating directories: " + e.getMessage());
         }
@@ -63,7 +63,7 @@ public class TestRepoJsonLoader {
 
     public void saveJson(Stream<Czlowiek> people) {
         try {
-            Files.walk(Paths.get(dirPath + "separated"))
+            Files.walk(Paths.get(dirPath + "in/separated"))
                     .filter(Files::isRegularFile)
                     .map(java.nio.file.Path::toFile)
                     .forEach(java.io.File::delete);
@@ -74,7 +74,7 @@ public class TestRepoJsonLoader {
                 .setVersion(version)
                 .setPrettyPrinting()
                 .create();
-        people.parallel().forEach(person -> saveJson(person, gson, "separated/" + person.hashCode() + ".json"));
+        people.parallel().forEach(person -> saveJson(person, gson, "in/separated/" + person.hashCode() + ".json"));
     }
 
     public Set<Czlowiek> readJson() {
