@@ -59,6 +59,11 @@ public class Producer implements Runnable {
 
         List<ConsumerQuery> newQueries = Collections.synchronizedList(new ArrayList<>());
         try {
+            Files.walk(Paths.get("Data/in/encrypted"))
+                    .parallel()
+                    .filter(Files::isRegularFile)
+                    .map(java.nio.file.Path::toFile)
+                    .forEach(java.io.File::delete);
             Files.walk(Paths.get("Data/in/separated"))
                     .parallel()
                     .filter(Files::isRegularFile)
