@@ -17,12 +17,19 @@ public class Main {
   @Parameter(names = {"--threads", "-t"}, description = "Set number of threads for workers (default: 2)", required = false)
   int threads = 2;
 
+  @Parameter(names = {"--help", "-h"}, help = true)
+  boolean help;
+
   public static void main(String[] args) {
     Main main = new Main();
-    JCommander.newBuilder()
+    var jct = JCommander.newBuilder()
             .addObject(main)
-            .build()
-            .parse(args);
+            .build();
+    jct.parse(args);
+    if (main.help) {
+      jct.usage();
+      return;
+    }
     main.setOrdering();
     main.run();
   }
