@@ -9,7 +9,8 @@ import java.util.List;
 public class EncryptQueryExecutor implements IConsumerQueryExector {
   @Override
   public ConsumerQueryResponse execute(String[] args) throws Exception {
+    var response = new ConsumerQueryResponse(ConsumerQueryResponse.QueryResponseType.ENCRYPTED);
     AESUtil.encryptObject(args);
-    return new ConsumerQueryResponse(ConsumerQueryResponse.QueryResponseType.ENCRYPTED, List.of(args));
+    return response.finalize(List.of(args));
   }
 }

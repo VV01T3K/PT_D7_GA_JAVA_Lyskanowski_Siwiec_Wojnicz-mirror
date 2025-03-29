@@ -65,7 +65,7 @@ public class Main {
         workerPool.submit(new QueryWorker());
       }
       queuePool.submit(new Producer());
-      queuePool.submit(new ResultConsumer());
+      queuePool.submit(new ResultConsumer(String.format("results-%d.csv", threads)));
       setupHandlers(queuePool, workerPool);
       queuePool.shutdownNow();
       workerPool.shutdownNow();
@@ -93,12 +93,13 @@ public class Main {
   }
 
   private void waitForExit() {
-    Scanner scanner = new Scanner(System.in);
-    while (true) {
-      String line = scanner.nextLine();
-      Logger.error("Received: " + line);
-      if (line.equals("exit")) {
-        break;
+    try (Scanner scanner = new Scanner(System.in)) {
+      while (true) {
+        String line = scanner.nextLine();
+        Logger.error("Received: " + line);
+        if (line.equals("exit")) {
+          break;
+        }
       }
     }
   }
