@@ -24,6 +24,7 @@ public class Main {
     CzlowiekContainerFactory.setSortMode(sortMode);
     CzlowiekContainerFactory.setComparator(comparator);
 
+    // // Prawdopodonie już niepotrzebne
     // TestRepo.loadJson();
     // TestRepo.printRecursively();
 
@@ -31,17 +32,5 @@ public class Main {
     // var podlegajacyMap =
     // CzlowiekCountMap.czlowiekPodleglajacyCountMap(TestRepo.getAllPeopleStream());
     // System.out.println(podlegajacyMap);
-
-    long startTime = System.currentTimeMillis();
-
-    Consumer consumer = new Consumer(); // test consumer
-    consumer.readQueriesFromFile("Data/queries.txt");
-    try {
-      consumer.processQueries();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-    long endTime = System.currentTimeMillis();
-    System.out.println("Time taken to process data: " + (endTime - startTime) + "ms");
   }
 }
