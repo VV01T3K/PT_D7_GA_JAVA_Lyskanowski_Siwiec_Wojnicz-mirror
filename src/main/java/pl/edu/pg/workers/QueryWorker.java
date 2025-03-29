@@ -12,7 +12,7 @@ public class QueryWorker implements Runnable {
 
   @Override
   public void run() {
-    while (true) {
+    while (!Thread.currentThread().isInterrupted()) {
       try {
         var timer = new TimeMeasure();
         var data = InputQueue.getInstance().read();
@@ -26,9 +26,12 @@ public class QueryWorker implements Runnable {
           OutputQueue.getInstance().write(response);
         } catch (OverlappingFileLockException ex) {
           // Retry later
-          Logger.error(Thread.currentThread().getName() + " Query was locked, try again later: " + ex.getMessage());
+          Logger.error("Query was locked, try again later: " + ex.getMessage());
           InputQueue.getInstance().write(query);
         }
+      } catch (InterruptedException e) {
+        Logger.error("Interrupted worker: " + e.getMessage());
+        Thread.currentThread().interrupt();
       } catch (Exception e) {
         Logger.error("Error processing query: " + e.getMessage());
       }

@@ -1,30 +1,25 @@
 package pl.edu.pg.buffer;
 
+import pl.edu.pg.queries.ConsumerQuery;
+
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import pl.edu.pg.queries.ConsumerQuery;
-
 public class InputQueue implements IBuffer<ConsumerQuery> {
 
-    private final BlockingQueue<ConsumerQuery> queries = new LinkedBlockingQueue<>();
+  private static InputQueue instance = new InputQueue();
+  private final BlockingQueue<ConsumerQuery> queries = new LinkedBlockingQueue<>();
 
-    public Optional<ConsumerQuery> read() {
-        return Optional.ofNullable(queries.poll());
-    }
+  public static InputQueue getInstance() {
+    return instance;
+  }
 
-    public void write(ConsumerQuery data) {
-        try {
-            queries.put(data);
-        } catch (InterruptedException e) {
-            System.err.println("Error writing to input queue: " + e.getMessage());
-        }
-    }
+  public Optional<ConsumerQuery> read() throws InterruptedException {
+    return Optional.of(queries.take());
+  }
 
-    private static InputQueue instance = new InputQueue();
-
-    public static InputQueue getInstance() {
-        return instance;
-    }
+  public void write(ConsumerQuery data) throws InterruptedException {
+    queries.put(data);
+  }
 }

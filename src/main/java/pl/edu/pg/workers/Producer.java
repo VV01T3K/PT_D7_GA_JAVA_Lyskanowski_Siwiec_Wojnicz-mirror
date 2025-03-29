@@ -142,7 +142,12 @@ public class Producer implements Runnable {
     try {
       Files.readAllLines(Paths.get("Data/queries.txt"))
               .forEach(line -> {
-                inputQueue.write(ConsumerQuery.fromString(line));
+                try {
+                  inputQueue.write(ConsumerQuery.fromString(line));
+                } catch (InterruptedException e) {
+                  System.err.println("Error loading query pool: " + e.getMessage());
+                  Thread.currentThread().interrupt();
+                }
               });
       System.out.println("Query pool loaded successfully from Data/queries.txt");
     } catch (Exception e) {
