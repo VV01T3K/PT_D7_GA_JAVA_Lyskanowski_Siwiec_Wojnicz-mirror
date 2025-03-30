@@ -39,7 +39,8 @@ Dla testów z większą liczbą wątków nie zaobserwowano dalszej znaczącej po
 Z czterech mniejszych wykresów możemy zauważyć, że czas rozpoczęcia przetwarzania plików znacząco się zmienił.
 W sekwencyjnym przetwarzaniu pliki były przetwarzane po kolei, więc po skończeniu przetwarzania jednego pliku, zaczynał
 być przetwarzany kolejny. Natomiast dla 1024 wątków wszystkie pliki prawie od razu zostały przydzielone do któregoś z wątków.
-Widzimy tu również wpływ losowości, gdyż niektóre wątki, którym został przydzielony plik, kończyły swoje działanie zdecydowanie później.
+Widzimy tu również ogromny wpływ planisty systemu operacyjnego, który przydziela wątki do rdzeni procesora według 
+jednego z wielu algorytmów, powodując, że niektóre wątki będą często wstrzymywane, co wydłużaja czas przetwarzania.
 Prosta regresyjna dobrze pokazuje, że dane były przetwarzane coraz bardziej równolegle, niż sekwencyjnie.
 
 ---
