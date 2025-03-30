@@ -26,7 +26,7 @@ public class Czlowiek implements Comparable<Czlowiek> {
   @Since(1.0)
   private Set<Czlowiek> podlegli;
 
-  Czlowiek(String imie,
+  public Czlowiek(String imie,
       String nazwisko,
       int wiek,
       Plec plec,
@@ -45,10 +45,10 @@ public class Czlowiek implements Comparable<Czlowiek> {
     this.numerTelefonu = numerTelefonu;
   }
 
-  Czlowiek(String imie,
-      String nazwisko,
-      int wiek,
-      Plec plec) {
+  public Czlowiek(String imie,
+                  String nazwisko,
+                  int wiek,
+                  Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
