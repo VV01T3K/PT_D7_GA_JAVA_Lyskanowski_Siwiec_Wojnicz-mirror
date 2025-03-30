@@ -11,7 +11,7 @@ Kolejka ta jest używana w środowisku wielowątkowym, w którym jedne wątki pr
 
 ---
 
-## 2. Wykres przedstawiający czasy wykonania
+## 2. Wykresy przedstawiający czasy wykonania
 
 ![Wykres 1](Wykresy/overall_execution_times.png)
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
