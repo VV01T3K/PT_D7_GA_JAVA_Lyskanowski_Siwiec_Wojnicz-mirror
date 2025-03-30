@@ -11,12 +11,12 @@ Każdy wątek wykonuje operacje szyfrowania lub deszyfrowania na przydzielonym f
 
 ## 2. Wykres przedstawiający czasy wykonania
 
-![Wykres 1](Data/Wykresy/overall_execution_times.png)
+![Wykres 1](Wykresy/overall_execution_times.png)
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-    <img src="Data/Wykresy/query_times-1.png" alt="Wykres 1" width="400"/>
-    <img src="Data/Wykresy/query_times-8.png" alt="Wykres 2" width="400"/>
-    <img src="Data/Wykresy/query_times-64.png" alt="Wykres 3" width="400"/>
-    <img src="Data/Wykresy/query_times-1024.png" alt="Wykres 4" width="400"/>
+    <img src="Wykresy/query_times-1.png" alt="Wykres 1" width="400"/>
+    <img src="Wykresy/query_times-8.png" alt="Wykres 2" width="400"/>
+    <img src="Wykresy/query_times-64.png" alt="Wykres 3" width="400"/>
+    <img src="Wykresy/query_times-1024.png" alt="Wykres 4" width="400"/>
 </div>
 
 ---
