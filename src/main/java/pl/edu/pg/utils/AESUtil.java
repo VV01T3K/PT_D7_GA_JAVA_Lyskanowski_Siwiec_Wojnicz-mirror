@@ -19,7 +19,7 @@ public class AESUtil {
   private static final int KEY_SIZE = 256;
   private static final int IV_SIZE = 12;
   private static final int TAG_SIZE = 128;
-  private static final int BYTE_AMOUNT = 8192;
+  private static final int BYTE_AMOUNT = 50; // specjalnie takie małe, żeby wydłużyć czas mielenia
 
   public static String generateKey() throws NoSuchAlgorithmException {
     KeyGenerator keyGen = KeyGenerator.getInstance("AES");
@@ -43,8 +43,7 @@ public class AESUtil {
     encryptObject(arguments, byteAmount);
   }
 
-  private static void encryptObject(String[] arguments, int byteAmount) throws IOException, NoSuchPaddingException,
-      NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, OverlappingFileLockException {
+  private static void encryptObject(String[] arguments, int byteAmount) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, OverlappingFileLockException {
     String inPath = arguments[0];
     String outPath = arguments[1];
     SecretKeySpec key = new SecretKeySpec(Base64.getDecoder().decode(arguments[2]), "AES");
@@ -54,9 +53,9 @@ public class AESUtil {
     Cipher cipher = Cipher.getInstance(ALGORITHM);
     cipher.init(Cipher.ENCRYPT_MODE, key, iv);
     try (var bis = new FileInputStream(inPath);
-        var bos = new FileOutputStream(outPath);
-        CipherOutputStream cos = new CipherOutputStream(bos, cipher);
-        FileLock lock = bos.getChannel().tryLock()) {
+         var bos = new FileOutputStream(outPath);
+         CipherOutputStream cos = new CipherOutputStream(bos, cipher);
+         FileLock lock = bos.getChannel().tryLock()) {
       byte[] buffer = new byte[byteAmount];
       int bytesRead;
       while ((bytesRead = bis.read(buffer)) != -1) {
@@ -65,8 +64,7 @@ public class AESUtil {
     }
   }
 
-  public static void decryptObject(String[] arguments) throws IOException, NoSuchPaddingException,
-      NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, OverlappingFileLockException {
+  public static void decryptObject(String[] arguments) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, OverlappingFileLockException {
     String inPath = arguments[0];
     String outPath = arguments[1];
     SecretKeySpec key = new SecretKeySpec(Base64.getDecoder().decode(arguments[2]), "AES");
@@ -76,9 +74,9 @@ public class AESUtil {
     cipher.init(Cipher.DECRYPT_MODE, key, iv);
 
     try (var bis = new FileInputStream(inPath);
-        var bos = new FileOutputStream(outPath);
-        CipherInputStream cis = new CipherInputStream(bis, cipher);
-        FileLock lock = bos.getChannel().tryLock()) {
+         var bos = new FileOutputStream(outPath);
+         CipherInputStream cis = new CipherInputStream(bis, cipher);
+         FileLock lock = bos.getChannel().tryLock()) {
       if (lock == null) {
         Logger.error("File is locked by another process");
         throw new OverlappingFileLockException();
