@@ -16,7 +16,7 @@ Kolejka ta jest używana w środowisku wielowątkowym, w którym jedne wątki pr
 ## 2. Wykresy przedstawiający czasy wykonania
 
 ![Wykres 1](Wykresy/overall_execution_times.png)
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+<div style="display: flex; flex-wrap: wrap; justify-content: left; align-items: center; gap: 2rem;">
     <img src="Wykresy/query_times-1.png" alt="Wykres 1" width="410"/>
     <img src="Wykresy/query_times-8.png" alt="Wykres 2" width="410"/>
     <img src="Wykresy/query_times-64.png" alt="Wykres 3" width="410"/>
