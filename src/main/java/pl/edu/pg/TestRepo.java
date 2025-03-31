@@ -1,5 +1,7 @@
 package pl.edu.pg;
 
+import pl.edu.pg.workers.Producer;
+
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -8,7 +10,7 @@ public class TestRepo {
 
   private static final TestRepoGenerator generator = new TestRepoGenerator();
   private static Set<Czlowiek> heads = CzlowiekContainerFactory.chooseSet();
-  private static TestRepoJsonLoader loader = new TestRepoJsonLoader(1.0, "src/people.json");
+  private static TestRepoJsonLoader loader = new TestRepoJsonLoader(1.0, "Data/", "people.json");
 
   public static void setLoader(TestRepoJsonLoader loader) {
     TestRepo.loader = loader;
@@ -27,10 +29,13 @@ public class TestRepo {
     loader.saveJson(heads);
   }
 
+  public static void saveJsonAsSeparateFiles() {
+    loader.saveJson(heads.stream());
+  }
+
   public static void loadJson() {
     heads = loader.readJson();
   }
-
 
   public static void generateTestData(int n) {
     heads = generator.generateTestData(n);
@@ -73,7 +78,26 @@ public class TestRepo {
     CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
-    generateTestData(20);
-    saveJson();
+    long startTime = System.currentTimeMillis();
+    generateTestData(1_200_000);
+    // printRecursively();
+
+    // saveJson();
+
+    saveJsonAsSeparateFiles();
+
+    Producer.generateQueryPool();
+
+    Producer producer = new Producer();
+    Thread thread = new Thread(producer);
+    thread.start();
+    try {
+      thread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    long endTime = System.currentTimeMillis();
+    System.out.println("Time taken to generate and save data: " + (endTime - startTime) + "ms");
   }
 }

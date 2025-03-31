@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -15,19 +16,30 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.stream.Stream;
 
 public class TestRepoJsonLoader {
 
     private final double version;
+    private final String dirPath;
     private final String filePath;
 
-    TestRepoJsonLoader(double version, String filePath) {
+    TestRepoJsonLoader(double version, String dirPath, String filePath) {
         this.version = version;
+        this.dirPath = dirPath;
         this.filePath = filePath;
+        try {
+            Files.createDirectories(Paths.get(dirPath));
+            Files.createDirectories(Paths.get(dirPath + "in/separated"));
+        } catch (Exception e) {
+            System.err.println("Error creating directories: " + e.getMessage());
+        }
     }
 
     public void saveJson(Set<Czlowiek> treeHeads) {
-        try (Writer writer = new FileWriter(filePath)) {
+        try (Writer writer = new FileWriter(dirPath + filePath)) {
             Gson gson = new GsonBuilder()
                     .setVersion(version)
                     .setPrettyPrinting()
@@ -37,6 +49,32 @@ public class TestRepoJsonLoader {
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
+    }
+
+    public void saveJson(Czlowiek head, Gson gson, String filePath) {
+        try (Writer writer = new FileWriter(dirPath + filePath)) {
+            Set<Czlowiek> tmp = new HashSet<>();
+            tmp.add(head);
+            gson.toJson(tmp, writer);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void saveJson(Stream<Czlowiek> people) {
+        try {
+            Files.walk(Paths.get(dirPath + "in/separated"))
+                    .filter(Files::isRegularFile)
+                    .map(java.nio.file.Path::toFile)
+                    .forEach(java.io.File::delete);
+        } catch (IOException e) {
+            System.err.println("Error deleting files: " + e.getMessage());
+        }
+        Gson gson = new GsonBuilder()
+                .setVersion(version)
+                .setPrettyPrinting()
+                .create();
+        people.parallel().forEach(person -> saveJson(person, gson, "in/separated/" + person.hashCode() + ".json"));
     }
 
     public Set<Czlowiek> readJson() {
@@ -49,7 +87,25 @@ public class TestRepoJsonLoader {
                     .registerTypeAdapter(type, customDeserializer)
                     .create();
 
-            return gson.fromJson(new FileReader(filePath), type);
+            return gson.fromJson(new FileReader(dirPath + filePath), type);
+        } catch (Exception e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Czlowiek readJson(String filePath) {
+        try {
+            Type type = new TypeToken<Set<Czlowiek>>() {
+            }.getType();
+
+            Gson gson = new GsonBuilder()
+                    .setVersion(version)
+                    .registerTypeAdapter(type, customDeserializer)
+                    .create();
+
+            Set<Czlowiek> tmp = gson.fromJson(new FileReader(dirPath + filePath), type);
+            return tmp.iterator().next();
         } catch (Exception e) {
             System.err.println("Error reading from file: " + e.getMessage());
             return null;
