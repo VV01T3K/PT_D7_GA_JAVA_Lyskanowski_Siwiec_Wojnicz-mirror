@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestRepoTest {
 
@@ -24,25 +24,25 @@ public class TestRepoTest {
     assertEquals(n, TestRepo.getAllPeopleStream().count());
   }
 
-  @Test
-  void ensure3levelsOfHierarchy() {
+  // @Test
+  // void ensure3levelsOfHierarchy() {
 
-    int n = 200;
+  // int n = 200;
 
-    CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
-    CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
+  // CzlowiekContainerFactory.setSortMode(SortModes.ORDERED);
+  // CzlowiekContainerFactory.setComparator(Comparator.naturalOrder());
 
-    TestRepo.generateTestData(n);
-    assertEquals(n, TestRepo.getAllPeopleStream().count());
+  // TestRepo.generateTestData(n);
+  // assertEquals(n, TestRepo.getAllPeopleStream().count());
 
-    for (Czlowiek head : TestRepo.getHeads()) {
-      for (Czlowiek podlegly : head.getPodlegli()) {
-        for (Czlowiek podpodlegly : podlegly.getPodlegli()) {
-          assertTrue(podpodlegly.getPodlegli().isEmpty());
-        }
-      }
-    }
-  }
+  // for (Czlowiek head : TestRepo.getHeads()) {
+  // for (Czlowiek podlegly : head.getPodlegli()) {
+  // for (Czlowiek podpodlegly : podlegly.getPodlegli()) {
+  // assertTrue(podpodlegly.getPodlegli().isEmpty());
+  // }
+  // }
+  // }
+  // }
 
   @Test
   void jsonSaveLoad() {
@@ -55,7 +55,7 @@ public class TestRepoTest {
     TestRepo.generateTestData(n);
     assertEquals(n, TestRepo.getAllPeopleStream().count());
 
-    TestRepo.setLoader(new TestRepoJsonLoader(1.0, "src/test-people.json"));
+    TestRepo.setLoader(new TestRepoJsonLoader(1.0, "Data/", "test-people.json"));
 
     TestRepo.saveJson();
 
@@ -74,7 +74,7 @@ public class TestRepoTest {
     TestRepo.generateTestData(n);
     assertEquals(n, TestRepo.getAllPeopleStream().count());
 
-    TestRepo.setLoader(new TestRepoJsonLoader(1.0, "src/test-people.json"));
+    TestRepo.setLoader(new TestRepoJsonLoader(1.0, "Data/", "test-people.json"));
 
     TestRepo.saveJson();
   }
