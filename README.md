@@ -9,6 +9,8 @@ Każdy wątek wykonuje operacje szyfrowania lub deszyfrowania na przydzielonym f
 Wykorzystana kolejka blokująca pozwala na synchronizację przetwarzania.
 Kolejka ta jest używana w środowisku wielowątkowym, w którym jedne wątki produkuje dane, a inne je konsumują.
 
+![alt text](diagram.svg)
+
 ---
 
 ## 2. Wykresy przedstawiający czasy wykonania
