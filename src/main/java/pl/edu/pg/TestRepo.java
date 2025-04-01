@@ -79,7 +79,7 @@ public class TestRepo {
     CzlowiekContainerFactory.setComparator(new SortByNumberOfInferiors());
 
     long startTime = System.currentTimeMillis();
-    generateTestData(1_200_000);
+    generateTestData(100);
     // printRecursively();
 
     // saveJson();
