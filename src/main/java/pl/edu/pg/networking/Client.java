@@ -102,7 +102,7 @@ public class Client {
         // Example usage
         client.send(Message.Prefix.HUMAN, human);
         client.send(Message.Prefix.TEXT, human);
-        client.send(Message.Prefix.COMMAND, Message.Command.PING);
+        // client.send(Message.Prefix.COMMAND, Message.Command.PING);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter message to send to server (type 'exit' to quit):");

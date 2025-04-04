@@ -1,0 +1,8 @@
+INFO  - Info log message
+ERROR - Error log message
+INFO  - Info log message
+ERROR - Error log message
+WARN  - Warning log message
+FATAL - Fatal log message
+INFO  - This is an info message
+ERROR - This is an error message
