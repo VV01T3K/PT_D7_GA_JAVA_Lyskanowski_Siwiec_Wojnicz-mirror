@@ -47,10 +47,10 @@ public class Client {
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             connected = true;
-            System.out.println("Connected to server");
+            LOGGER.info("Connected to server at {}:{}", HOST, PORT);
         } catch (Exception e) {
             connected = false;
-            System.err.println("Could not connect to server: " + e.getMessage());
+            LOGGER.error("Could not connect to server: ", e);
         }
         return this;
     }
@@ -60,38 +60,40 @@ public class Client {
             if (clientSocket != null && !clientSocket.isClosed()) {
                 clientSocket.close();
                 connected = false;
-                System.out.println("Disconnected from server");
+                LOGGER.info("Disconnected from server");
             }
         } catch (Exception e) {
-            System.err.println("Could not close client socket: " + e.getMessage());
+            LOGGER.error("Could not close client socket: ", e);
         }
     }
 
     public Message.Response send(Message.Prefix prefix, Object message) {
         if (!connected) {
-            System.err.println("Not connected to server");
+            LOGGER.error("Not connected to server");
             return Message.Response.CONNECTION_ERROR;
         }
+        LOGGER.info("Sending - Prefix: {}, Payload: {}", prefix, message.getClass().getName());
         try {
             out.writeObject(new Message(prefix, message));
             out.flush();
             String response = in.readLine();
             if (response == null) {
                 connected = false;
-                System.out.println("No response from server");
+                LOGGER.error("No response from server");
                 return Message.Response.CONNECTION_ERROR;
             }
-            System.out.println("Server response: " + response);
+            LOGGER.info("Server response: {}", response);
             return Message.Response.valueOf(response);
         } catch (Exception e) {
-            System.err.println("Error sending message: " + e.getMessage());
+            LOGGER.error("Error sending message: ", e);
             return Message.Response.CONNECTION_ERROR;
         }
     }
 
     public static void main(String[] args) {
-        TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0, "", null);
-        Czlowiek human = testRepoJsonLoader.readJson("Data/171815751.json");
+        TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0, null,
+                null);
+        Czlowiek human = testRepoJsonLoader.readJson("Data/in/separated/544422809.json");
         human.printRecursively();
 
         Client client = new Client()
@@ -107,7 +109,7 @@ public class Client {
         // Example usage
         client.send(Message.Prefix.HUMAN, human);
         client.send(Message.Prefix.TEXT, human);
-        // client.send(Message.Prefix.COMMAND, Message.Command.PING);
+        client.send(Message.Prefix.COMMAND, Message.Command.PING);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter message to send to server (type 'exit' to quit):");

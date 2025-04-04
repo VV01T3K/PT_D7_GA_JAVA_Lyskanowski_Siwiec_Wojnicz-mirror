@@ -1,11 +1,16 @@
 package pl.edu.pg.networking;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -16,6 +21,18 @@ import org.apache.logging.log4j.Logger;
 import pl.edu.pg.Czlowiek;
 
 public class Server {
+    static {
+        // there is probably a better way to do this but i don't care
+        try {
+            Files.walk(Paths.get("Logs"))
+                    .filter(Files::isRegularFile)
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            System.err.println("Error deleting log files: " + e.getMessage());
+            System.exit(1);
+        }
+    }
 
     private static Logger LOGGER = LogManager.getLogger(Server.class);
 
@@ -33,11 +50,11 @@ public class Server {
         try {
             serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
-            LOGGER.fatal("Could not listen on port: ", PORT, e);
+            LOGGER.fatal("Could not listen on port: " + PORT, e);
             System.exit(1);
         }
 
-        LOGGER.info("Server started on port: ", PORT);
+        LOGGER.info("Server started on port: {}", PORT);
 
         try {
             while (true) {
@@ -81,19 +98,20 @@ public class Server {
                 // InputStreamReader(clientSocket.getInputStream()));
 
                 String clientAddress = clientSocket.getInetAddress().getHostAddress();
-                LOGGER.info("New connection from: ", clientAddress);
+                LOGGER.info("New connection from: {}", clientAddress);
 
                 Object receivedObject;
                 while ((receivedObject = in.readObject()) != null) {
                     if (receivedObject instanceof Message) {
                         Message message = (Message) receivedObject;
-                        LOGGER.info("Received message: ", message);
                         processMessage(message);
                     } else {
-                        LOGGER.warn("Received unknown object type: ", receivedObject.getClass());
+                        LOGGER.warn("Received unknown Message type: {}", receivedObject.getClass());
                         sendResponse(Message.Response.INVALID_PREFIX);
                     }
                 }
+            } catch (EOFException e) {
+                LOGGER.info("Client disconnected: {}", clientSocket.getInetAddress().getHostAddress());
             } catch (IOException e) {
                 LOGGER.warn("Error handling client connection", e);
             } catch (ClassNotFoundException e) {
@@ -128,18 +146,18 @@ public class Server {
                         break;
                 }
             } catch (ClassCastException e) {
-                LOGGER.warn("Error casting message content", e.getMessage());
+                LOGGER.warn("Error casting message content", e);
                 sendResponse(Message.Response.INVALID_CONTENT);
             }
         }
 
         private void handleTextMessage(String message) {
-            LOGGER.info("Received TEXT message: ", message);
+            LOGGER.info("Received TEXT message: {}", message);
             sendResponse(Message.Response.OK);
         }
 
         private void handleCommand(Message.Command command) {
-            LOGGER.info("Received SERVER command: ", command);
+            LOGGER.info("Received SERVER command: {}", command);
 
             switch (command) {
                 case EXIT:
@@ -152,7 +170,7 @@ public class Server {
                     sendResponse(Message.Response.PING);
                     break;
                 default:
-                    LOGGER.warn("Unknown server command: ", command);
+                    LOGGER.warn("Unknown server command: {}", command);
                     sendResponse(Message.Response.INVALID_COMMAND);
                     break;
             }
@@ -160,7 +178,7 @@ public class Server {
 
         private void sendResponse(Message.Response response) {
             out.println(response.name());
-            LOGGER.info("Sent response: ", response.name());
+            LOGGER.info("Sent response: {}", response.name());
         }
 
         private void closeConnection() {
@@ -174,9 +192,9 @@ public class Server {
                 if (clientSocket != null)
                     clientSocket.close();
                 clientHandlers.remove(this);
-                LOGGER.info("Connection closed: ", clientSocket.getInetAddress().getHostAddress());
+                LOGGER.info("Connection closed: {}", clientSocket.getInetAddress().getHostAddress());
             } catch (IOException e) {
-                LOGGER.warn("Error closing connection: ", e.getMessage());
+                LOGGER.warn("Error closing connection: ", e);
             }
         }
     }

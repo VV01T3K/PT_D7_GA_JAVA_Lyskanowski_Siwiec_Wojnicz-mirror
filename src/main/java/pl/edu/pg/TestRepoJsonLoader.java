@@ -28,8 +28,12 @@ public class TestRepoJsonLoader {
 
     public TestRepoJsonLoader(double version, String dirPath, String filePath) {
         this.version = version;
-        this.dirPath = dirPath;
         this.filePath = filePath;
+        this.dirPath = dirPath == null || dirPath.isEmpty() ? ""
+                : dirPath.endsWith("/") ? dirPath
+                        : dirPath + "/";
+        if (this.dirPath.isEmpty())
+            return;
         try {
             Files.createDirectories(Paths.get(dirPath));
             Files.createDirectories(Paths.get(dirPath + "in/separated"));
