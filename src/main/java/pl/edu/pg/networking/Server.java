@@ -33,12 +33,11 @@ public class Server {
         try {
             serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
-            // LOGGER.log(Level.SEVERE, "Could not listen on port: " + PORT, e);
             LOGGER.fatal("Could not listen on port: ", PORT, e);
             System.exit(1);
         }
 
-        LOGGER.info("Server started on port: " + PORT);
+        LOGGER.info("Server started on port: ", PORT);
 
         try {
             while (true) {
@@ -48,7 +47,7 @@ public class Server {
                 clientHandler.start();
             }
         } catch (IOException e) {
-            // LOGGER.log(Level.SEVERE, "Could not accept connection", e);
+            LOGGER.error("Could not accept connection", e);
             System.exit(1);
         }
     }
@@ -59,7 +58,7 @@ public class Server {
                 serverSocket.close();
             }
         } catch (IOException e) {
-            // LOGGER.log(Level.WARNING, "Could not close server socket", e);
+            LOGGER.warn("Could not close server socket", e);
         }
     }
 
@@ -82,23 +81,23 @@ public class Server {
                 // InputStreamReader(clientSocket.getInputStream()));
 
                 String clientAddress = clientSocket.getInetAddress().getHostAddress();
-                LOGGER.info("New connection from: " + clientAddress);
+                LOGGER.info("New connection from: ", clientAddress);
 
                 Object receivedObject;
                 while ((receivedObject = in.readObject()) != null) {
                     if (receivedObject instanceof Message) {
                         Message message = (Message) receivedObject;
-                        LOGGER.info("Received message: " + message);
+                        LOGGER.info("Received message: ", message);
                         processMessage(message);
                     } else {
-                        // LOGGER.warning("Received unknown object type: " + receivedObject.getClass());
+                        LOGGER.warn("Received unknown object type: ", receivedObject.getClass());
                         sendResponse(Message.Response.INVALID_PREFIX);
                     }
                 }
             } catch (IOException e) {
-                // LOGGER.log(Level.WARNING, "Error handling client connection", e);
+                LOGGER.warn("Error handling client connection", e);
             } catch (ClassNotFoundException e) {
-                // LOGGER.log(Level.WARNING, "Error deserializing object from client", e);
+                LOGGER.warn("Error deserializing object from client", e);
                 sendResponse(Message.Response.ERROR);
             } finally {
                 closeConnection();
@@ -108,7 +107,7 @@ public class Server {
         private void processMessage(Message message) {
             Message.Prefix prefix = message.prefix;
             if (prefix == null) {
-                // LOGGER.warning("Message has no prefix");
+                LOGGER.warn("Message has no prefix");
                 sendResponse(Message.Response.INVALID_PREFIX);
                 return;
             }
@@ -129,18 +128,18 @@ public class Server {
                         break;
                 }
             } catch (ClassCastException e) {
-                // LOGGER.warning("Error casting message content: " + e.getMessage());
+                LOGGER.warn("Error casting message content", e.getMessage());
                 sendResponse(Message.Response.INVALID_CONTENT);
             }
         }
 
         private void handleTextMessage(String message) {
-            LOGGER.info("Received TEXT message: " + message);
+            LOGGER.info("Received TEXT message: ", message);
             sendResponse(Message.Response.OK);
         }
 
         private void handleCommand(Message.Command command) {
-            LOGGER.info("Received SERVER command: " + command);
+            LOGGER.info("Received SERVER command: ", command);
 
             switch (command) {
                 case EXIT:
@@ -153,7 +152,7 @@ public class Server {
                     sendResponse(Message.Response.PING);
                     break;
                 default:
-                    // LOGGER.warning("Unknown server command: " + command);
+                    LOGGER.warn("Unknown server command: ", command);
                     sendResponse(Message.Response.INVALID_COMMAND);
                     break;
             }
@@ -161,7 +160,7 @@ public class Server {
 
         private void sendResponse(Message.Response response) {
             out.println(response.name());
-            LOGGER.info("Sent response: " + response.name());
+            LOGGER.info("Sent response: ", response.name());
         }
 
         private void closeConnection() {
@@ -175,9 +174,9 @@ public class Server {
                 if (clientSocket != null)
                     clientSocket.close();
                 clientHandlers.remove(this);
-                LOGGER.info("Connection closed: " + clientSocket.getInetAddress().getHostAddress());
+                LOGGER.info("Connection closed: ", clientSocket.getInetAddress().getHostAddress());
             } catch (IOException e) {
-                // LOGGER.log(Level.WARNING, "Error closing connection", e);
+                LOGGER.warn("Error closing connection: ", e.getMessage());
             }
         }
     }

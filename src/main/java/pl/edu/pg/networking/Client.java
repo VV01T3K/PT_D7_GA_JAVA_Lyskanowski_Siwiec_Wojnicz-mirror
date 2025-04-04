@@ -6,10 +6,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import pl.edu.pg.Czlowiek;
 import pl.edu.pg.TestRepoJsonLoader;
 
 public class Client {
+
+    private static Logger LOGGER = LogManager.getLogger(Client.class);
 
     private Socket clientSocket;
     private ObjectOutputStream out;
