@@ -93,7 +93,7 @@ public class Client {
     public static void main(String[] args) {
         TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0, null,
                 null);
-        Czlowiek human = testRepoJsonLoader.readJson("Data/in/separated/544422809.json");
+        Czlowiek human = testRepoJsonLoader.readJson("Data/in/separated/-1244091220.json");
         human.printRecursively();
 
         Client client = new Client()
