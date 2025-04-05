@@ -115,7 +115,7 @@ public class Server {
             } catch (IOException e) {
                 LOGGER.warn("Error handling client connection", e);
             } catch (ClassNotFoundException e) {
-                LOGGER.warn("Error deserializing object from client", e);
+                LOGGER.warn("Error deserializing message from client", e);
                 sendResponse(Message.Response.ERROR);
             } finally {
                 closeConnection();

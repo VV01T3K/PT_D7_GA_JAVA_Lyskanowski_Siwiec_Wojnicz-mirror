@@ -9,11 +9,11 @@
 
         <!-- Server File Appender -->
         <File name="SERVER_LOG" fileName="Logs/server.log">
-            <PatternLayout pattern="%-5level - %msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %-5level - %msg%n"/>
         </File>
 
         <File name="CLIENT_LOG" fileName="Logs/client.log">
-            <PatternLayout pattern="%-5level - %msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %-5level - %msg%n"/>
         </File>
         
     </Appenders>
