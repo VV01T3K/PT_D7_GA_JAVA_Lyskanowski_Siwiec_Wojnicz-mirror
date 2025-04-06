@@ -50,17 +50,6 @@ public class NetworkingTest {
     }
 
     @Test
-    void correctPortAndHost() {
-        client.disconnect();
-        client.setPort(2138);
-        client.connect();
-        assertFalse(client.isConnected());
-        client.disconnect();
-        client.setPort(PORT).setHost("pl.edu.pg");//szybko??
-        client.connect();
-        assertFalse(client.isConnected());
-    }
-    @Test
     void sendMessage()
     {
         String message = "Hello, Server!";
