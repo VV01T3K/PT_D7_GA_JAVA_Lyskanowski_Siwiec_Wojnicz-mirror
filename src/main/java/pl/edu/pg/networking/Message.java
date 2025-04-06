@@ -4,14 +4,18 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
     public enum Prefix {
+        NAME,
         TEXT,
         HUMAN,
         COMMAND,
+        RESPONSE,
     }
 
     public enum Command {
         EXIT,
         PING,
+        LAST_HUMAN,
+        CLEAN_LOGS,
     }
 
     public enum Response {

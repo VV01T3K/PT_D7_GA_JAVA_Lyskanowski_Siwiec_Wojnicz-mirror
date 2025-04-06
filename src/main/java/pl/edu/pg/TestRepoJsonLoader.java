@@ -26,6 +26,10 @@ public class TestRepoJsonLoader {
     private final String dirPath;
     private final String filePath;
 
+    public TestRepoJsonLoader(double version) {
+        this(version, null, null);
+    }
+
     public TestRepoJsonLoader(double version, String dirPath, String filePath) {
         this.version = version;
         this.filePath = filePath;

@@ -1,7 +1,7 @@
 package pl.edu.pg.networking;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.EOFException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import pl.edu.pg.Czlowiek;
+import pl.edu.pg.TestRepoGenerator;
 import pl.edu.pg.TestRepoJsonLoader;
 
 public class Client {
@@ -18,12 +19,16 @@ public class Client {
 
     private Socket clientSocket;
     private ObjectOutputStream out;
-    private BufferedReader in;
+    private ObjectInputStream in;
     private int PORT = 2137;
     private String HOST = "localhost";
     private boolean connected = false;
 
+    public final String name;
+
     public Client() {
+        this.name = System.getProperty("user.name");
+        LOGGER.info("Client initialized with name: {}", name);
         // Default constructor
     }
 
@@ -45,8 +50,9 @@ public class Client {
         try {
             clientSocket = new Socket(HOST, PORT);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            in = new ObjectInputStream(clientSocket.getInputStream());
             connected = true;
+            send(Message.Prefix.NAME, name);
             LOGGER.info("Connected to server at {}:{}", HOST, PORT);
         } catch (Exception e) {
             connected = false;
@@ -55,7 +61,12 @@ public class Client {
         return this;
     }
 
-    public void disconnect() {
+    public Client reconnect() {
+        LOGGER.info("Reconnecting to server...");
+        return connect();
+    }
+
+    public Client disconnect() {
         try {
             if (clientSocket != null && !clientSocket.isClosed()) {
                 clientSocket.close();
@@ -64,6 +75,35 @@ public class Client {
             }
         } catch (Exception e) {
             LOGGER.error("Could not close client socket: ", e);
+        }
+        return this;
+    }
+
+    private Message.Response proccessResponse() {
+        try {
+            Message message = (Message) in.readObject();
+            if (message == null) {
+                connected = false;
+                LOGGER.error("No response from server");
+                return Message.Response.CONNECTION_ERROR;
+            }
+            switch (message.prefix) {
+                case HUMAN:
+                    Czlowiek human = (Czlowiek) message.content;
+                    LOGGER.info("Received human object: {}", human);
+                    human.printRecursively();
+                    return Message.Response.OK;
+                default:
+                    break;
+            }
+            return (Message.Response) message.content;
+        } catch (EOFException e) {
+            connected = false;
+            return Message.Response.CONNECTION_ERROR;
+        } catch (Exception e) {
+            connected = false;
+            LOGGER.error("Error processing response: ", e);
+            return Message.Response.ERROR;
         }
     }
 
@@ -76,14 +116,14 @@ public class Client {
         try {
             out.writeObject(new Message(prefix, message));
             out.flush();
-            String response = in.readLine();
+            Message.Response response = proccessResponse();
             if (response == null) {
                 connected = false;
                 LOGGER.error("No response from server");
                 return Message.Response.CONNECTION_ERROR;
             }
             LOGGER.info("Server response: {}", response);
-            return Message.Response.valueOf(response);
+            return response;
         } catch (Exception e) {
             LOGGER.error("Error sending message: ", e);
             return Message.Response.CONNECTION_ERROR;
@@ -91,9 +131,9 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0, null,
-                null);
-        Czlowiek human = testRepoJsonLoader.readJson("Data/in/separated/544422809.json");
+        TestRepoGenerator testRepoGenerator = new TestRepoGenerator();
+        TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0);
+        Czlowiek human = testRepoGenerator.generateTestData(5).iterator().next();
         human.printRecursively();
 
         Client client = new Client()
@@ -106,26 +146,67 @@ public class Client {
             return;
         }
 
-        // Example usage
-        client.send(Message.Prefix.HUMAN, human);
-        client.send(Message.Prefix.TEXT, human);
-        client.send(Message.Prefix.COMMAND, Message.Command.PING);
+        client.send(Message.Prefix.NAME, client.name);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter message to send to server (type 'exit' to quit):");
-        while (client.isConnected()) {
+        while (client.isConnected() || client.reconnect().isConnected()) {
+
             String message = scanner.nextLine();
+            if (message.equalsIgnoreCase("/human")) {
+                System.out.println("Enter valid action:");
+                System.out.println("1. --test");
+                System.out.println("2. --random");
+                System.out.println("3. --json");
+                System.out.println("4. --last");
+                String action = scanner.nextLine();
+
+                if (action.equalsIgnoreCase("1")) {
+                    message = "/human --test";
+                } else if (action.equalsIgnoreCase("2")) {
+                    message = "/human --random";
+                } else if (action.equalsIgnoreCase("3")) {
+                    message = "/human --json";
+                } else if (action.equalsIgnoreCase("4")) {
+                    message = "/human --last";
+                } else {
+                    System.err.println("Invalid action. Please try again.");
+                    continue;
+                }
+            }
             if (message.equalsIgnoreCase("exit")) {
                 break;
             } else if (message.equalsIgnoreCase("/ping")) {
                 client.send(Message.Prefix.COMMAND, Message.Command.PING);
                 continue;
+            } else if (message.equalsIgnoreCase("/clean --logs")) {
+                client.send(Message.Prefix.COMMAND, Message.Command.CLEAN_LOGS);
+                continue;
             } else if (message.equalsIgnoreCase("/exit")) {
                 client.send(Message.Prefix.COMMAND, Message.Command.EXIT);
                 break;
+            } else if (message.equalsIgnoreCase("/human --test")) {
+                client.send(Message.Prefix.HUMAN, human);
+                continue;
+            } else if (message.equalsIgnoreCase("/human --random")) {
+                client.send(Message.Prefix.HUMAN, testRepoGenerator.generateCzlowiek());
+                continue;
+            } else if (message.equalsIgnoreCase("/human --last")) {
+                client.send(Message.Prefix.COMMAND, Message.Command.LAST_HUMAN);
+                continue;
+            } else if (message.equalsIgnoreCase("/human --json")) {
+                System.out.println("Enter path to JSON file:");
+                String homanPath = scanner.nextLine();
+                if (homanPath.isEmpty() || !homanPath.endsWith(".json")) {
+                    System.err.println("Invalid path. Please provide a valid JSON file path.");
+                    continue;
+                }
+                Czlowiek humanObject = testRepoJsonLoader.readJson(homanPath);
+                client.send(Message.Prefix.HUMAN, humanObject);
             } else {
                 client.send(Message.Prefix.TEXT, message);
             }
+
         }
 
         scanner.close();
