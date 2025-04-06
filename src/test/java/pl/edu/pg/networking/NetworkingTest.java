@@ -21,6 +21,11 @@ public class NetworkingTest {
         server = new Server().setPort(PORT);
         serverThread = new Thread(() -> server.start());
         serverThread.start(); //powinno dzialac bez sleepa
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @BeforeEach
