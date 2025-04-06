@@ -84,6 +84,8 @@ public class TestRepo {
 
     // saveJson();
 
+    Producer.deletePreviousFiles();
+
     saveJsonAsSeparateFiles();
 
     Producer.generateQueryPool();

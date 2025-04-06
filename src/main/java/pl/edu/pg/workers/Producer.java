@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Producer implements Runnable {
 
@@ -42,23 +43,23 @@ public class Producer implements Runnable {
     List<ConsumerQuery> newQueries = Collections.synchronizedList(new ArrayList<>());
     try {
       Files.walk(Paths.get("Data/in/separated"))
-              .parallel()
-              .filter(Files::isRegularFile)
-              .forEach(path -> {
-                createQuery(path, ConsumerQuery.QueryType.ENCRYPT, newQueries);
-                String[] encryptedFileArguments = prepareEncryptedFile(path);
-                if (encryptedFileArguments != null) {
-                  createQuery(
-                          Paths.get(encryptedFileArguments[0]),
-                          ConsumerQuery.QueryType.DECRYPT,
-                          newQueries,
-                          encryptedFileArguments[1],
-                          encryptedFileArguments[2]);
-                }
-              });
+          .parallel()
+          .filter(Files::isRegularFile)
+          .forEach(path -> {
+            createQuery(path, ConsumerQuery.QueryType.ENCRYPT, newQueries);
+            String[] encryptedFileArguments = prepareEncryptedFile(path);
+            if (encryptedFileArguments != null) {
+              createQuery(
+                  Paths.get(encryptedFileArguments[0]),
+                  ConsumerQuery.QueryType.DECRYPT,
+                  newQueries,
+                  encryptedFileArguments[1],
+                  encryptedFileArguments[2]);
+            }
+          });
     } catch (
 
-            Exception e) {
+    Exception e) {
       System.err.println("Error creating query pool: " + e.getMessage());
     }
     Collections.shuffle(newQueries);
@@ -72,21 +73,21 @@ public class Producer implements Runnable {
       String iv = AESUtil.generateIV();
 
       String encryptedPath = "Data/in/encrypted/"
-              + path.getFileName()
+          + path.getFileName()
               .toString()
               .replaceFirst(".json", ".enc");
 
-      AESUtil.quickEncryptObject(new String[]{
-              path.toFile().toString(),
-              encryptedPath,
-              key,
-              iv,
+      AESUtil.quickEncryptObject(new String[] {
+          path.toFile().toString(),
+          encryptedPath,
+          key,
+          iv,
       });
 
-      return new String[]{
-              encryptedPath,
-              key,
-              iv,
+      return new String[] {
+          encryptedPath,
+          key,
+          iv,
       };
     } catch (Exception e) {
       System.err.println("Error encrypting file: " + e.getMessage());
@@ -99,11 +100,11 @@ public class Producer implements Runnable {
   }
 
   public static void createQuery(
-          Path path,
-          ConsumerQuery.QueryType type,
-          List<ConsumerQuery> newQueries,
-          String key,
-          String iv) {
+      Path path,
+      ConsumerQuery.QueryType type,
+      List<ConsumerQuery> newQueries,
+      String key,
+      String iv) {
     try {
       File file = path.toFile();
 
@@ -125,10 +126,28 @@ public class Producer implements Runnable {
         }
         outPath = "Data/out/decrypted/" + file.getName().replaceFirst(".enc", ".json");
       }
-      String[] arguments = {inPath, outPath, key, iv};
+      String[] arguments = { inPath, outPath, key, iv };
       newQueries.add(new ConsumerQuery(type, arguments));
     } catch (Exception e) {
       System.err.println("Error creating decrypt query: " + e.getMessage());
+    }
+  }
+
+  public static void deletePreviousFiles() {
+    try {
+      var separatedStream = Files.walk(Paths.get("Data/in/separated"));
+      var encryptedInStream = Files.walk(Paths.get("Data/in/encrypted"));
+      var encryptedOutStream = Files.walk(Paths.get("Data/out/encrypted"));
+      var decryptedOutStream = Files.walk(Paths.get("Data/out/decrypted"));
+      Stream.concat(
+          Stream.concat(separatedStream, encryptedInStream),
+          Stream.concat(encryptedOutStream, decryptedOutStream))
+          .parallel()
+          .filter(Files::isRegularFile)
+          .map(Path::toFile)
+          .forEach(File::delete);
+    } catch (Exception e) {
+      System.err.println("Error deleting files: " + e.getMessage());
     }
   }
 
@@ -141,14 +160,14 @@ public class Producer implements Runnable {
   public void loadQueryPool() {
     try {
       Files.readAllLines(Paths.get("Data/queries.txt"))
-              .forEach(line -> {
-                try {
-                  inputQueue.write(ConsumerQuery.fromString(line));
-                } catch (InterruptedException e) {
-                  System.err.println("Error loading query pool: " + e.getMessage());
-                  Thread.currentThread().interrupt();
-                }
-              });
+          .forEach(line -> {
+            try {
+              inputQueue.write(ConsumerQuery.fromString(line));
+            } catch (InterruptedException e) {
+              System.err.println("Error loading query pool: " + e.getMessage());
+              Thread.currentThread().interrupt();
+            }
+          });
       System.out.println("Query pool loaded successfully from Data/queries.txt");
     } catch (Exception e) {
       System.err.println("Error loading query pool: " + e.getMessage());
