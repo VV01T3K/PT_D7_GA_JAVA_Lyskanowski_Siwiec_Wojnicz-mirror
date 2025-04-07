@@ -22,4 +22,8 @@ public class InputQueue implements IBuffer<ConsumerQuery> {
   public void write(ConsumerQuery data) throws InterruptedException {
     queries.put(data);
   }
+
+  public boolean isEmpty() {
+    return queries.isEmpty();
+  }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5level - %msg%n"/>
+        </Console>
+        
+
+        <!-- Server File Appender -->
+        <File name="SERVER_LOG" fileName="Logs/server.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %-5level - %msg%n"/>
+        </File>
+
+        <File name="CLIENT_LOG" fileName="Logs/client.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %-5level - %msg%n"/>
+        </File>
+        
+    </Appenders>
+    
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+        <!-- Specific Logger for a class -->
+        <Logger name="pl.edu.pg.networking.Server" level="debug">
+            <AppenderRef ref="SERVER_LOG"/>
+        </Logger>
+
+        <Logger name="pl.edu.pg.networking.Client" level="debug">
+            <AppenderRef ref="CLIENT_LOG"/>
+        </Logger>
+        
+        <!-- Specific Logger for a package
+        <Logger name="com.yourpackage.subpackage" level="trace">
+            <AppenderRef ref="File"/>
+        </Logger>  -->
+
+    </Loggers>
+</Configuration>
