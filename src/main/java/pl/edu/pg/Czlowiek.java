@@ -2,10 +2,11 @@ package pl.edu.pg;
 
 import com.google.gson.annotations.Since;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class Czlowiek implements Comparable<Czlowiek> {
+public class Czlowiek implements Comparable<Czlowiek>, Serializable {
 
   @Since(1.0)
   private final String imie;
@@ -46,9 +47,9 @@ public class Czlowiek implements Comparable<Czlowiek> {
   }
 
   public Czlowiek(String imie,
-                  String nazwisko,
-                  int wiek,
-                  Plec plec) {
+      String nazwisko,
+      int wiek,
+      Plec plec) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.wiek = wiek;
