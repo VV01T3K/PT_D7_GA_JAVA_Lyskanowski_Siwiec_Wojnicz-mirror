@@ -28,8 +28,8 @@ public class Server {
 
   public static void main(String[] args) {
     Server server = new Server()
-            .cleanLogs()
-            .setPort(2137);
+        .cleanLogs()
+        .setPort(2137);
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
       logger.info("Shutting down server...");
       server.stop();
@@ -41,14 +41,14 @@ public class Server {
   private Server cleanLogs() {
     try {
       Files.walk(Paths.get("Logs"))
-              .filter(Files::isRegularFile)
-              .forEach(path -> {
-                try {
-                  Files.write(path, new byte[0]);
-                } catch (IOException e) {
-                  System.err.println("Error clearing log file " + path + ": " + e.getMessage());
-                }
-              });
+          .filter(Files::isRegularFile)
+          .forEach(path -> {
+            try {
+              Files.write(path, new byte[0]);
+            } catch (IOException e) {
+              System.err.println("Error clearing log file " + path + ": " + e.getMessage());
+            }
+          });
       System.out.println("Log files cleared.");
     } catch (IOException e) {
       System.err.println("Error accessing log directory: " + e.getMessage());
@@ -127,7 +127,7 @@ public class Server {
           if (receivedObject instanceof Message message) {
             processMessage(message);
           } else {
-            logger.warn(clientName + " - Received unknown Message type: {}", receivedObject.getClass());
+            logger.warn("{} - Received unknown Message type: {}", clientName, receivedObject.getClass());
             sendResponse(Message.Response.INVALID_PREFIX);
           }
         }
@@ -163,7 +163,7 @@ public class Server {
             break;
           case HUMAN:
             Czlowiek human = (Czlowiek) message.content;
-            logger.info(clientName + " - Received HUMAN: {}", human);
+            logger.info("{} - Received HUMAN: {}", clientName, human);
             human.printRecursively();
             sendMessage(Message.Prefix.HUMAN, human);
             break;
@@ -179,12 +179,12 @@ public class Server {
     }
 
     private void handleTextMessage(String message) {
-      logger.info(clientName + " - Received TEXT message: {}", message);
+      logger.info("{} - Received TEXT message: {}", clientName, message);
       sendResponse(Message.Response.OK);
     }
 
     private void handleCommand(Message.Command command) {
-      logger.info(clientName + " - Received SERVER command: {}", command);
+      logger.info("{} - Received SERVER command: {}", clientName, command);
 
       switch (command) {
         case CLEAN_LOGS:

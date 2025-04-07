@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Client {
 
-  private static Logger LOGGER = LogManager.getLogger(Client.class);
+  private static Logger logger = LogManager.getLogger(Client.class);
   public final String name;
   private Socket clientSocket;
   private ObjectOutputStream out;
@@ -25,28 +25,25 @@ public class Client {
 
   public Client() {
     this.name = System.getProperty("user.name");
-    LOGGER.info("Client initialized with name: {}", name);
+    logger.info("Client initialized with name: {}", name);
     // Default constructor
   }
 
   public static void main(String[] args) {
-    System.out.println("hgr");
     TestRepoGenerator testRepoGenerator = new TestRepoGenerator();
     TestRepoJsonLoader testRepoJsonLoader = new TestRepoJsonLoader(1.0);
     Czlowiek human = testRepoGenerator.generateTestData(5).iterator().next();
     human.printRecursively();
 
     Client client = new Client()
-            .setHost("localhost")
-            .setPort(2137)
-            .connect();
+        .setHost("localhost")
+        .setPort(2137)
+        .connect();
 
     if (!client.isConnected()) {
       System.err.println("Failed to connect to server\nExiting...");
       return;
     }
-
-    client.send(Message.Prefix.NAME, client.name);
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("Enter message to send to server (type 'exit' to quit):");
@@ -121,16 +118,16 @@ public class Client {
       in = new ObjectInputStream(clientSocket.getInputStream());
       connected = true;
       send(Message.Prefix.NAME, name);
-      LOGGER.info("Connected to server at {}:{}", HOST, PORT);
+      logger.info("Connected to server at {}:{}", HOST, PORT);
     } catch (Exception e) {
       connected = false;
-      LOGGER.error("Could not connect to server: ", e);
+      logger.error("Could not connect to server: ", e);
     }
     return this;
   }
 
   public Client reconnect() {
-    LOGGER.info("Reconnecting to server...");
+    logger.info("Reconnecting to server...");
     return connect();
   }
 
@@ -139,10 +136,10 @@ public class Client {
       if (clientSocket != null && !clientSocket.isClosed()) {
         clientSocket.close();
         connected = false;
-        LOGGER.info("Disconnected from server");
+        logger.info("Disconnected from server");
       }
     } catch (Exception e) {
-      LOGGER.error("Could not close client socket: ", e);
+      logger.error("Could not close client socket: ", e);
     }
     return this;
   }
@@ -152,13 +149,13 @@ public class Client {
       Message message = (Message) in.readObject();
       if (message == null) {
         connected = false;
-        LOGGER.error("No response from server");
+        logger.error("No response from server");
         return Message.Response.CONNECTION_ERROR;
       }
       switch (message.prefix) {
         case HUMAN:
           Czlowiek human = (Czlowiek) message.content;
-          LOGGER.info("Received human object: {}", human);
+          logger.info("Received human object: {}", human);
           human.printRecursively();
           return Message.Response.OK;
         default:
@@ -170,30 +167,30 @@ public class Client {
       return Message.Response.CONNECTION_ERROR;
     } catch (Exception e) {
       connected = false;
-      LOGGER.error("Error processing response: ", e);
+      logger.error("Error processing response: ", e);
       return Message.Response.ERROR;
     }
   }
 
   public Message.Response send(Message.Prefix prefix, Object message) {
     if (!connected) {
-      LOGGER.error("Not connected to server");
+      logger.error("Not connected to server");
       return Message.Response.CONNECTION_ERROR;
     }
-    LOGGER.info("Sending - Prefix: {}, Payload: {}", prefix, message.getClass().getName());
+    logger.info("Sending - Prefix: {}, Payload: {}", prefix, message.getClass().getName());
     try {
       out.writeObject(new Message(prefix, message));
       out.flush();
       Message.Response response = proccessResponse();
       if (response == null) {
         connected = false;
-        LOGGER.error("No response from server");
+        logger.error("No response from server");
         return Message.Response.CONNECTION_ERROR;
       }
-      LOGGER.info("Server response: {}", response);
+      logger.info("Server response: {}", response);
       return response;
     } catch (Exception e) {
-      LOGGER.error("Error sending message: ", e);
+      logger.error("Error sending message: ", e);
       return Message.Response.CONNECTION_ERROR;
     }
   }
