@@ -2,16 +2,15 @@ package pl.edu.pg.persistance.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Hierarchia implements IModel {
   @Id
-  @OneToOne
+  @ManyToOne
   private Czlowiek przelozony;
-
   @Id
-  @OneToOne
+  @ManyToOne
   private Czlowiek podwladny;
 
   public Hierarchia(Czlowiek przelozony, Czlowiek podwladny) {
@@ -21,6 +20,14 @@ public class Hierarchia implements IModel {
 
   public Hierarchia() {
     // Default constructor for JPA
+  }
+
+  public Czlowiek getPrzelozony() {
+    return przelozony;
+  }
+
+  public Czlowiek getPodwladny() {
+    return podwladny;
   }
 
   @Override

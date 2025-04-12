@@ -2,6 +2,8 @@ package pl.edu.pg.persistance.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Czlowiek implements IModel {
 
@@ -32,11 +34,11 @@ public class Czlowiek implements IModel {
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Firma firma;
 
-  @OneToOne(mappedBy = "przelozony", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Hierarchia przelozeni;
+  @OneToMany(mappedBy = "podwladny", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Hierarchia> przelozeni;
 
-  @OneToOne(mappedBy = "podwladny", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Hierarchia podlegli;
+  @OneToMany(mappedBy = "przelozony", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Hierarchia> podwladni;
 
   public Czlowiek(String imie, String nazwisko, String numerTelefonu, Boolean plec, String stanCywilny, String wyksztalcenie, String pozycjaZawodowa, Firma firma) {
     this.imie = imie;
@@ -51,6 +53,20 @@ public class Czlowiek implements IModel {
 
   public Czlowiek() {
     // Default constructor for JPA
+  }
+
+  @Transient
+  public List<Czlowiek> getPodwladni() {
+    return podwladni.stream()
+            .map(Hierarchia::getPodwladny)
+            .toList();
+  }
+
+  @Transient
+  public List<Czlowiek> getPrzelozeni() {
+    return przelozeni.stream()
+            .map(Hierarchia::getPrzelozony)
+            .toList();
   }
 
   @Override
