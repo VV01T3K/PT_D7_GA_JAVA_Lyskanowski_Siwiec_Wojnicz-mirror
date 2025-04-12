@@ -2,6 +2,7 @@ package pl.edu.pg.persistance;
 
 import pl.edu.pg.persistance.builders.CzlowiekBuilder;
 import pl.edu.pg.persistance.builders.FirmaBuilder;
+import pl.edu.pg.persistance.builders.HierarchiaBuilder;
 import pl.edu.pg.persistance.builders.IBuilder;
 import pl.edu.pg.persistance.models.IModel;
 import pl.edu.pg.persistance.repository.Repository;
@@ -43,6 +44,8 @@ public class Terminal {
       switch (command) {
         case "1" -> createInteractively(new CzlowiekBuilder());
         case "2" -> createInteractively(new FirmaBuilder());
+        case "3" -> createInteractively(new HierarchiaBuilder());
+
       }
     }
   }

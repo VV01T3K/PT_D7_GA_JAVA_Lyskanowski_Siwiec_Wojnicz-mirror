@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Hierarchia {
+public class Hierarchia implements IModel {
   @Id
   @OneToOne
   private Czlowiek przelozony;
@@ -21,5 +21,10 @@ public class Hierarchia {
 
   public Hierarchia() {
     // Default constructor for JPA
+  }
+
+  @Override
+  public Integer getId() {
+    return przelozony.getId();
   }
 }

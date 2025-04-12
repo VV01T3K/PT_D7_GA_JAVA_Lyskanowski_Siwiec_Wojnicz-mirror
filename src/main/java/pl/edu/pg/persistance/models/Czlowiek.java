@@ -29,7 +29,7 @@ public class Czlowiek implements IModel {
   @Column(length = 500)
   private String pozycjaZawodowa;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Firma firma;
 
   public Czlowiek(String imie, String nazwisko, String numerTelefonu, Boolean plec, String stanCywilny, String wyksztalcenie, String pozycjaZawodowa, Firma firma) {
