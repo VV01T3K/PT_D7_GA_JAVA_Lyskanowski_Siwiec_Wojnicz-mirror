@@ -2,6 +2,9 @@ package pl.edu.pg;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import pl.edu.pg.utils.Logger;
 import pl.edu.pg.workers.Producer;
 import pl.edu.pg.workers.QueryWorker;
@@ -15,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
+  private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("lab5-persist");
+  private static EntityManager em = factory.createEntityManager();
   @Parameter(names = {"--order", "-o"}, description = "Set ordering mode", required = false)
   Order order = Order.NATURAL;
-
   @Parameter(names = {"--threads", "-t"}, description = "Set number of threads for workers (default: 2)", required = false)
   int threads = 2;
-
   @Parameter(names = {"--help", "-h"}, help = true)
   boolean help;
 
