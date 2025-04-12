@@ -29,8 +29,14 @@ public class Czlowiek implements IModel {
   @Column(length = 500)
   private String pozycjaZawodowa;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Firma firma;
+
+  @OneToOne(mappedBy = "przelozony", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Hierarchia przelozeni;
+
+  @OneToOne(mappedBy = "podwladny", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Hierarchia podlegli;
 
   public Czlowiek(String imie, String nazwisko, String numerTelefonu, Boolean plec, String stanCywilny, String wyksztalcenie, String pozycjaZawodowa, Firma firma) {
     this.imie = imie;
@@ -58,5 +64,20 @@ public class Czlowiek implements IModel {
 
   public String getNazwisko() {
     return nazwisko;
+  }
+
+  @Override
+  public String toString() {
+    return "Czlowiek{" +
+            "id=" + id +
+            ", imie='" + imie + '\'' +
+            ", nazwisko='" + nazwisko + '\'' +
+            ", numerTelefonu='" + numerTelefonu + '\'' +
+            ", plec=" + plec +
+            ", stanCywilny='" + stanCywilny + '\'' +
+            ", wyksztalcenie='" + wyksztalcenie + '\'' +
+            ", pozycjaZawodowa='" + pozycjaZawodowa + '\'' +
+            ", firma=" + firma +
+            '}';
   }
 }

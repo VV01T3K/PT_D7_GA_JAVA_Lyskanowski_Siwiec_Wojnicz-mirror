@@ -2,6 +2,8 @@ package pl.edu.pg.persistance.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Firma implements IModel {
 
@@ -12,6 +14,8 @@ public class Firma implements IModel {
 
   @Column(length = 200)
   private String nazwaFirmy;
+  @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+  private List<Czlowiek> pracownicy;
 
   public Firma(String nazwa) {
     this.nazwaFirmy = nazwa;
@@ -31,5 +35,13 @@ public class Firma implements IModel {
 
   public void setNazwaFirmy(String nazwaFirmy) {
     this.nazwaFirmy = nazwaFirmy;
+  }
+
+  @Override
+  public String toString() {
+    return "Firma{" +
+            "id=" + id +
+            ", nazwaFirmy='" + nazwaFirmy + '\'' +
+            '}';
   }
 }

@@ -27,4 +27,12 @@ public class Hierarchia implements IModel {
   public Integer getId() {
     return przelozony.getId();
   }
+
+  @Override
+  public String toString() {
+    return "Hierarchia{" +
+            "przelozony=" + przelozony +
+            ", podwladny=" + podwladny +
+            '}';
+  }
 }
