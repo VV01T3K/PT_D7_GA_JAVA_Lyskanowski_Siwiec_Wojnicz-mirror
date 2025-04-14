@@ -15,7 +15,7 @@ public class Firma implements IModel {
   @Column(length = 200)
   private String nazwaFirmy;
   @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-  private List<Czlowiek> pracownicy;
+  private List<Pracownik> pracownicy;
 
   public Firma(String nazwa) {
     this.nazwaFirmy = nazwa;

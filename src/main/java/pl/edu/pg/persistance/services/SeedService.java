@@ -5,6 +5,7 @@ import pl.edu.pg.Plec;
 import pl.edu.pg.TestRepoGenerator;
 import pl.edu.pg.persistance.models.Firma;
 import pl.edu.pg.persistance.models.Hierarchia;
+import pl.edu.pg.persistance.models.Pracownik;
 import pl.edu.pg.persistance.repository.CzlowiekRepository;
 import pl.edu.pg.persistance.repository.FirmaRepository;
 import pl.edu.pg.persistance.repository.HierarchiaRepository;
@@ -16,13 +17,13 @@ public class SeedService {
   private final FirmaRepository firmaRepository = new FirmaRepository();
   private final HierarchiaRepository hierarchiaRepository = new HierarchiaRepository();
 
-  public pl.edu.pg.persistance.models.Czlowiek createCzlowiekInDatabase(Czlowiek czlowiek, Firma firma) {
+  public Pracownik createCzlowiekInDatabase(Czlowiek czlowiek, Firma firma) {
     if (firma == null) {
       String randomFirma = dostepneFirmy[(int) (Math.random() * dostepneFirmy.length)];
       var foundFirma = firmaRepository.findByName(randomFirma);
       firma = foundFirma.orElseGet(() -> new Firma(randomFirma));
     }
-    pl.edu.pg.persistance.models.Czlowiek czlowiekModel = new pl.edu.pg.persistance.models.Czlowiek(
+    Pracownik pracownikModel = new Pracownik(
             czlowiek.getImie(),
             czlowiek.getNazwisko(),
             czlowiek.getNumerTelefonu(),
@@ -32,14 +33,14 @@ public class SeedService {
             czlowiek.getPozycjaZawodowa(),
             firma
     );
-    czlowiekRepository.save(czlowiekModel);
+    czlowiekRepository.save(pracownikModel);
 
     for (var podwladny : czlowiek.getPodlegli()) {
       var model = createCzlowiekInDatabase(podwladny, firma);
-      Hierarchia hierarchiaModel = new Hierarchia(czlowiekModel, model);
+      Hierarchia hierarchiaModel = new Hierarchia(pracownikModel, model);
       hierarchiaRepository.save(hierarchiaModel);
     }
-    return czlowiekModel;
+    return pracownikModel;
   }
 
   public void seed() {

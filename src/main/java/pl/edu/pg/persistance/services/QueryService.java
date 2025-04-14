@@ -2,8 +2,8 @@ package pl.edu.pg.persistance.services;
 
 import jakarta.persistence.NoResultException;
 import pl.edu.pg.persistance.PersistenceManager;
-import pl.edu.pg.persistance.models.Czlowiek;
 import pl.edu.pg.persistance.models.Firma;
+import pl.edu.pg.persistance.models.Pracownik;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,9 +16,9 @@ public class QueryService {
     this.scanner = scanner;
   }
 
-  public List<Czlowiek> queryLudziZWyksztalceniem(String wyksztalcenie) {
+  public List<Pracownik> queryLudziZWyksztalceniem(String wyksztalcenie) {
     var em = PersistenceManager.getEntityManager();
-    var query = em.createQuery("SELECT c FROM Czlowiek c WHERE c.wyksztalcenie = :wysztalcenie", Czlowiek.class);
+    var query = em.createQuery("SELECT c FROM Pracownik c WHERE c.wyksztalcenie = :wysztalcenie", Pracownik.class);
     query.setParameter("wysztalcenie", wyksztalcenie);
     try {
       return query.getResultList();
@@ -40,9 +40,9 @@ public class QueryService {
     }
   }
 
-  public List<Czlowiek> queryWszyscyPrzelozeni() {
+  public List<Pracownik> queryWszyscyPrzelozeni() {
     var em = PersistenceManager.getEntityManager();
-    var query = em.createQuery("SELECT DISTINCT h.przelozony from Hierarchia h", Czlowiek.class);
+    var query = em.createQuery("SELECT DISTINCT h.przelozony from Hierarchia h", Pracownik.class);
     try {
       return query.getResultList();
     } catch (NoResultException e) {
@@ -51,9 +51,9 @@ public class QueryService {
     }
   }
 
-  public List<Czlowiek> queryLudzieNiePracujacyWFirmach() {
+  public List<Pracownik> queryLudzieNiePracujacyWFirmach() {
     var em = PersistenceManager.getEntityManager();
-    var query = em.createQuery("SELECT c FROM Czlowiek c WHERE c.firma IS NULL", Czlowiek.class);
+    var query = em.createQuery("SELECT c FROM Pracownik c WHERE c.firma IS NULL", Pracownik.class);
     try {
       return query.getResultList();
     } catch (NoResultException e) {

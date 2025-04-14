@@ -1,9 +1,9 @@
 package pl.edu.pg.persistance.services;
 
-import pl.edu.pg.persistance.builders.CzlowiekBuilder;
 import pl.edu.pg.persistance.builders.FirmaBuilder;
 import pl.edu.pg.persistance.builders.HierarchiaBuilder;
 import pl.edu.pg.persistance.builders.IBuilder;
+import pl.edu.pg.persistance.builders.PracownikBuilder;
 import pl.edu.pg.persistance.models.IModel;
 import pl.edu.pg.persistance.repository.Repository;
 
@@ -38,7 +38,7 @@ public class CreateService {
     System.out.println("3. Hierarchia");
     String choice = scanner.nextLine();
     switch (choice) {
-      case "1" -> createInteractively(new CzlowiekBuilder());
+      case "1" -> createInteractively(new PracownikBuilder());
       case "2" -> createInteractively(new FirmaBuilder());
       case "3" -> createInteractively(new HierarchiaBuilder());
       default -> System.out.println("Nieznany wybor");

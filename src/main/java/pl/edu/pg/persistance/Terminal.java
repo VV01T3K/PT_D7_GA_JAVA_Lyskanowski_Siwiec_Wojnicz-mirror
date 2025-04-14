@@ -1,5 +1,6 @@
 package pl.edu.pg.persistance;
 
+import jakarta.persistence.NoResultException;
 import pl.edu.pg.persistance.services.*;
 
 import java.util.Scanner;
@@ -28,20 +29,24 @@ public class Terminal {
       System.out.println("5. Wstaw testowe dane");
       System.out.println("9. Wyjdz");
       String command = scanner.nextLine();
-      switch (command) {
-        case "1" -> createService.create();
-        case "2" -> deleteService.delete();
-        case "3" -> selectService.select();
-        case "4" -> queryService.query();
-        case "5" -> seedService.seed();
-        case "9" -> {
-          return;
-        }
-        default -> {
-          System.out.println("Nieznana komenda");
-          System.out.println("Wybierz ponownie");
-        }
+      try {
+        switch (command) {
+          case "1" -> createService.create();
+          case "2" -> deleteService.delete();
+          case "3" -> selectService.select();
+          case "4" -> queryService.query();
+          case "5" -> seedService.seed();
+          case "9" -> {
+            return;
+          }
+          default -> {
+            System.out.println("Nieznana komenda");
+            System.out.println("Wybierz ponownie");
+          }
 
+        }
+      } catch (NoResultException ex) {
+        System.err.println("Nie ma takiego rekordu w bazie");
       }
     }
   }

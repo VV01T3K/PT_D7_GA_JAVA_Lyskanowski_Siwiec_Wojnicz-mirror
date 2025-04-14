@@ -1,13 +1,13 @@
 package pl.edu.pg.persistance.builders;
 
-import pl.edu.pg.persistance.models.Czlowiek;
 import pl.edu.pg.persistance.models.Firma;
+import pl.edu.pg.persistance.models.Pracownik;
 import pl.edu.pg.persistance.repository.FirmaRepository;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class CzlowiekBuilder implements IBuilder<Czlowiek> {
+public class PracownikBuilder implements IBuilder<Pracownik> {
 
   String imie;
   String nazwisko;
@@ -18,7 +18,7 @@ public class CzlowiekBuilder implements IBuilder<Czlowiek> {
   String pozycjaZawodowa;
   Firma firma;
 
-  public CzlowiekBuilder dodajFirme(String nazwaFirmy) throws NoSuchElementException {
+  public PracownikBuilder dodajFirme(String nazwaFirmy) throws NoSuchElementException {
     if (nazwaFirmy.equals("brak")) {
       this.firma = null;
     } else {
@@ -28,7 +28,7 @@ public class CzlowiekBuilder implements IBuilder<Czlowiek> {
   }
 
   @Override
-  public IBuilder<Czlowiek> buildInteractive(Scanner scanner) throws NoSuchElementException {
+  public IBuilder<Pracownik> buildInteractive(Scanner scanner) throws NoSuchElementException {
     System.out.println("Podaj imie:");
     imie = scanner.nextLine();
     System.out.println("Podaj nazwisko:");
@@ -49,7 +49,7 @@ public class CzlowiekBuilder implements IBuilder<Czlowiek> {
   }
 
   @Override
-  public Czlowiek build() {
-    return new Czlowiek(imie, nazwisko, numerTelefonu, plec, stanCywilny, wyksztalcenie, pozycjaZawodowa, firma);
+  public Pracownik build() {
+    return new Pracownik(imie, nazwisko, numerTelefonu, plec, stanCywilny, wyksztalcenie, pozycjaZawodowa, firma);
   }
 }

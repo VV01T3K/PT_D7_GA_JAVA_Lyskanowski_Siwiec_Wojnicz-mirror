@@ -8,12 +8,12 @@ import jakarta.persistence.ManyToOne;
 public class Hierarchia implements IModel {
   @Id
   @ManyToOne
-  private Czlowiek przelozony;
+  private Pracownik przelozony;
   @Id
   @ManyToOne
-  private Czlowiek podwladny;
+  private Pracownik podwladny;
 
-  public Hierarchia(Czlowiek przelozony, Czlowiek podwladny) {
+  public Hierarchia(Pracownik przelozony, Pracownik podwladny) {
     this.przelozony = przelozony;
     this.podwladny = podwladny;
   }
@@ -22,11 +22,11 @@ public class Hierarchia implements IModel {
     // Default constructor for JPA
   }
 
-  public Czlowiek getPrzelozony() {
+  public Pracownik getPrzelozony() {
     return przelozony;
   }
 
-  public Czlowiek getPodwladny() {
+  public Pracownik getPodwladny() {
     return podwladny;
   }
 

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Czlowiek implements IModel {
+public class Pracownik implements IModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +40,7 @@ public class Czlowiek implements IModel {
   @OneToMany(mappedBy = "przelozony", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Hierarchia> podwladni;
 
-  public Czlowiek(String imie, String nazwisko, String numerTelefonu, Boolean plec, String stanCywilny, String wyksztalcenie, String pozycjaZawodowa, Firma firma) {
+  public Pracownik(String imie, String nazwisko, String numerTelefonu, Boolean plec, String stanCywilny, String wyksztalcenie, String pozycjaZawodowa, Firma firma) {
     this.imie = imie;
     this.nazwisko = nazwisko;
     this.numerTelefonu = numerTelefonu;
@@ -51,19 +51,19 @@ public class Czlowiek implements IModel {
     this.firma = firma;
   }
 
-  public Czlowiek() {
+  public Pracownik() {
     // Default constructor for JPA
   }
 
   @Transient
-  public List<Czlowiek> getPodwladni() {
+  public List<Pracownik> getPodwladni() {
     return podwladni.stream()
             .map(Hierarchia::getPodwladny)
             .toList();
   }
 
   @Transient
-  public List<Czlowiek> getPrzelozeni() {
+  public List<Pracownik> getPrzelozeni() {
     return przelozeni.stream()
             .map(Hierarchia::getPrzelozony)
             .toList();

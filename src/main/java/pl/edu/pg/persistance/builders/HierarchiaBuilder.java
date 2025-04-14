@@ -1,14 +1,14 @@
 package pl.edu.pg.persistance.builders;
 
-import pl.edu.pg.persistance.models.Czlowiek;
 import pl.edu.pg.persistance.models.Hierarchia;
+import pl.edu.pg.persistance.models.Pracownik;
 import pl.edu.pg.persistance.repository.CzlowiekRepository;
 
 import java.util.Scanner;
 
 public class HierarchiaBuilder implements IBuilder<Hierarchia> {
-  Czlowiek przelozony;
-  Czlowiek podwladny;
+  Pracownik przelozony;
+  Pracownik podwladny;
 
   @Override
   public IBuilder<Hierarchia> buildInteractive(Scanner scanner) {
