@@ -7,14 +7,14 @@ import java.util.List;
 @Entity
 public class Firma implements IModel {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   @Column(length = 200)
   private String nazwaFirmy;
-  @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+
+  @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
   private List<Pracownik> pracownicy;
 
   public Firma(String nazwa) {
@@ -40,8 +40,8 @@ public class Firma implements IModel {
   @Override
   public String toString() {
     return "Firma{" +
-            "id=" + id +
-            ", nazwaFirmy='" + nazwaFirmy + '\'' +
-            '}';
+        "id=" + id +
+        ", nazwaFirmy='" + nazwaFirmy + '\'' +
+        '}';
   }
 }

@@ -3,14 +3,16 @@ package pl.edu.pg.persistance.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
 
 @Entity
 public class Hierarchia implements IModel {
   @Id
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   private Pracownik przelozony;
+
   @Id
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   private Pracownik podwladny;
 
   public Hierarchia(Pracownik przelozony, Pracownik podwladny) {
@@ -38,8 +40,8 @@ public class Hierarchia implements IModel {
   @Override
   public String toString() {
     return "Hierarchia{" +
-            "przelozony=" + przelozony +
-            ", podwladny=" + podwladny +
-            '}';
+        "przelozony=" + przelozony +
+        ", podwladny=" + podwladny +
+        '}';
   }
 }

@@ -28,11 +28,16 @@ public class DeleteService {
         System.out.println("Podaj nazwe firmy:");
         String nazwaFirmy = scanner.nextLine();
         CzlowiekRepository czlowiekRepository = new CzlowiekRepository();
-        Pracownik pracownik = czlowiekRepository.findByFullNameAndFirma(fullName, nazwaFirmy);
-        if (pracownik != null) {
-          czlowiekRepository.delete(pracownik);
-        } else {
-          System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
+        try {
+          Pracownik pracownik = czlowiekRepository.findByFullNameAndFirma(fullName, nazwaFirmy);
+          if (pracownik != null) {
+            czlowiekRepository.delete(pracownik);
+            System.out.println("Pomyślnie usunięto pracownika.");
+          } else {
+            System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
+          }
+        } catch (Exception e) {
+          System.err.println("Błąd podczas usuwania pracownika: " + e.getMessage());
         }
       }
       case "2" -> {
@@ -41,7 +46,12 @@ public class DeleteService {
         FirmaRepository firmaRepository = new FirmaRepository();
         var firma = firmaRepository.findByName(nazwaFirmy);
         if (firma.isPresent()) {
-          firmaRepository.delete(firma.get());
+          try {
+            firmaRepository.delete(firma.get());
+            System.out.println("Pomyślnie usunięto firmę i powiązanych pracowników.");
+          } catch (Exception e) {
+            System.err.println("Błąd podczas usuwania firmy: " + e.getMessage());
+          }
         } else {
           System.out.println("Nie znaleziono firmy o podanej nazwie.");
         }
@@ -50,17 +60,22 @@ public class DeleteService {
         System.out.println("Podaj imie i nazwisko podwladnego do usuniecia:");
         String fullName = scanner.nextLine();
         System.out.println("Podaj nazwe firmy:");
-        Pracownik pracownik = new CzlowiekRepository().findByFullNameAndFirma(fullName, scanner.nextLine());
-        if (pracownik == null) {
-          System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
-          return;
-        }
-        HierarchiaRepository hierarchiaRepository = new HierarchiaRepository();
         try {
-          var hierarchia = hierarchiaRepository.fidnByPodwladny(pracownik);
-          hierarchia.forEach(hierarchiaRepository::delete);
-        } catch (NoResultException e) {
-          System.out.println("Nie znaleziono hierarchii dla podanego czlowieka.");
+          Pracownik pracownik = new CzlowiekRepository().findByFullNameAndFirma(fullName, scanner.nextLine());
+          if (pracownik == null) {
+            System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
+            return;
+          }
+          HierarchiaRepository hierarchiaRepository = new HierarchiaRepository();
+          try {
+            var hierarchia = hierarchiaRepository.fidnByPodwladny(pracownik);
+            hierarchia.forEach(hierarchiaRepository::delete);
+            System.out.println("Pomyślnie usunięto powiązania hierarchiczne.");
+          } catch (NoResultException e) {
+            System.out.println("Nie znaleziono hierarchii dla podanego czlowieka.");
+          }
+        } catch (Exception e) {
+          System.err.println("Błąd podczas usuwania hierarchii: " + e.getMessage());
         }
       }
       default -> System.out.println("Nieznany wybor");
