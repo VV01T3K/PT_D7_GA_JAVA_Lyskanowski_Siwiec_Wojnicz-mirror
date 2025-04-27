@@ -28,4 +28,17 @@ public class Firm {
                 ", employees=" + employees +
                 '}';
     }
+    public void addEmployee(Person person) {
+        if (person == null) {
+            throw new IllegalArgumentException("Person cannot be null");
+        }
+        if (!employees.contains(person)) {
+            employees.add(person);
+        }
+
+        // Upewnij się, że osoba ma ustawioną referencję do tej firmy
+        if (person.getFirm() != this) {
+            person.setFirm(this);
+        }
+    }
 }

@@ -25,6 +25,11 @@ public class PersonRepo implements IRepo<Person,String>{
         }
         people.add(person);
         // jakos dodac osobe do listy pracownikow w firmie bez wstrzykiwania repo
+        // Sprawdź czy osoba ma przypisaną firmę
+        if (person.getFirm() != null) {
+            // Dodaj osobę do listy pracowników firmy
+            person.getFirm().addEmployee(person);
+        }
     }
 
     @Override

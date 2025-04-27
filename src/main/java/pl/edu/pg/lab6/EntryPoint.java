@@ -1,5 +1,6 @@
 package pl.edu.pg.lab6;
 
+import pl.edu.pg.Main;
 import pl.edu.pg.lab6.controller.FirmController;
 import pl.edu.pg.lab6.controller.PersonController;
 import pl.edu.pg.lab6.entity.Firm;
@@ -17,22 +18,23 @@ public class EntryPoint {
         PersonRepo personRepo = new PersonRepo();
         FirmController firmController = new FirmController(firmRepo);
         PersonController personController = new PersonController(personRepo);
+        MainService mainService = new MainService(firmController, personController);
         boolean running = true;
         while(running)
         {
             System.out.println("Polecenia do wyboru:");
-            System.out.println("1. Wyswietl");
+            System.out.println("1. Wyswietl wszystko");
             System.out.println("2. Wstaw testowe dane");
             System.out.println("9. Wyjdz");
             String command = scanner.nextLine();
             switch (command) {
                 case "1" -> {
-                    firmController.findAll();
-                    personController.findAll();
+                    System.out.println("Wyswietlono wszystkie dane:");
+                    mainService.displayAll();
                 }
                 case "2" -> {
-                    DataGenerator.generateSampleData(firmController, personController, 5, 5);
-                    System.out.println("Testowe dane wstawione.");
+                    System.out.println("Wstawiono testowe dane:");
+                    mainService.insertTestData();
                 }
                 case "9" -> {
                     running = false;

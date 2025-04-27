@@ -1,6 +1,7 @@
 package pl.edu.pg.lab6.controller;
 
 import pl.edu.pg.lab6.entity.Firm;
+import pl.edu.pg.lab6.entity.Person;
 import pl.edu.pg.lab6.repo.FirmRepo;
 
 import java.util.Optional;
@@ -44,6 +45,19 @@ public class FirmController implements IController {
     public String findAll() {
         for (Firm firm : firmRepo.findAll()) {
             System.out.println(firm);
+        }
+        return ControllerResponses.DONE.toString();
+    }
+    public String addPersonToFirm(String firmName, Person person) {
+        try {
+            Optional<Firm> firm = firmRepo.findById(firmName);
+            if (firm.isPresent()) {
+                firmRepo.addEmployee(firm.get(), person);
+            } else {
+                return ControllerResponses.NOT_FOUND.toString();
+            }
+        } catch (IllegalArgumentException e) {
+            return ControllerResponses.BAD_REQUEST.toString();
         }
         return ControllerResponses.DONE.toString();
     }

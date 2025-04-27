@@ -13,14 +13,14 @@ public class DataGenerator {
     private static final Random random = new Random();
 
     public static Firm generateFirm() {
-        String companyName = faker.company().name();
-        String department = faker.company().industry();
+        String companyName = faker.company().name().replaceAll("\\s+", "");//wywal spacje
+        String department = faker.company().industry().replaceAll("\\s+", "");
         return new Firm(companyName, department);
     }
     public static Person generatePerson(Firm firm) {
         String name = faker.name().firstName();
         String surname = faker.name().lastName();
-        int age = random.nextInt(100);
+        int age = random.nextInt(80)+18;
         return new Person(name, surname, age, firm);
     }
     public static void generateSampleData(FirmController firmController, PersonController personController,
@@ -31,6 +31,7 @@ public class DataGenerator {
             for (int j = 0; j < numberOfPersons; j++) {
                 Person person = generatePerson(firm);
                 personController.save(person.getName(), person.getSurname(), person.getAge(), firm);
+                firmController.addPersonToFirm(firm.getName(), person);
             }
         }
     }

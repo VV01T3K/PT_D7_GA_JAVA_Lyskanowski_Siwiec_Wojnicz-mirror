@@ -1,6 +1,7 @@
 package pl.edu.pg.lab6.repo;
 
 import pl.edu.pg.lab6.entity.Firm;
+import pl.edu.pg.lab6.entity.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,13 @@ public class FirmRepo implements IRepo<Firm, String> {
         }
         throw new IllegalArgumentException("Firm with this ID does not exist");
     }
+    public void addEmployee(Firm firm, Person person) {
+        if (firm == null || person == null) {
+            throw new IllegalArgumentException("Firm and Person cannot be null");
+        }
+        firm.addEmployee(person);
+    }
+
     @Override
     public String toString() {
          return "FirmRepo{" +
