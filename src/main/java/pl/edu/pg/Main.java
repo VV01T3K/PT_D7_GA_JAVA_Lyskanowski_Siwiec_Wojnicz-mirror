@@ -17,10 +17,8 @@ import java.util.concurrent.TimeUnit;
 public class Main {
   @Parameter(names = {"--order", "-o"}, description = "Set ordering mode", required = false)
   Order order = Order.NATURAL;
-
   @Parameter(names = {"--threads", "-t"}, description = "Set number of threads for workers (default: 2)", required = false)
   int threads = 2;
-
   @Parameter(names = {"--help", "-h"}, help = true)
   boolean help;
 

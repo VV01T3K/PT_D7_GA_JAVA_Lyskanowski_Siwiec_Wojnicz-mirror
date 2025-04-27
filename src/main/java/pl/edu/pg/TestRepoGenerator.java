@@ -10,6 +10,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TestRepoGenerator {
+  private final String[] wyksztalcenie = {
+          "Podstawowe",
+          "Zawodowe",
+          "Srednie",
+          "Wyzsze",
+          "Doktoranckie",
+          "Magisterskie"
+  };
   private final Random rand = new Random();
   private final Faker faker = new Faker(Locale.of("pl"), rand);
 
@@ -19,7 +27,7 @@ public class TestRepoGenerator {
     int wiek = faker.number().numberBetween(18, 80);
     Plec plec = imie.endsWith("a") ? Plec.KOBIETA : Plec.MEZCZYZNA;
     MartialStatus stanCywilny = MartialStatus.fromString(faker.demographic().maritalStatus());
-    String wyksztalcenie = faker.educator().course();
+    String wyksztalcenie = this.wyksztalcenie[(int) (Math.random() * this.wyksztalcenie.length)];
     String pozycjaZawodowa = faker.job().position();
     String numerTelefonu = faker.phoneNumber().cellPhoneInternational();
     return new Czlowiek(imie, nazwisko, wiek, plec, stanCywilny, wyksztalcenie, pozycjaZawodowa, numerTelefonu);
@@ -27,16 +35,16 @@ public class TestRepoGenerator {
 
   public ArrayList<Czlowiek> generateRandomCzlowiekList(int count) {
     return Stream.generate(
-        this::generateCzlowiek)
-        .parallel()
-        .limit(count)
-        .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
+                    this::generateCzlowiek)
+            .parallel()
+            .limit(count)
+            .collect(Collectors.toCollection(() -> new ArrayList<>(count)));
   }
 
   private void connectPeopleRecursively(
-      Czlowiek czlowiek, ArrayList<Czlowiek> pool,
-      int maxDepth,
-      int maxConnections) {
+          Czlowiek czlowiek, ArrayList<Czlowiek> pool,
+          int maxDepth,
+          int maxConnections) {
 
     if (maxDepth == 0)
       return;
