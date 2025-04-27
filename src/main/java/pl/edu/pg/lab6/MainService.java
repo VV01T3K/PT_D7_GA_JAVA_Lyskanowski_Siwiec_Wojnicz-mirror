@@ -30,20 +30,4 @@ public class MainService {
     public void savePerson(String name, String surname, int age, Firm firm) {
         personController.save(name, surname, age, firm);
     }
-
-    public void displayAllPersons() {
-        personController.findAll();
-    }
-
-    public void displayAllFirms() {
-        firmController.findAll();
-    }
-
-    public void deletePerson(String id) {
-        personController.delete(id);
-    }
-
-    public void deleteFirm(String name) {
-        firmController.delete(name);
-    }
 }
