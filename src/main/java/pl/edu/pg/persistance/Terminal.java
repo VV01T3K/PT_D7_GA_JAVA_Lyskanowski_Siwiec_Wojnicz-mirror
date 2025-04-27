@@ -1,6 +1,6 @@
 package pl.edu.pg.persistance;
 
-import pl.edu.pg.persistance.services.*;
+import pl.edu.pg.persistance.terminal.*;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package pl.edu.pg.persistance.services;
+package pl.edu.pg.persistance.terminal;
 
 import jakarta.persistence.NoResultException;
 import pl.edu.pg.persistance.models.Czlowiek;

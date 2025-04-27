@@ -1,4 +1,4 @@
-package pl.edu.pg.persistance.services;
+package pl.edu.pg.persistance.terminal;
 
 import pl.edu.pg.persistance.builders.CzlowiekBuilder;
 import pl.edu.pg.persistance.builders.FirmaBuilder;
