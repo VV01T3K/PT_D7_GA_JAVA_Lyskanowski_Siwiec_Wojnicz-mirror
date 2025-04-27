@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.ToString;
 
-@ToString
 public class FirmRepo implements IRepo<Firm, String> {
-    private List<Firm> firms = new ArrayList<>();
+    private final List<Firm> firms = new ArrayList<>();
 
     @Override
     public void save(Firm firm) throws IllegalArgumentException {
@@ -39,10 +37,7 @@ public class FirmRepo implements IRepo<Firm, String> {
     }
 
     @Override
-    public List<Firm> findAll() throws IllegalArgumentException {
-        if(firms.isEmpty()) {
-            throw new IllegalStateException("No firms found");
-        }
+    public List<Firm> findAll(){
         return new ArrayList<>(firms);
     }
 
@@ -55,5 +50,11 @@ public class FirmRepo implements IRepo<Firm, String> {
             }
         }
         throw new IllegalArgumentException("Firm with this ID does not exist");
+    }
+    @Override
+    public String toString() {
+         return "FirmRepo{" +
+                "firms=" + firms +
+                '}';
     }
 }

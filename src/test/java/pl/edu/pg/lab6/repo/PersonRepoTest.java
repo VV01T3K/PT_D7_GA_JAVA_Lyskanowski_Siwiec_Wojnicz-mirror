@@ -96,6 +96,7 @@ class PersonRepoTest {
 
     @Test
     void testFindAll_Empty() {
-        assertThrows(IllegalStateException.class, () -> personRepo.findAll());
+        List<Person> people = personRepo.findAll();
+        assertTrue(people.isEmpty());
     }
 }

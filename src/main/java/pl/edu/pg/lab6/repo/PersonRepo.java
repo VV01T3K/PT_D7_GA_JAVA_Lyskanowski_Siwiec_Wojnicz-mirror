@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.ToString;
-
-@ToString
 public class PersonRepo implements IRepo<Person,String>{
-    private List<Person> people = new ArrayList<>();
+    private final List<Person> people = new ArrayList<>();
     @Override
     public void save(Person person) throws IllegalArgumentException {
         if(person == null) {
@@ -27,10 +24,7 @@ public class PersonRepo implements IRepo<Person,String>{
             }
         }
         people.add(person);
-        Firm firm = person.getFirm();
-        if (firm != null) {
-            firm.getEmployees().add(person); // add person to firm's employee list
-        }
+        // jakos dodac osobe do listy pracownikow w firmie bez wstrzykiwania repo
     }
 
     @Override
@@ -47,10 +41,7 @@ public class PersonRepo implements IRepo<Person,String>{
     }
 
     @Override
-    public List<Person> findAll() throws IllegalArgumentException {
-        if(people.isEmpty()) {
-            throw new IllegalStateException("No firms found");
-        }
+    public List<Person> findAll() {
         return new ArrayList<>(people);
     }
 
@@ -64,5 +55,10 @@ public class PersonRepo implements IRepo<Person,String>{
         }
         throw new IllegalArgumentException("Person with this ID does not exist");
     }
-
+    @Override
+    public String toString() {
+        return "PersonRepo{" +
+                "people=" + people +
+                '}';
+    }
 }

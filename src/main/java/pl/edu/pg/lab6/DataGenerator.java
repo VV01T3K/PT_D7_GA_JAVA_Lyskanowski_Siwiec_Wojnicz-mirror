@@ -1,6 +1,8 @@
 package pl.edu.pg.lab6;
 
 import net.datafaker.Faker;
+import pl.edu.pg.lab6.controller.FirmController;
+import pl.edu.pg.lab6.controller.PersonController;
 import pl.edu.pg.lab6.entity.Firm;
 import pl.edu.pg.lab6.entity.Person;
 
@@ -21,5 +23,15 @@ public class DataGenerator {
         int age = random.nextInt(100);
         return new Person(name, surname, age, firm);
     }
-
+    public static void generateSampleData(FirmController firmController, PersonController personController,
+                                           int numberOfFirms,int numberOfPersons) {
+        for (int i = 0; i < numberOfFirms; i++) {
+            Firm firm = generateFirm();
+            firmController.save(firm.getName(), firm.getDepartment());
+            for (int j = 0; j < numberOfPersons; j++) {
+                Person person = generatePerson(firm);
+                personController.save(person.getName(), person.getSurname(), person.getAge(), firm);
+            }
+        }
+    }
 }
