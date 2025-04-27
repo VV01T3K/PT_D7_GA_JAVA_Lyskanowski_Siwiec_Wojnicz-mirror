@@ -48,4 +48,13 @@ public class PersonController implements IController{
         }
         return ControllerResponses.DONE.toString();
     }
+    public String deleteByFirm(String name) {
+        try {
+            personRepo.deleteByFirm(name);
+        }
+        catch (IllegalArgumentException e){
+            return ControllerResponses.NOT_FOUND.toString();
+        }
+        return ControllerResponses.DONE.toString();
+    }
 }

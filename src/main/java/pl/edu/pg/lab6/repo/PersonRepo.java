@@ -3,6 +3,7 @@ package pl.edu.pg.lab6.repo;
 import pl.edu.pg.lab6.entity.Person;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,20 @@ public class PersonRepo implements IRepo<Person, String> {
             }
         }
         throw new IllegalArgumentException("Person with this ID does not exist");
+    }
+    public void deleteByFirm(String firmName){
+        Iterator<Person> iterator = people.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            Person person = iterator.next();
+            if (person.getFirm() != null && person.getFirm().getName().equals(firmName)) {
+                iterator.remove();
+                count++;
+            }
+        }
+        if (count == 0) {
+            throw new IllegalArgumentException("No employees found for this firm");
+        }
     }
 
     @Override

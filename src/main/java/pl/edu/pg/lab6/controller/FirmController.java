@@ -61,4 +61,13 @@ public class FirmController implements IController {
         }
         return ControllerResponses.DONE.toString();
     }
+
+    public String deleteFromEmployees(String id) {
+        try {
+            firmRepo.deleteFromEmployees(id);
+        } catch (IllegalArgumentException e) {
+            return ControllerResponses.NOT_FOUND.toString();
+        }
+        return ControllerResponses.DONE.toString();
+    }
 }

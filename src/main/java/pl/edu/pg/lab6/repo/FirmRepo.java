@@ -65,4 +65,17 @@ public class FirmRepo implements IRepo<Firm, String> {
                 "firms=" + firms +
                 '}';
     }
+
+    public void deleteFromEmployees(String id) {
+        for (Firm firm : firms) {
+            List<Person> employees = firm.getEmployees();
+            for (Person person : employees) {
+                if (person.getId().equals(id)) {
+                    employees.remove(person);
+                    return;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Person with this ID does not exist in any firm");
+    }
 }
