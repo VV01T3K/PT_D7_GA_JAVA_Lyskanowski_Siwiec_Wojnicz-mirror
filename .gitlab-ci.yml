@@ -24,7 +24,10 @@ build:
     - mvn $MAVEN_CLI_OPTS clean package
   artifacts:
     paths:
-      - target/*.jar
+      - target/JavaLab1-app.jar
+      - target/JavaLab1-data-generator.jar
+      - target/JavaLab4-client.jar
+      - target/JavaLab4-server.jar
     expire_in: 1 day
 
 test:
