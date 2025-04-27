@@ -35,7 +35,7 @@ public class Repository<T extends IModel> {
 
   public List<T> findAll(int limit, Class<T> entityClass) {
     var em = PersistenceManager.getEntityManager();
-    var query = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e");
+    var query = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass);
     if (limit > 0) {
       query = query.setMaxResults(limit);
     }
