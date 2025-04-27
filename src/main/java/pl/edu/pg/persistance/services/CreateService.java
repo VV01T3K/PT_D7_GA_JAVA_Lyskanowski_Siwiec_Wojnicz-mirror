@@ -5,6 +5,9 @@ import pl.edu.pg.persistance.builders.FirmaBuilder;
 import pl.edu.pg.persistance.builders.HierarchiaBuilder;
 import pl.edu.pg.persistance.builders.IBuilder;
 import pl.edu.pg.persistance.models.IModel;
+import pl.edu.pg.persistance.repository.CzlowiekRepository;
+import pl.edu.pg.persistance.repository.FirmaRepository;
+import pl.edu.pg.persistance.repository.HierarchiaRepository;
 import pl.edu.pg.persistance.repository.Repository;
 
 import java.util.NoSuchElementException;
@@ -17,11 +20,10 @@ public class CreateService {
     this.scanner = scanner;
   }
 
-  private <T extends IModel> T createInteractively(IBuilder<T> builder) {
+  private <T extends IModel> T createInteractively(IBuilder<T> builder, Repository<T> repository) {
     try {
       builder.buildInteractive(scanner);
       T entity = builder.build();
-      Repository<T> repository = new Repository<>();
       repository.save(entity);
       return entity;
     } catch (NoSuchElementException ex) {
@@ -38,9 +40,9 @@ public class CreateService {
     System.out.println("3. Hierarchia");
     String choice = scanner.nextLine();
     switch (choice) {
-      case "1" -> createInteractively(new CzlowiekBuilder());
-      case "2" -> createInteractively(new FirmaBuilder());
-      case "3" -> createInteractively(new HierarchiaBuilder());
+      case "1" -> createInteractively(new CzlowiekBuilder(), new CzlowiekRepository());
+      case "2" -> createInteractively(new FirmaBuilder(), new FirmaRepository());
+      case "3" -> createInteractively(new HierarchiaBuilder(), new HierarchiaRepository());
       default -> System.out.println("Nieznany wybor");
     }
   }

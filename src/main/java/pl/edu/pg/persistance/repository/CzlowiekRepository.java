@@ -4,6 +4,10 @@ import pl.edu.pg.persistance.PersistenceManager;
 import pl.edu.pg.persistance.models.Czlowiek;
 
 public class CzlowiekRepository extends Repository<Czlowiek> {
+  public CzlowiekRepository() {
+    super(Czlowiek.class);
+  }
+
   public Czlowiek findByFullNameAndFirma(String fullName, String nazwaFirmy) {
     var em = PersistenceManager.getEntityManager();
     var split = fullName.split(" ");
