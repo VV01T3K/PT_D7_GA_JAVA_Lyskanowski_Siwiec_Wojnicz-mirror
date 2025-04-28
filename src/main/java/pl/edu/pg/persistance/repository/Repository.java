@@ -53,7 +53,7 @@ public class Repository<T extends IModel> {
     return query.getResultList();
   }
 
-  public Optional<T> findById(Integer id) {
+  public Optional<T> findById(Object id) {
     var em = PersistenceManager.getEntityManager();
     return Optional.ofNullable(em.find(entityClass, id));
   }
