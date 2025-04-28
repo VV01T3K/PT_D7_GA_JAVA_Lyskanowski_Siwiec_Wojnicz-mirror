@@ -13,24 +13,29 @@ public class Repository<T extends IModel> {
     this.entityClass = entityClass;
   }
 
-  public void save(T entity) {
+  public T save(T entity) throws IllegalArgumentException {
     var em = PersistenceManager.getEntityManager();
     var transaction = em.getTransaction();
     transaction.begin();
-    if (entity.getId() != null) {
-      em.merge(entity);
-    } else {
+    if (entity.getId() == null) {
       em.persist(entity);
+    } else if (em.contains(entity) || this.findById(entity.getId()).isPresent()) {
+      throw new IllegalArgumentException("Entity exists");
+    } else {
+      entity = em.merge(entity);
     }
     transaction.commit();
+    return entity;
   }
 
-  public void delete(T entity) {
+  public void delete(T entity) throws IllegalArgumentException {
     var em = PersistenceManager.getEntityManager();
     var transaction = em.getTransaction();
     transaction.begin();
-    if (entity.getId() != null) {
-      em.remove(em.contains(entity) ? entity : em.merge(entity));
+    if (em.contains(entity)) {
+      em.remove(entity);
+    } else {
+      throw new IllegalArgumentException("Entity does not exist");
     }
     transaction.commit();
   }
@@ -53,13 +58,14 @@ public class Repository<T extends IModel> {
     return Optional.ofNullable(em.find(entityClass, id));
   }
 
-  public void deleteById(Integer id) {
+  public void update(T entity) throws IllegalArgumentException {
     var em = PersistenceManager.getEntityManager();
     var transaction = em.getTransaction();
     transaction.begin();
-    T entity = em.find(entityClass, id);
-    if (entity != null) {
-      em.remove(entity);
+    if (em.contains(entity)) {
+      em.merge(entity);
+    } else {
+      throw new IllegalArgumentException("Entity does not exist");
     }
     transaction.commit();
   }

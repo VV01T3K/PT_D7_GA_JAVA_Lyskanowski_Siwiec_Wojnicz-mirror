@@ -42,6 +42,10 @@ public class Firma implements IModel {
     this.nazwaFirmy = nazwaFirmy;
   }
 
+  public List<Czlowiek> getPracownicy() {
+    return pracownicy;
+  }
+
   @Override
   public String toString() {
     return "Firma{" +
