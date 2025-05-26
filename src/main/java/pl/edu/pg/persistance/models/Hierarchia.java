@@ -38,8 +38,8 @@ public class Hierarchia implements IModel {
   }
 
   @Override
-  public Integer getId() {
-    return przelozony.getId();
+  public HierarchiaId getId() {
+    return id;
   }
 
   @Override

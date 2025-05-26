@@ -1,7 +1,6 @@
-package pl.edu.pg.persistance.services;
+package pl.edu.pg.persistance.terminal;
 
 import jakarta.persistence.NoResultException;
-import pl.edu.pg.persistance.models.Czlowiek;
 import pl.edu.pg.persistance.repository.CzlowiekRepository;
 import pl.edu.pg.persistance.repository.FirmaRepository;
 import pl.edu.pg.persistance.repository.HierarchiaRepository;
@@ -28,9 +27,9 @@ public class DeleteService {
         System.out.println("Podaj nazwe firmy:");
         String nazwaFirmy = scanner.nextLine();
         CzlowiekRepository czlowiekRepository = new CzlowiekRepository();
-        Czlowiek czlowiek = czlowiekRepository.findByFullNameAndFirma(fullName, nazwaFirmy);
-        if (czlowiek != null) {
-          czlowiekRepository.delete(czlowiek);
+        var czlowiek = czlowiekRepository.findByFullNameAndFirma(fullName, nazwaFirmy);
+        if (czlowiek.isPresent()) {
+          czlowiekRepository.delete(czlowiek.get());
         } else {
           System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
         }
@@ -50,14 +49,14 @@ public class DeleteService {
         System.out.println("Podaj imie i nazwisko podwladnego do usuniecia:");
         String fullName = scanner.nextLine();
         System.out.println("Podaj nazwe firmy:");
-        Czlowiek czlowiek = new CzlowiekRepository().findByFullNameAndFirma(fullName, scanner.nextLine());
-        if (czlowiek == null) {
+        var czlowiek = new CzlowiekRepository().findByFullNameAndFirma(fullName, scanner.nextLine());
+        if (czlowiek.isEmpty()) {
           System.out.println("Nie znaleziono czlowieka o podanym imieniu i nazwisku w tej firmie.");
           return;
         }
         HierarchiaRepository hierarchiaRepository = new HierarchiaRepository();
         try {
-          var hierarchia = hierarchiaRepository.fidnByPodwladny(czlowiek);
+          var hierarchia = hierarchiaRepository.fidnByPodwladny(czlowiek.get());
           hierarchia.forEach(hierarchiaRepository::delete);
         } catch (NoResultException e) {
           System.out.println("Nie znaleziono hierarchii dla podanego czlowieka.");
