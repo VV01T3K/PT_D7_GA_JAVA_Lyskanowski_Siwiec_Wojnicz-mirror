@@ -19,8 +19,8 @@ public class HierarchiaBuilder implements IBuilder<Hierarchia> {
     System.out.println("Podaj nazwe firmy w ktorej pracuja:");
     String nazwaFirmy = scanner.nextLine();
     CzlowiekRepository czlowiekRepository = new CzlowiekRepository();
-    przelozony = czlowiekRepository.findByFullNameAndFirma(nazwaPrzelozonego, nazwaFirmy);
-    podwladny = czlowiekRepository.findByFullNameAndFirma(nazwaPodwladnego, nazwaFirmy);
+    przelozony = czlowiekRepository.findByFullNameAndFirma(nazwaPrzelozonego, nazwaFirmy).get();
+    podwladny = czlowiekRepository.findByFullNameAndFirma(nazwaPodwladnego, nazwaFirmy).get();
     return this;
   }
 

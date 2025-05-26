@@ -21,6 +21,11 @@ public class Firma implements IModel {
     this.nazwaFirmy = nazwa;
   }
 
+  public Firma(String nazwa, Integer id) {
+    this.nazwaFirmy = nazwa;
+    this.id = id;
+  }
+
   public Firma() {
     // Default constructor for JPA
   }
@@ -35,6 +40,10 @@ public class Firma implements IModel {
 
   public void setNazwaFirmy(String nazwaFirmy) {
     this.nazwaFirmy = nazwaFirmy;
+  }
+
+  public List<Czlowiek> getPracownicy() {
+    return pracownicy;
   }
 
   @Override

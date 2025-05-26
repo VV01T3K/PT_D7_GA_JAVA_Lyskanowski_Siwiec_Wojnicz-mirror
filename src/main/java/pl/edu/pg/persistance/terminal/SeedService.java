@@ -1,4 +1,4 @@
-package pl.edu.pg.persistance.services;
+package pl.edu.pg.persistance.terminal;
 
 import pl.edu.pg.Czlowiek;
 import pl.edu.pg.Plec;

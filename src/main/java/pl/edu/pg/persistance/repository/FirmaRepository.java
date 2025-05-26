@@ -7,6 +7,10 @@ import pl.edu.pg.persistance.models.Firma;
 import java.util.Optional;
 
 public class FirmaRepository extends Repository<Firma> {
+  public FirmaRepository() {
+    super(Firma.class);
+  }
+
   public Optional<Firma> findByName(String name) {
     var em = PersistenceManager.getEntityManager();
     try {
